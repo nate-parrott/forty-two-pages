@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<div id='main'>
+<h2>"{{ site_name }}" is locked for editing.</h2>
+<p>{{ message }}</p>
+<p>If your email is on the list of people who can edit, we can send you a link to edit this page.</p>
+<form method="POST">
+<p>Send an edit link to:
+{% for email in emails %}
+	<input type='submit' name='email' value='{{ email }}'/>
+{% endfor %}
+</p>
+</form>
+</div>
+{% endblock %}

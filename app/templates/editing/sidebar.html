@@ -1,0 +1,58 @@
+<script>
+
+Sidebar = {
+	show: function(url) {
+		$.ajax({
+			url: url,
+			success: function(response) {
+				var content = $(response).wrap("<div></div>").parent().addClass('__sidebar').get(0);
+				var close = $("<div>×</div>").addClass('__close').click(function() {
+					$(content).remove();
+				}).get(0);
+				$(content).append(close).appendTo(document.body);
+			}
+		})
+	}
+}
+
+</script>
+
+<style>
+
+.__sidebar {
+	position: fixed;
+	right: 0px;
+	top: 0px;
+	height: 100%;
+	width: 220px;
+	background-color: #111;
+	z-index: 30;
+	overflow: hidden;
+	color: white;
+	margin-top: 1px;
+	box-sizing: border-box;
+	padding: 0.3em;
+	padding-top: 1.5em;
+	font-size: small;
+}
+.__sidebar .__close {
+	position: absolute;
+	right: 4px;
+	top: 4px;
+	font-weight: bold;
+	font-size: 16px;
+	width: 24px;
+	height: 24px;
+	background-color: white;
+	color: #111;
+	text-align: center;
+	padding-top: 3px;
+	padding-bottom: -3px;
+	box-sizing: border-box;
+	cursor: default;
+}
+.__sidebar .__close:hover {
+	background-color: #ccc;
+}
+
+</style>

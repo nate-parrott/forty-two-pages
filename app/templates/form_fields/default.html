@@ -1,0 +1,10 @@
+<div>
+	<label for='__field_{{ name }}'> {{ label }}</label>
+	<input id='__field_{{ name }}' name='{{ name }}' value='{{ value }}' type='{{ type }}' placeholder='{{ placeholder }}'/>
+	{% if error %}
+	<p class='__field_error'>{{ error }}</p>
+	{% endif %}
+	{% if description %}
+	<p>{{ description }}</p>
+	{% endif %}
+</div>

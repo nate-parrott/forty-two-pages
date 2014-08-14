@@ -1,0 +1,98 @@
+<script src='/static/dropzone.js'></script>
+
+<script>
+
+(function() {
+	var exec = function(command, showDefaultUI, value) {
+		document.execCommand(command, showDefaultUI, value);
+	}
+	
+	$('#__done').click(function() {
+		location = location; // reload page
+	});
+
+	$('#__undo').click(function() {
+		exec("undo", true);
+	});
+	
+	$('#__title').click(function() {
+		exec("heading", true, "H1");
+	});
+	
+	$('#__subtitle').click(function() {
+		exec("heading", true, "H2");
+	});
+	
+	$('#__link').click(function() {
+		var url = prompt("Enter the name of a page you want to link to, or a full external URL:");
+		if (!url) return;
+		if (url.indexOf('www.') == 0) {
+			url = 'http://' + url;
+		}
+		if (url.search(/(http:|https:|mailto:)/) != 0) {
+			url = location.origin + '/' + url;
+		}
+		exec("createLink", true, url);
+		window.open(url, '_blank');
+	});
+	
+	// setup file dropping:
+	(function() {
+		var dummyPreviewsContainer = $("<div></div").get(0);
+		
+		var url = '/__meta/upload';
+		var fullDropzone = new Dropzone("#content", {
+			url: url,
+			autoProcessQueue: true,
+			addRemoveLinks: false,
+			clickable: false,
+			previewsContainer: dummyPreviewsContainer
+		});
+		var buttonDropzoneOpts = {
+			url: url,
+			autoProcessQueue: true,
+			addRemoveLinks: false,
+			previewsContainer: dummyPreviewsContainer
+		};
+		var photoDropzone = new Dropzone('#__photo', buttonDropzoneOpts);
+		var fileDropzone = new Dropzone('#__file', buttonDropzoneOpts);
+		[fullDropzone, photoDropzone, fileDropzone].forEach(function(dropzone) {
+			dropzone.on('addedfile', function() {
+				Loader.increment();
+			});
+			dropzone.on('success', function(file, response) {
+				var info = JSON.parse(response);
+				var type = info.mimetype.split('/')[0];
+				if (type == 'image') {
+					exec("insertImage", true, info.url);
+				} else {
+					var element;
+					if (type == 'audio') {
+						element = $("<audio controls/>").attr({src: info.url, alt: info.name}).get(0);
+					} else if (type == 'video') {
+						element = $("<video controls/>").attr({src: info.url, alt: info.name}).get(0);
+					} else {
+	          element = $("<img/>")
+	          .attr({src: "/__meta/fileImage/"+encodeURIComponent(info.name), "download-filename": info.name, "download-url": info.url, alt: info.name})
+	          .wrap("<a></a>").parent().attr({href: info.url}).get(0);
+					}
+					exec("insertHTML", true, element.outerHTML);
+				}
+			});
+			dropzone.on('complete', function() {
+				Loader.decrement();
+			});
+		});
+	})();
+	
+	$('#__format').click(function() {
+		Sidebar.show("/static/format.html");
+	});
+	
+	$("#__settings").click(function() {
+		Sidebar.show("/__meta/settings?page=" + encodeURIComponent(location.pathname.substring(1)));
+	});
+	
+})();
+
+</script>

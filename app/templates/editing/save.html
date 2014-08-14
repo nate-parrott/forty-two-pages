@@ -1,0 +1,67 @@
+<script>
+// responsible for saving the document:
+(function() {
+	var minimumSaveInterval = 2 * 1000;
+	
+	var title = document.title;
+	var wasSaving = false;
+	var updateTitle = function() {
+		var isSaving = ((saveInProgress && !waitingOnThrottle) || savePending);
+		if (isSaving != wasSaving) {
+			wasSaving = isSaving;
+			if (isSaving) Loader.increment();
+			else Loader.decrement();
+		}
+	}
+	
+	var saveInProgress = false;
+	var savePending = false;
+	var nFailures = 0;
+	var waitingOnThrottle = false;
+	var save = function() {
+		var requestStartTime = new Date();
+		if (saveInProgress) {
+			savePending = true;
+			updateTitle();
+		} else {
+			saveInProgress = true;
+			updateTitle();
+			savePending = false;
+			$.ajax({
+				url: '/__meta/save'+location.pathname,
+				type: 'POST',
+				data: {source: $('#content').html()},
+				success: function() {
+					nFailures = 0;
+					var finish = function() {
+						saveInProgress = false;
+						waitingOnThrottle = false;
+						updateTitle();
+						if (savePending) {
+							save();
+						}
+					}
+					var wait = minimumSaveInterval - (new Date() - requestStartTime);
+					if (wait <= 0) {
+						finish();
+					} else {
+						waitingOnThrottle = true;
+						updateTitle();
+						setTimeout(finish, wait);
+					}
+				},
+				error: function() {
+					nFailures++;
+					setTimeout(function() {
+						saveInProgress = false;
+						save();
+					}, Math.pow(2, nFailures)); // exponential backoff
+				}
+			})
+		}
+	}
+	$('#content').bind("input", function() {
+		save();
+	});
+})();
+</script>

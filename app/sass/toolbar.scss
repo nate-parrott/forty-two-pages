@@ -1,0 +1,35 @@
+@import 'util';
+
+.__icons {
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	height: 100%;
+	width: 90px;
+	padding-right: 10px;
+	background-color: rgba(255,255,255,0.9);
+	z-index: 10;
+	text-align: right;
+}
+
+.__icons {
+	button {
+		@include appearance(none);
+		border: none;
+		background-color: transparent;
+		color: $trim;
+		height: 40px;
+		outline: none;
+		width: 100%;
+		-webkit-tap-highlight-color: transparent;
+		text-align: right;
+	}
+	button:hover {
+		background-color: $trim;
+		color: white;
+	}
+	h6 {
+		font-weight: normal;
+		color: gray;
+	}
+}

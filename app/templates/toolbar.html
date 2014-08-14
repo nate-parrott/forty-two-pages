@@ -1,0 +1,19 @@
+<link rel='stylesheet' href='/static/css/toolbar.css'/>
+<div class='__icons'>
+	<button id='__done'>Done</button>
+	<button id='__undo'>Undo</button>
+	<button id='__settings'>Settings</button>
+	<h6>Insert</h6>
+	<button id='__title'>Title</button>
+	<button id='__title'>Subtitle</button>
+	<button id='__link'>Link</button>
+	<button id='__photo'>Photo</button>
+	<button id='__file'>File</button>
+	<h6>Edit</h6>
+	<button id='__format'>Format</button>
+</div>
+
+{% include "editing/save.html" %}
+{% include "editing/actions.html" %}
+{% include "editing/loader.html" %}
+{% include "editing/sidebar.html" %}

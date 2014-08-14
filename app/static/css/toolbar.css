@@ -1,0 +1,30 @@
+.__icons {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  height: 100%;
+  width: 90px;
+  padding-right: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 10;
+  text-align: right; }
+
+  .__icons button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    color: #e22;
+    height: 40px;
+    outline: none;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    text-align: right; }
+    .__icons button:hover {
+      background-color: #e22;
+      color: white; }
+      .__icons h6 {
+        font-weight: normal;
+        color: gray; }

@@ -1,0 +1,40 @@
+<div id='__settings_sidebar'>
+	
+	<form id='__settings_form' action='{{ action_url }}'>
+		<h3>Site settings</h3>
+		{{ site_fields }}
+		<h3>Page settings</h3>
+		{{ page_fields }}
+		<input type='submit' value='Save'/>
+	</form>
+
+	<script>
+
+	(function() {
+		var form = $("#__settings_form").get(0);
+		$(form).submit(function() {
+			Loader.increment();
+			try {
+				$.ajax({
+					url: $(form).attr('action'),
+					type: 'POST',
+					data: $(form).serialize(),
+					success: function(response) {
+						Loader.decrement();
+						$('#__settings_sidebar').replaceWith(response);
+					},
+					error: function() {
+						Loader.decrement();
+						alert("Error saving!");
+					}
+				})
+			} catch (e) {
+				alert(e);
+			}
+			return false;
+		})
+	})();
+
+	</script>
+	
+</div>

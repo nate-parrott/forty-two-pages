@@ -1,0 +1,21 @@
+from app import app, db, templ8
+import flask, util, model
+
+def get_title(page, site):
+	if 'title' in page.record and len(page.record['title']) > 0:
+		return page.record['title']
+	if page.record['name'] == '':
+		return site.record['name']
+	else:
+		return page.record['name'].split('/')[-1]
+
+@app.route('/')
+@app.route('/<path:name>')
+def page(name = ""):
+	if util.site() == None:
+		return "index!"
+	site = model.Site.current()
+	page = model.Page(site, name)
+	rendered = page.render()
+	title = page.record['title']
+	return templ8("page.html", {"title": title, "rendered": rendered})

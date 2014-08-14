@@ -1,0 +1,8 @@
+$trim: #e22;
+
+@mixin appearance($app) {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	appearance: none;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link rel='stylesheet' href='/static/css/page.css'/>
+	<title>{{title}}</title>
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi" />
+	<script>
+	function edit() {
+		$('#content').load('/__meta/source'+location.pathname, null, function(_,_,_) {
+			$('#content').attr('contentEditable', true);
+		});
+		$('#__toolbar').load('/toolbar');
+	}
+	</script>
+</head>
+<body>
+	<a id='edit' href='javascript:edit()' nofollow>Edit</a>
+	<div id='content-container'>
+		<div id='content'>
+			{{rendered}}
+		</div>
+	</div>
+	<div id='__toolbar'>
+	</div>
+</body>
+</html>
