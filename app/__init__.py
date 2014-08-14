@@ -10,7 +10,7 @@ class Flask42(Flask):
 			return Flask.get_send_file_max_age(self, name)
 
 app = Flask42(__name__)
-app.secret_key = "HHAHAHAHHA YOU THINK I CARE!U!*(Y@#P#)"
+app.secret_key = "94nY3,R83nf#8qjq02@^ frwfjiwHFEhe028.dfumf2x 0d"
 app.config['MAX_CONTENT_LENGTH'] = 512 * 1024 * 1024
 
 from jinja2 import Environment, PackageLoader
