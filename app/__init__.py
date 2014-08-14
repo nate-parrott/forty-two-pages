@@ -9,7 +9,7 @@ class Flask42(Flask):
 		else:
 			return Flask.get_send_file_max_age(self, name)
 
-app = Flask42(__name__)
+app = Flask42(__name__, debug=True)
 app.secret_key = "94nY3,R83nf#8qjq02@^ frwfjiwHFEhe028.dfumf2x 0d"
 app.config['MAX_CONTENT_LENGTH'] = 512 * 1024 * 1024
 
