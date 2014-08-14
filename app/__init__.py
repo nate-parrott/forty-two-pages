@@ -9,9 +9,16 @@ class Flask42(Flask):
 		else:
 			return Flask.get_send_file_max_age(self, name)
 
-app = Flask42(__name__, debug=True)
+app = Flask42(__name__)
 app.secret_key = "94nY3,R83nf#8qjq02@^ frwfjiwHFEhe028.dfumf2x 0d"
 app.config['MAX_CONTENT_LENGTH'] = 512 * 1024 * 1024
+
+# production logging:
+import logging
+from logging import StreamHandler
+file_handler = StreamHandler()
+app.logger.setLevel(logging.DEBUG)  # set the desired logging level here
+app.logger.addHandler(file_handler)
 
 from jinja2 import Environment, PackageLoader
 env = Environment(loader=PackageLoader('app', 'templates'))
