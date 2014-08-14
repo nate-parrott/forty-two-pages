@@ -67,9 +67,9 @@ def noedit():
 		if 'POSTMARK_API_KEY' in os.environ:
 			msg = postmark.PMMail(
 					api_key = os.environ['POSTMARK_API_KEY'],
-					subject = "Edit '%s' on easy.af"%site_name,
+					subject = "Edit '%s' on 42Pages"%site_name,
 					to = email,
-					sender = "42pages-robot@nateparrott.com",
+					sender = "robot@42pag.es",
 					html_body = body)
 			msg.send()
 		else:
