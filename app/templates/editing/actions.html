@@ -94,7 +94,8 @@
 	});
 	
 	$('#__code').click(function() {
-		
+		var pageName = location.pathname.substring(1);
+		location = "/__meta/code?page="+encodeURIComponent(pageName);
 	});
 	
 })();

@@ -17,5 +17,7 @@ def page(name = ""):
 	site = model.Site.current()
 	page = model.Page(site, name)
 	rendered = page.render()
+	css = page.record.get('css', '')
+	js = page.record.get('js', '')
 	title = page.record['title']
-	return templ8("page.html", {"title": title, "rendered": rendered})
+	return templ8("page.html", {"title": title, "rendered": rendered, "css": css, "js": js})

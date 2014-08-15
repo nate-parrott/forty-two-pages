@@ -37,7 +37,7 @@ class Page(MongoObject):
 	def initialize_record(self):
 		page = self.record['name']
 		site = self.record['site']
-		self.record['source'] = "<h2>welcome to <em>%s</em> on <em>%s</em>"%(page, site)
+		self.record['source'] = "<h2>welcome to <em>%s</em> on <em>%s</em></h2>"%(page, site)
 		self.record['title'] = page.split('/')[-1] if page!='' else site
 	
 	def render(self):

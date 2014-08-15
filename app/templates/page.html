@@ -13,15 +13,21 @@
 		$('#__toolbar').load('/toolbar');
 	}
 	</script>
+	<style>{{ css | safe }}</style>
 </head>
 <body>
 	<a id='edit' href='javascript:edit()' nofollow>Edit</a>
 	<div id='content-container'>
 		<div id='content'>
-			{{rendered}}
+			{{rendered | safe}}
 		</div>
 	</div>
 	<div id='__toolbar'>
 	</div>
+	
+	<script>
+	{{ js | safe }}
+	</script>
+	
 </body>
 </html>

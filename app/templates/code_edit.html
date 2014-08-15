@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charsetf='utf-8'/>
+	<title>Edit Code for {{ site_name }}.42pag.es/{{ page_name }}</title>
+	<link rel='stylesheet' href='/static/css/code_edit.css'/>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+	
+	<div id="controls">
+		<span id="tabs">
+			
+		</span>
+		<div id="save">Save and run</div>
+	</div>
+	
+	<div id="editors">
+		<pre id="source">{{ source }}</pre>
+		<pre id="css">{{ css }}</pre>
+		<pre id="js">{{ js }}</pre>
+	</div>
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
+	<script>
+	
+	$(document).ready(function() {
+		var codeTypes = [
+			{id: "source", name: "HTML", mode: "ace/mode/html"},
+			{id: "css", name: "CSS", mode: "ace/mode/css"},
+			{id: "js", name: "JavaScript", mode: "ace/mode/javascript"}
+		];
+	
+		// create editors:
+		codeTypes.forEach(function(type) {
+			type.editor = ace.edit(type.id);
+			type.editor.setTheme("ace/theme/twilight");
+			type.editor.getSession().setMode(type.mode);
+		});
+	
+		// create tabs:
+		codeTypes.forEach(function(type) {
+			var tab = $("<div></div>").text(type.name).click(function() {
+				pickCodeType(type);
+			}).appendTo($("#tabs"));
+		});
+	
+		function pickCodeType(type) {
+			$('#editors').children().removeClass("visible");
+			$('#' + type.id).addClass("visible").focus();
+		}
+	
+		pickCodeType(codeTypes[0]);
+		
+		$("#save").click(function() {
+			// we need to do this directly in the click handler, so open the window and just refresh it when the load completes
+			previewWindow = open("/__meta/blank", "{{page_name}}");
+			
+			var form = {};
+			codeTypes.forEach(function(type) {
+				form[type.id] = type.editor.getValue();
+			});
+			$.post(location.href, form, function(response) {
+				previewWindow.location = "/{{page_name}}";
+			});
+		});
+	});
+	
+	</script>
+</body>
+</html>

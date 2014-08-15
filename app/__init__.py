@@ -22,6 +22,7 @@ app.logger.addHandler(file_handler)
 
 from jinja2 import Environment, PackageLoader
 env = Environment(loader=PackageLoader('app', 'templates'))
+env.autoescape = True
 def templ8(name, vars):
 	return env.get_template(name).render(vars)
 
@@ -33,4 +34,5 @@ else:
 import edit
 import upload
 import settings
+import code_edit
 import page # imported last, because it has a catch-all URL pattern
