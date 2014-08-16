@@ -29,11 +29,6 @@ class FormField(object):
 			"error": self.error_msg
 		})
 
-class FormFieldRecordingSetDate(FormField):
-	def try_set_str(self, str_content):
-		self.model.update({self.name: str_content, self.name+'_set_date': datetime.datetime.now()})
-		return True
-
 @permissions.protected
 @app.route('/__meta/settings', methods=['GET', 'POST'])
 def settings():
@@ -44,11 +39,7 @@ def settings():
 		FormField(site, "emails_that_can_edit", 
 			label="Emails that can edit this site", 
 			placeholder="sam@gmail.com, casey@yahoo.com",
-			description="When this is empty, anyone can edit this site. If you add a list of emails, separated by commas, only they will be allowed to edit."),
-			FormFieldRecordingSetDate(site, "custom_domain",
-			label="Custom domain",
-			placeholder="your-website.net",
-			description="In addition to entering it here, you'll also have to register the domain and add a CNAME record to 42pag.es.")
+			description="When this is empty, anyone can edit this site. If you add a list of emails, separated by commas, only they will be allowed to edit.")
 	]
 	page_fields = [
 		FormField(page, "title", "Title")
