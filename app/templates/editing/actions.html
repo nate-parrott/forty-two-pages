@@ -49,6 +49,12 @@
 			clickable: false,
 			previewsContainer: dummyPreviewsContainer
 		});
+		// disable the full-page dropzone on mousedown inside the page b/c we don't want the dropzone to interfere with internal dragging
+		$("#__content").mousedown(function() {
+			fullDropzone.disable();
+		}).mouseup(function() {
+			fullDropzone.enable();
+		});
 		var buttonDropzoneOpts = {
 			url: url,
 			autoProcessQueue: true,
@@ -69,13 +75,13 @@
 				} else {
 					var element;
 					if (type == 'audio') {
-						element = $("<audio controls/>").attr({src: info.url, alt: info.name}).get(0);
+						element = $("<audio controls draggable/>").attr({src: info.url, alt: info.name}).get(0);
 					} else if (type == 'video') {
-						element = $("<video controls/>").attr({src: info.url, alt: info.name}).get(0);
+						element = $("<video controls draggable/>").attr({src: info.url, alt: info.name}).get(0);
 					} else {
 	          element = $("<img/>")
 	          .attr({src: "/__meta/fileImage/"+encodeURIComponent(info.name), "download-filename": info.name, "download-url": info.url, alt: info.name})
-	          .wrap("<a></a>").parent().attr({href: info.url}).get(0);
+	          .get(0);
 					}
 					exec("insertHTML", true, element.outerHTML);
 				}

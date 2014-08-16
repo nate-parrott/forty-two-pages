@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<link rel='stylesheet' href='/static/css/page.css'/>
-	<title>{{title}}</title>
+	<meta charset='utf-8'/>
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+	
+	<title>{{title}}</title>
+	
+	<link rel='stylesheet' href='/static/css/page.css'/>
 	<link rel='stylesheet' href='/static/css/icomoon.css'/>
-	<script>
-	function edit() {
-		$('#__content').load('/__meta/source'+location.pathname, null, function(_,_,_) {
-			$('#__content').attr('contentEditable', true);
-		});
-		$('#__toolbar').load('/toolbar');
-	}
-	</script>
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="/static/page.js"></script>
+	
 	<style>{{ css | safe }}</style>
 </head>
+
 <body class='{{ config_classes }}'>
-	<a id='__edit' href='javascript:edit()' nofollow class='icon-cog'></a>
+	<a id='__edit' href='javascript:__edit()' nofollow class='icon-cog'></a>
 	<div id='__content_container'>
 		<div id='__content'>
 			{{rendered | safe}}
