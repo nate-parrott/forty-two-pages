@@ -20,4 +20,15 @@ def page(name = ""):
 	css = page.record.get('css', '')
 	js = page.record.get('js', '')
 	title = page.record['title']
-	return templ8("page.html", {"title": title, "rendered": rendered, "css": css, "js": js})
+	
+	config_classes = []
+	if util.site_name_if_custom_domain() != None:
+		config_classes.append("__config_custom_domain")
+	
+	return templ8("page.html", {
+		"title": title, 
+		"rendered": rendered, 
+		"css": css, 
+		"js": js,
+		"config_classes": ' '.join(config_classes)
+	})

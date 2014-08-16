@@ -3,6 +3,7 @@ import model
 import flask
 import util
 import permissions
+from BeautifulSoup import BeautifulSoup as bs
 
 @app.route('/toolbar')
 def toolbar():
@@ -16,6 +17,7 @@ def toolbar():
 @app.route('/__meta/save/<path:name>', methods=['POST'])
 def save_source(name=''):
 	source = flask.request.form['source']
+	source = bs(source).prettify()
 	page = model.Page(model.Site.current(), name)
 	page.update({"source": source})
 	return "ok"

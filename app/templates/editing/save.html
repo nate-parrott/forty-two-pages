@@ -30,7 +30,7 @@
 			$.ajax({
 				url: '/__meta/save'+location.pathname,
 				type: 'POST',
-				data: {source: $('#content').html()},
+				data: {source: $('#__content').html()},
 				success: function() {
 					nFailures = 0;
 					var finish = function() {
@@ -60,7 +60,7 @@
 			})
 		}
 	}
-	$('#content').bind("input", function() {
+	$('#__content').bind("input", function() {
 		save();
 	});
 })();

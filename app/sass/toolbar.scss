@@ -10,6 +10,12 @@
 	background-color: rgba(255,255,255,0.9);
 	z-index: 10;
 	text-align: right;
+	display: table;
+	overflow: scroll;
+}
+.__icons > div {
+	display: table-cell;
+	vertical-align: middle;
 }
 
 .__icons {
@@ -23,6 +29,9 @@
 		width: 100%;
 		-webkit-tap-highlight-color: transparent;
 		text-align: right;
+	}
+	button:before {
+		padding-right: 1em;
 	}
 	button:hover {
 		background-color: $trim;

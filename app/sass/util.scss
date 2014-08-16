@@ -2,8 +2,22 @@ $trim: #e22;
 $trim-selected: #d11;
 
 @mixin appearance($app) {
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	-ms-appearance: none;
-	appearance: none;
+	-webkit-appearance: $app;
+	-moz-appearance: $app;
+	-ms-appearance: $app;
+	appearance: $app;
+}
+
+@mixin transition($t) {
+	-webkit-transition: $t;
+	-moz-transition: $t;
+	-o-transition: $t;
+	transition: $t;
+}
+
+@mixin transform($t) {
+	-webkit-transform: $t;
+	-moz-transform: $t;
+	-o-transform: $t;
+	transition: $t;
 }

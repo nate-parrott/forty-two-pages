@@ -4,6 +4,7 @@
 
 (function() {
 	var exec = function(command, showDefaultUI, value) {
+		$("#__content").focus();
 		document.execCommand(command, showDefaultUI, value);
 	}
 	
@@ -15,12 +16,12 @@
 		exec("undo", true);
 	});
 	
-	$('#__title').click(function() {
-		exec("heading", true, "H1");
+	$('#__header').click(function() {
+		exec("formatBlock", true, "H1");
 	});
 	
-	$('#__subtitle').click(function() {
-		exec("heading", true, "H2");
+	$('#__subheader').click(function() {
+		exec("formatBlock", true, "H2");
 	});
 	
 	$('#__link').click(function() {
@@ -41,7 +42,7 @@
 		var dummyPreviewsContainer = $("<div></div").get(0);
 		
 		var url = '/__meta/upload';
-		var fullDropzone = new Dropzone("#content", {
+		var fullDropzone = new Dropzone("#__content", {
 			url: url,
 			autoProcessQueue: true,
 			addRemoveLinks: false,

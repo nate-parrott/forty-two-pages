@@ -4,21 +4,22 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<link rel='stylesheet' href='/static/css/page.css'/>
 	<title>{{title}}</title>
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi" />
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+	<link rel='stylesheet' href='/static/css/icomoon.css'/>
 	<script>
 	function edit() {
-		$('#content').load('/__meta/source'+location.pathname, null, function(_,_,_) {
-			$('#content').attr('contentEditable', true);
+		$('#__content').load('/__meta/source'+location.pathname, null, function(_,_,_) {
+			$('#__content').attr('contentEditable', true);
 		});
 		$('#__toolbar').load('/toolbar');
 	}
 	</script>
 	<style>{{ css | safe }}</style>
 </head>
-<body>
-	<a id='edit' href='javascript:edit()' nofollow>Edit</a>
-	<div id='content-container'>
-		<div id='content'>
+<body class='{{ config_classes }}'>
+	<a id='__edit' href='javascript:edit()' nofollow class='icon-cog'></a>
+	<div id='__content_container'>
+		<div id='__content'>
 			{{rendered | safe}}
 		</div>
 	</div>
