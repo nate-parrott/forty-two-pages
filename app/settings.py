@@ -13,7 +13,7 @@ class FormField(object):
 		self.description = description
 		self.error_msg = None
 	def get_str(self):
-		return str(self.model.record.get(self.name, ''))
+		return unicode(self.model.record.get(self.name, ''))
 	def try_set_str(self, str_content):
 		self.model.update({self.name: str_content})
 		return True
