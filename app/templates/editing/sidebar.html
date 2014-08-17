@@ -5,7 +5,8 @@ Sidebar = {
 		$.ajax({
 			url: url,
 			success: function(response) {
-				var content = $(response).wrap("<div></div>").parent().addClass('__sidebar').get(0);
+				console.log(response)
+				var content = $("<div>"+response+"</div>").addClass('__sidebar').get(0);
 				var close = $("<div>×</div>").addClass('__close').click(function() {
 					$(content).remove();
 				}).get(0);
@@ -23,22 +24,21 @@ Sidebar = {
 	position: fixed;
 	right: 0px;
 	top: 0px;
-	height: 100%;
+	bottom: 0px;
 	width: 220px;
 	background-color: #111;
 	z-index: 30;
 	overflow: hidden;
 	color: white;
-	margin-top: 1px;
+	margin-top: -1px;
 	box-sizing: border-box;
-	padding: 0.3em;
-	padding-top: 1.5em;
+	padding: 20px;
 	font-size: small;
 }
 .__sidebar .__close {
 	position: absolute;
-	right: 4px;
-	top: 4px;
+	right: 0px;
+	top: 0px;
 	font-weight: bold;
 	font-size: 16px;
 	width: 24px;
@@ -46,13 +46,33 @@ Sidebar = {
 	background-color: white;
 	color: #111;
 	text-align: center;
-	padding-top: 3px;
-	padding-bottom: -3px;
+	padding-top: 1px;
+	padding-bottom: -1px;
 	box-sizing: border-box;
 	cursor: default;
 }
 .__sidebar .__close:hover {
 	background-color: #ccc;
+}
+
+.__sidebar button {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	appearance: none;
+	font-size: 1em;
+	font-weight: bold;
+	background-color: white;
+	color: black;
+	border: none;
+	outline: none;
+}
+.__sidebar button:before {
+	font-weight: normal;
+	font-size: large;
+}
+.__sidebar button:hover {
+	background-color: gray;
 }
 
 </style>

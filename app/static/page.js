@@ -1,6 +1,8 @@
 function __edit() {
 	$('#__content').load('/__meta/source'+location.pathname, null, function(_,_,_) {
-		$('#__content').attr('contentEditable', true);
+		$(document.body).css({"overflow-x": "hidden"}); // work around super-annoying scrollbar bug
+		$('#__content').attr('contentEditable', true).focus();
+		document.execCommand("enableObjectResizing", true, true);
 	});
 	$('#__toolbar').load('/toolbar');
 }

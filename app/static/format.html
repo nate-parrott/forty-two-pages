@@ -1,1 +1,33 @@
-<h1>Hello, world</h1>
+
+<div id='__format_container'>
+	<h3>Format</h3>
+	<p>
+		<button class='icon-uniE60E' title='Bold' exec='bold'></button>
+		<button class='icon-uniE60F' title='Italic' exec='italic'></button>
+		<button class='icon-uniE610' title='Underline' exec='underline'></button>
+	</p>
+	<p>
+		<button class='icon-uniE60D' title='Align left' exec='justifyLeft'></button>
+		<button class='icon-uniE60B' title='Align center' exec='justifyCenter'></button>
+		<button class='icon-uniE60C' title='Align right' exec='justifyRight'></button>
+	</p>
+	<p>
+		<button class='icon-uniE609' title="Bullet list" exec="insertUnorderedList"></button>
+		<button class='icon-uniE608' title="Numbered list" exec="insertOrderedList"></button>
+	</p>
+</div>
+
+<script>
+
+(function() {
+	var exec = function(command, showDefaultUI, value) {
+		$("#__content").focus();
+		document.execCommand(command, showDefaultUI, value);
+	}
+		
+	$('#__format_container *[exec]').click(function(e) {
+		exec($(e.target).attr('exec'), true, null);
+	});
+})();
+
+</script>

@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('fonts/icomoon.eot?-mqmgfy');
-	src:url('fonts/icomoon.eot?#iefix-mqmgfy') format('embedded-opentype'),
-		url('fonts/icomoon.woff?-mqmgfy') format('woff'),
-		url('fonts/icomoon.ttf?-mqmgfy') format('truetype'),
-		url('fonts/icomoon.svg?-mqmgfy#icomoon') format('svg');
+	src:url('fonts/icomoon.eot?c4f16p');
+	src:url('fonts/icomoon.eot?#iefixc4f16p') format('embedded-opentype'),
+		url('fonts/icomoon.woff?c4f16p') format('woff'),
+		url('fonts/icomoon.ttf?c4f16p') format('truetype'),
+		url('fonts/icomoon.svg?c4f16p#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,6 +23,33 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-uniE60A:before {
+	content: "\e60a";
+}
+.icon-uniE60E:before {
+	content: "\e60e";
+}
+.icon-uniE60F:before {
+	content: "\e60f";
+}
+.icon-uniE610:before {
+	content: "\e610";
+}
+.icon-uniE60C:before {
+	content: "\e60c";
+}
+.icon-uniE60D:before {
+	content: "\e60d";
+}
+.icon-uniE60B:before {
+	content: "\e60b";
+}
+.icon-uniE608:before {
+	content: "\e608";
+}
+.icon-uniE609:before {
+	content: "\e609";
+}
 .icon-uniE600:before {
 	content: "\e600";
 }
