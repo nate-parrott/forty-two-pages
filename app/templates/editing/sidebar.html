@@ -1,18 +1,26 @@
 <script>
 
 Sidebar = {
+	current: null,
 	show: function(url) {
 		$.ajax({
 			url: url,
 			success: function(response) {
-				console.log(response)
+				Sidebar.dismiss();
 				var content = $("<div>"+response+"</div>").addClass('__sidebar').get(0);
 				var close = $("<div>×</div>").addClass('__close').click(function() {
 					$(content).remove();
 				}).get(0);
 				$(content).append(close).appendTo(document.body);
+				Sidebar.current = content;
 			}
 		})
+	},
+	dismiss: function() {
+		if (Sidebar.current) {
+			Sidebar.current.remove();
+			Sidebar.current = null;
+		}
 	}
 }
 

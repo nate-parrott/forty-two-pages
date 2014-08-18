@@ -1,0 +1,42 @@
+<script>
+
+Popup = {
+	show: function(node) {
+		$(".__popup").hide();
+		$(node).show();
+		$(node).offset(Popup.pos);
+	},
+	pos: null,
+	clickHandlers: []
+}
+
+$("#__content").click(function(e) {
+	if ($(e.target).parent('.__popup').length > 0) return;
+	
+	Popup.pos = $(e.target).offset();
+	
+	var handled = false;
+	Popup.clickHandlers.forEach(function(fn) {
+		if (!handled && fn(e)) {
+			handled = true;
+		}
+	});
+	if (!handled) {
+		$(".__popup").hide();
+	}
+});
+
+</script>
+
+<style>
+
+.__popup {
+	position: absolute;
+	background-color: rgba(255,255,255,0.7);
+	padding: 4px;
+	shadow: 0px 0px 4px black;
+	
+	display: none; /* initially */
+}
+
+</style>

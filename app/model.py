@@ -27,6 +27,9 @@ class Site(MongoObject):
 	
 	def __init__(self, name):
 		self.load_record({"name": name})
+	
+	def header(self):
+		return Page(self, '__meta/header')
 
 
 class Page(MongoObject):
@@ -40,7 +43,7 @@ class Page(MongoObject):
 		name = page if page != '' else site
 		self.record['source'] = "<h1>%s</h1>\n<p>[click the gear to edit]</p>"%(name)
 		self.record['title'] = page.split('/')[-1] if page!='' else site
+		self.record['include_header'] = True
 	
 	def render(self):
 		return self.record['source']
-

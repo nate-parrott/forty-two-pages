@@ -10,40 +10,48 @@ html, body, #__content_container {
     #__content_container {
       display: table; }
 
-      #__content {
-        display: table-cell;
-        text-align: center;
-        vertical-align: middle;
-        padding: 1em; }
+      #__content_container > div {
+        display: table-row; }
 
-        a {
-          color: #e22; }
+        #__content_container > div > div {
+          display: table-cell;
+          text-align: center;
+          padding: 1em; }
 
-          #__edit:link {
-            position: absolute;
-            top: 0;
-            right: 0;
-            padding: 0.5em;
-            font-size: large;
-            color: black;
-            text-decoration: none;
-            -webkit-transition: transform 0.7s ease;
-            -moz-transition: transform 0.7s ease;
-            -o-transition: transform 0.7s ease;
-            transition: transform 0.7s ease; }
+          #__content {
+            vertical-align: middle; }
 
-            #__edit:link:hover {
-              -webkit-transform: rotate(180deg);
-              -moz-transform: rotate(180deg);
-              -o-transform: rotate(180deg);
-              transition: rotate(180deg); }
+            body.__config_viewing_header #__content {
+              vertical-align: top; }
 
-              .__config_custom_domain #edit {
-                display: none; }
+              a {
+                color: #e22; }
 
-                img {
-                  max-width: 90%;
-                  height: auto; }
+                #__edit:link {
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  padding: 0.5em;
+                  font-size: large;
+                  color: black;
+                  text-decoration: none;
+                  -webkit-transition: transform 0.7s ease;
+                  -moz-transition: transform 0.7s ease;
+                  -o-transition: transform 0.7s ease;
+                  transition: transform 0.7s ease; }
 
-                  [download-url] {
-                    cursor: pointer; }
+                  #__edit:link:hover {
+                    -webkit-transform: rotate(180deg);
+                    -moz-transform: rotate(180deg);
+                    -o-transform: rotate(180deg);
+                    transition: rotate(180deg); }
+
+                    .__config_custom_domain #edit {
+                      display: none; }
+
+                      img {
+                        max-width: 90%;
+                        height: auto; }
+
+                        [download-url] {
+                          cursor: pointer; }

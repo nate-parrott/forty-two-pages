@@ -20,15 +20,28 @@ def page(name = ""):
 	css = page.record.get('css', '')
 	js = page.record.get('js', '')
 	title = page.record['title']
+	edit = "edit" in flask.request.args
+	
+	header = site.header() if page.record.get('include_header', False) and name != '__meta/header' else None
+	if header:
+		header = {
+			"rendered": header.render(),
+			"css": header.record.get('css', ''),
+			"js": header.record.get('js', '')
+		}
 	
 	config_classes = []
 	if util.site_name_if_custom_domain() != None:
 		config_classes.append("__config_custom_domain")
+	if name == '__meta/header':
+		config_classes.append("__config_viewing_header")
 	
 	return templ8("page.html", {
 		"title": title, 
 		"rendered": rendered, 
 		"css": css, 
 		"js": js,
-		"config_classes": ' '.join(config_classes)
+		"config_classes": ' '.join(config_classes),
+		"edit": edit,
+		"header": header
 	})

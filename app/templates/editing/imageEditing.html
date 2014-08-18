@@ -1,0 +1,38 @@
+<div id='__image_editing' class='__popup'>
+	<input class='__size' type='range' min='20' max='1100'/>
+</div>
+
+<script>
+
+(function() {
+	ImageEditing = {
+		selected: null,
+		edit: function(node) {
+			ImageEditing.selected = node;
+			$("#__image_editing .__size").val($(node).width());
+			Popup.show($("#__image_editing").get(0));
+		}
+	}
+
+	Popup.clickHandlers.push(function(e) {
+		var t = e.target;
+		if (t.tagName.toLowerCase() == 'img') {
+			ImageEditing.edit(t);
+			return true;
+		}
+		return false;
+	});
+	
+	var slider = $("#__image_editing .__size").get(0);
+	Util.bindSliderValue(slider, function() {
+		if (ImageEditing.selected) {
+			var width = $(slider).val();
+			if (width == $(slider).attr('max')) width = '100%';
+			$(ImageEditing.selected).css({width: width});
+			Save.save();
+		}
+	});
+	
+})();
+
+</script>

@@ -12,19 +12,36 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="/static/page.js"></script>
 	
+	{% if header %} <style> {{ header.css | safe }} </style> {% endif %}
 	<style>{{ css | safe }}</style>
 </head>
 
 <body class='{{ config_classes }}'>
 	<a id='__edit' href='javascript:__edit()' nofollow class='icon-cog'></a>
 	<div id='__content_container'>
-		<div id='__content'>
-			{{rendered | safe}}
+		{% if header %} 
+		<div>
+			<div id='__header'>
+				{{ header.rendered | safe }}
+			</div>
+		</div>
+		{% endif %}
+		<div>
+			<div id='__content'>
+				{{rendered | safe}}
+			</div>
 		</div>
 	</div>
 	<div id='__toolbar'>
+		{% if edit %}
+		{% include "toolbar.html" %}
+		<script>
+		$("#__content").attr({contentEditable: true});
+		</script>
+		{% endif %}
 	</div>
 	
+	{% if header %} <script> {{ header.js | safe }} </script> {% endif %}
 	<script>
 	{{ js | safe }}
 	</script>

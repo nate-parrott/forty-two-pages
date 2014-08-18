@@ -1,0 +1,19 @@
+<script>
+
+Util = {
+	bindSliderValue: function(el, callback) {
+		var down = false;
+		$(el).mousedown(function() {
+			down = true;
+		}).mouseup(function() {
+			down = false;
+		});
+		$(el).mousemove(function() {
+			if (down) callback();
+		});
+		$(el).change(callback);
+	}
+}
+
+</script>
+
