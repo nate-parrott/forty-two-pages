@@ -64,6 +64,11 @@ class BooleanFormField(FormField):
 		self.template_name = "form_fields/boolean.html"
 		return super(BooleanFormField, self).html()
 
+class FormFieldRecordingSetDate(FormField):
+        def try_set_str(self, str_content):
+                self.model.update({self.name: str_content, self.name+'_set_date': datetime.datetime.now()})
+                return True
+
 @permissions.protected
 @app.route('/__meta/settings', methods=['GET', 'POST'])
 def settings():

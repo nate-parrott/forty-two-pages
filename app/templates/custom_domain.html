@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block body %}
+
+<style>
+body > div > div {
+	text-align: left !important;
+	vertical-align: top !important;
+}
+.__field_error {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+</style>
+
+<h1>Custom domains</h1>
+<h3>your-site.42pag.es → your-site.com</h3>
+
+<p>Some day you'll be able to buy a domain right from this page. Until then, you can buy your own domain and point it to your 42pag.es website.</p>
+
+<p>First, buy a domain on a site like <a href='https://www.gandi.net/'>Gandi</a> or <a href='http://www.namecheap.com/'>Namecheap</a>.
+</p>
+
+<p>Then, create a <strong>CNAME record</strong> from <strong>www.your-site.com</strong> to <strong>42pag.es</strong>.</p>
+
+<p>
+	(You'll also want to set up your naked domain (you-site.com, without the www) to redirect to www.your-site.com)
+</p>
+
+<p>Then, enter your custom domain here:</p>
+
+<form action='' method='POST'>
+{{ settings | safe }}
+<input type='submit' value='Save'/>
+</form>
+
+<p>
+	Then, after about an hour, you'll be able to access your website from your new domain.
+</p>
+
+<p>
+	Note that on your custom domain, <strong>you won't see any edit buttons.</strong> To edit, access the website at its old URL, <strong>{{ site_name }}.42pag.es</strong>.
+</p>
+
+{% endblock %}
