@@ -9,22 +9,23 @@ html {
 	font-family: sans-serif;
 	line-height: 1.5em;
 }
-#__content_container {
-	display: table;
-}
-#__content_container > div {
-	display: table-row;
+body.__config_no_header {
+	#__content_container {
+		display: table;
+	}
+	#__content_container > div {
+		display: table-row;
+	}
+	#__content_container > div > div {
+		display: table-cell;
+	}
+	#__content {
+		vertical-align: middle;
+	}
 }
 #__content_container > div > div {
-	display: table-cell;
 	text-align: center;
 	padding: 1em;
-}
-#__content {
-	vertical-align: middle;
-}
-body.__config_viewing_header #__content {
-	vertical-align: top;
 }
 a {
 	color: $trim;

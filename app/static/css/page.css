@@ -7,55 +7,51 @@ html, body, #__content_container {
     font-family: sans-serif;
     line-height: 1.5em; }
 
-    #__content_container {
+    body.__config_no_header #__content_container {
       display: table; }
-
-      #__content_container > div {
+      body.__config_no_header #__content_container > div {
         display: table-row; }
-
-        #__content_container > div > div {
-          display: table-cell;
-          text-align: center;
-          padding: 1em; }
-
-          #__content {
+        body.__config_no_header #__content_container > div > div {
+          display: table-cell; }
+          body.__config_no_header #__content {
             vertical-align: middle; }
 
-            body.__config_viewing_header #__content {
-              vertical-align: top; }
+#__content_container > div > div {
+  text-align: center;
+  padding: 1em; }
 
-              a {
-                color: #e22; }
+  a {
+    color: #e22; }
 
-                #__edit:link {
-                  position: absolute;
-                  top: 0;
-                  right: 0;
-                  padding: 0.5em;
-                  font-size: large;
-                  color: black;
-                  text-decoration: none;
-                  -webkit-transition: transform 0.7s ease;
-                  -moz-transition: transform 0.7s ease;
-                  -o-transition: transform 0.7s ease;
-                  transition: transform 0.7s ease; }
+    #__edit:link {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0.5em;
+      font-size: large;
+      color: black;
+      text-decoration: none;
+      -webkit-transition: transform 0.7s ease;
+      -moz-transition: transform 0.7s ease;
+      -o-transition: transform 0.7s ease;
+      transition: transform 0.7s ease; }
 
-                  #__edit:link:hover {
-                    -webkit-transform: rotate(180deg);
-                    -moz-transform: rotate(180deg);
-                    -o-transform: rotate(180deg);
-                    transition: rotate(180deg); }
+      #__edit:link:hover {
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        transition: rotate(180deg); }
 
-                    .__config_custom_domain #__edit {
-                      display: none; }
+        .__config_custom_domain #__edit {
+          display: none; }
 
-                      img {
-                        max-width: 90%;
-                        height: auto; }
+          img {
+            max-width: 90%;
+            height: auto; }
 
-                        [download-url] {
-                          cursor: pointer; }
+            [download-url] {
+              cursor: pointer; }
 
-                          #__header_example_content {
-                            opacity: 0.5;
-                            cursor: not-allowed; }
+              #__header_example_content {
+                opacity: 0.5;
+                cursor: not-allowed; }

@@ -41,6 +41,9 @@ def page(name = ""):
 	if is_header:
 		config_classes.append("__config_viewing_header")
 	
+	if header == None and not is_header:
+		config_classes.append("__config_no_header")
+	
 	return templ8("page.html", {
 		"title": title, 
 		"rendered": rendered, 
