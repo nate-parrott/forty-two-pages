@@ -46,7 +46,7 @@ html, body, #__content_container {
                     -o-transform: rotate(180deg);
                     transition: rotate(180deg); }
 
-                    .__config_custom_domain #edit {
+                    .__config_custom_domain #__edit {
                       display: none; }
 
                       img {
