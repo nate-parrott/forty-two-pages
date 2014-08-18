@@ -42,6 +42,8 @@ class Page(MongoObject):
 		site = self.record['site']
 		name = page if page != '' else site
 		self.record['source'] = "<h1>%s</h1>\n<p>[click the gear to edit]</p>"%(name)
+		if self.record['name'] == '__meta/header':
+			self.record['source'] = ""
 		self.record['title'] = page.split('/')[-1] if page!='' else site
 		self.record['include_header'] = True
 	

@@ -55,3 +55,7 @@ html, body, #__content_container {
 
                         [download-url] {
                           cursor: pointer; }
+
+                          #__header_example_content {
+                            opacity: 0.5;
+                            cursor: not-allowed; }

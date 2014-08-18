@@ -8,23 +8,23 @@
 		document.execCommand(command, showDefaultUI, value);
 	}
 	
-	$('#__done').click(function() {
-		location = location; // reload page
+	$('#__done_btn').click(function() {
+		window.location = window.location.href.split('?')[0]; // reload page
 	});
 
-	$('#__undo').click(function() {
+	$('#__undo_btn').click(function() {
 		exec("undo", true);
 	});
 	
-	$('#__header').click(function() {
+	$('#__header_btn').click(function() {
 		exec("formatBlock", true, "H1");
 	});
 	
-	$('#__subheader').click(function() {
+	$('#__subheader_btn').click(function() {
 		exec("formatBlock", true, "H2");
 	});
 	
-	$('#__link').click(function() {
+	$('#__link_btn').click(function() {
 		var url = prompt("Enter the name of a page you want to link to, or a full external URL:");
 		if (!url) return;
 		if (url.indexOf('www.') == 0) {
@@ -61,8 +61,8 @@
 			addRemoveLinks: false,
 			previewsContainer: dummyPreviewsContainer
 		};
-		var photoDropzone = new Dropzone('#__photo', buttonDropzoneOpts);
-		var fileDropzone = new Dropzone('#__file', buttonDropzoneOpts);
+		var photoDropzone = new Dropzone('#__photo_btn', buttonDropzoneOpts);
+		var fileDropzone = new Dropzone('#__file_btn', buttonDropzoneOpts);
 		[fullDropzone, photoDropzone, fileDropzone].forEach(function(dropzone) {
 			dropzone.on('addedfile', function() {
 				Loader.increment();
@@ -92,15 +92,15 @@
 		});
 	})();
 	
-	$('#__format').click(function() {
+	$('#__format_btn').click(function() {
 		Sidebar.show("/static/format.html");
 	});
 	
-	$("#__settings").click(function() {
+	$("#__settings_btn").click(function() {
 		Sidebar.show("/__meta/settings?page=" + encodeURIComponent(location.pathname.substring(1)));
 	});
 	
-	$('#__code').click(function() {
+	$('#__code_btn').click(function() {
 		var pageName = location.pathname.substring(1);
 		location = "/__meta/code?page="+encodeURIComponent(pageName);
 	});

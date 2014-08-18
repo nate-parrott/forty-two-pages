@@ -31,6 +31,13 @@
 				{{rendered | safe}}
 			</div>
 		</div>
+		{% if is_header %}
+		<div>
+			<div id='__header_example_content'>
+				{% include "editing/header_example_content.html" %}
+			</div>
+		</div>
+		{% endif %}
 	</div>
 	<div id='__toolbar'>
 		{% if edit %}

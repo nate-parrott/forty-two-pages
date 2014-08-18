@@ -1,6 +1,7 @@
 import flask, sys
 from app import db
 import pymongo
+from BeautifulSoup import BeautifulSoup as bs
 
 def site():
 	name_for_custom_domain = site_name_if_custom_domain()
@@ -22,3 +23,6 @@ def site_name_if_custom_domain():
 def log(txt):
 	print txt
 	sys.stdout.flush()
+
+def html_has_text(html):
+	return bs(html).text.strip() != ''

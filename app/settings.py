@@ -86,7 +86,7 @@ def settings():
 			BooleanFormField(page, "include_header",
 				label="Show header",
 				type="checkbox",
-				description="The header appears at the top of every page on your site. <a href='/__meta/header?edit'>Edit header</a>"
+				description="The header appears at the top of every page on your site. <a href='/__meta/header?edit' target='_blank'>Edit header</a>"
 			)
 		)
 	

@@ -16,24 +16,29 @@ def page(name = ""):
 		return "index!"
 	site = model.Site.current()
 	page = model.Page(site, name)
+	
 	rendered = page.render()
 	css = page.record.get('css', '')
 	js = page.record.get('js', '')
 	title = page.record['title']
 	edit = "edit" in flask.request.args
 	
-	header = site.header() if page.record.get('include_header', False) and name != '__meta/header' else None
-	if header:
-		header = {
-			"rendered": header.render(),
-			"css": header.record.get('css', ''),
-			"js": header.record.get('js', '')
-		}
+	header = None
+	if page.record.get('include_header', False) and name != '__meta/header':
+		header_model = site.header()
+		if header_model and util.html_has_text(header_model.record.get('source', '')):
+			header = {
+				"rendered": header_model.render(),
+				"css": header_model.record.get('css', ''),
+				"js": header_model.record.get('js', '')
+			}
 	
 	config_classes = []
 	if util.site_name_if_custom_domain() != None:
 		config_classes.append("__config_custom_domain")
-	if name == '__meta/header':
+	
+	is_header = name == '__meta/header'
+	if is_header:
 		config_classes.append("__config_viewing_header")
 	
 	return templ8("page.html", {
@@ -43,5 +48,6 @@ def page(name = ""):
 		"js": js,
 		"config_classes": ' '.join(config_classes),
 		"edit": edit,
-		"header": header
+		"header": header,
+		"is_header": is_header
 	})
