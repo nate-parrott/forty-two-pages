@@ -15,8 +15,6 @@ def site():
 
 def site_name_if_custom_domain():
 	host = flask.request.host
-	if host.startswith('www.'):
-		host = host[4:]
 	site = db.sites.find_one({"custom_domain": host}, sort=[("custom_domain_set_date", pymongo.ASCENDING)])
 	return site['name'] if site else ''
 
