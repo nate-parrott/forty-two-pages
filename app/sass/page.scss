@@ -42,7 +42,7 @@ a {
 #__edit:link:hover {
 	@include transform(rotate(180deg));
 }
-.__config_custom_domain #edit {
+.__config_custom_domain #__edit {
 	display: none;
 }
 img {
