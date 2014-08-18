@@ -18,7 +18,7 @@ class CustomDomainFormField(settings.FormFieldRecordingSetDate):
 def domain():
 	site = model.Site.current()
 	settings = [
-		CustomDomainFormField(model=site, name='custom_domain', label="Your domain:", placeholder="example.com")
+		CustomDomainFormField(model=site, name='custom_domain', label="Your domain:", placeholder="www.example.com", description="This <em>must</em> include the www. or other subdomain, but <em>not</em> http://.")
 	]
 	
 	if flask.request.method == 'POST':
