@@ -28,7 +28,20 @@
 {% include "editing/imageEditing.html" %}
 
 <script>
-$("#__header").click(function() {
-	window.location = '/__meta/header?edit';
-})
+(function() {
+	
+	$("#__header").click(function() {
+		window.location = '/__meta/header?edit';
+	})
+	
+	var container = $('#__content_container').get(0);
+	$(container).click(function(e) {
+		if (e.target == container) {
+			var content = $('#__content').get(0);
+			$(content).focus();
+			Util.moveCursorToEndOfContentEditable(content);
+		}
+	});
+	
+})();
 </script>

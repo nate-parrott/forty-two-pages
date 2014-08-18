@@ -1,5 +1,6 @@
 from app import app, db, templ8
 import flask, util, model
+import permissions
 
 def get_title(page, site):
 	if 'title' in page.record and len(page.record['title']) > 0:
@@ -21,7 +22,7 @@ def page(name = ""):
 	css = page.record.get('css', '')
 	js = page.record.get('js', '')
 	title = page.record['title']
-	edit = "edit" in flask.request.args
+	edit = "edit" in flask.request.args and permissions.can_acting_user_edit_site(site)
 	
 	header = None
 	if page.record.get('include_header', False) and name != '__meta/header':

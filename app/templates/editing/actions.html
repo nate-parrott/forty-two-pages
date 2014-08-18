@@ -42,7 +42,7 @@
 		var dummyPreviewsContainer = $("<div></div").get(0);
 		
 		var url = '/__meta/upload';
-		var fullDropzone = new Dropzone("#__content", {
+		var fullDropzone = new Dropzone("body", {
 			url: url,
 			autoProcessQueue: true,
 			addRemoveLinks: false,
@@ -50,7 +50,7 @@
 			previewsContainer: dummyPreviewsContainer
 		});
 		// disable the full-page dropzone on mousedown inside the page b/c we don't want the dropzone to interfere with internal dragging
-		$("#__content").mousedown(function() {
+		$("body").mousedown(function() {
 			fullDropzone.disable();
 		}).mouseup(function() {
 			fullDropzone.enable();

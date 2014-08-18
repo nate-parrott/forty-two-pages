@@ -75,3 +75,6 @@
 
         body.__config_viewing_header #__content {
           border: 2px dotted gray; }
+
+          #__content_container {
+            cursor: text; }
