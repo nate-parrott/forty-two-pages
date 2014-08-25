@@ -21,7 +21,7 @@ def page(name = ""):
 	source = page.record.get('source', '')
 	rendered = page.render()
 	css = page.record.get('css', '')
-	js = page.record.get('js', '')
+	js = page.record.get('js', '') 
 	title = page.record['title']
 	edit = "edit" in flask.request.args
 	
