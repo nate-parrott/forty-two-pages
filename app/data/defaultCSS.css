@@ -1,0 +1,25 @@
+body {
+	padding-left: 1em;
+	padding-right: 1em;
+	
+	/* limit the page content to 750 pixels wide, with equal margins on each side */
+	max-width: 750px;
+	margin-left: auto;
+	margin-right: auto;
+	
+	font-family: sans-serif;
+	line-height: 1.5em;
+	
+	text-align: center;
+}
+
+a {
+	/* links are dark red */
+	color: #e22;
+}
+
+img {
+	/* images shouldn't be more then 90% of the width of the content */
+	max-width: 90%;
+	height: auto; /* preserve aspect ratio -- don't stretch images */
+}
