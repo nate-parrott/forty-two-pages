@@ -23,7 +23,10 @@ def page(name = ""):
 	css = page.record.get('css', '')
 	js = page.record.get('js', '')
 	title = page.record['title']
-	edit = "edit" in flask.request.args and permissions.can_acting_user_edit_site(site)
+	edit = "edit" in flask.request.args
+	
+	if edit and not permissions.can_acting_user_edit_site(site):
+		return flask.redirect("/__meta/noedit")
 	
 	header = None
 	if page.record.get('include_header', False) and name != '__meta/header':

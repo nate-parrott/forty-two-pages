@@ -1,5 +1,6 @@
 from app import db
 import util
+import os
 
 class MongoObject(object):
 	collection = None
@@ -25,12 +26,18 @@ class Site(MongoObject):
 	def current():
 		return Site(util.site())
 	
+	@staticmethod
+	def exists(name):
+		return db.sites.find_one({"name": name}) != None
+	
 	def __init__(self, name):
 		self.load_record({"name": name})
 	
 	def header(self):
 		return Page(self, '__meta/header')
 
+
+DEFAULT_CSS = open(os.path.join(os.path.dirname(__file__), 'data', 'defaultCSS.css'), 'r').read()
 
 class Page(MongoObject):
 	collection = db.pages
@@ -46,6 +53,7 @@ class Page(MongoObject):
 			self.record['source'] = ""
 		self.record['title'] = page.split('/')[-1] if page!='' else site
 		self.record['include_header'] = True
+		self.record['css'] = DEFAULT_CSS
 	
 	def render(self):
 		return self.record['source']

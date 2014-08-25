@@ -6,6 +6,7 @@ import postmark
 import hashlib
 import os
 import base64
+import json
 
 # use this as a decorator to mark endpoints as requiring that the acting user has edit permision:
 def protected(func):
@@ -21,6 +22,12 @@ def can_acting_user_edit_site(site):
 		return True
 	else:
 		return site.record['name'] in flask.session.get('sites', [])
+
+@app.route('/__meta/can_user_edit_site')
+def can_user_edit_site():
+	site_name = flask.request.args['site']
+	can_edit = (not model.Site.exists(site_name)) or can_acting_user_edit_site(model.Site(site_name))
+	return json.dumps({"can_edit": can_edit})
 
 def give_acting_user_permissions_for_site(site):
 	flask.session['sites'] = list(set(flask.session.get('sites', []) + [site.record['name']]))

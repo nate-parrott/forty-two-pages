@@ -5,10 +5,6 @@ html, body, #__content_container {
 	height: 100%;
 	margin: 0px;
 }
-html {
-	font-family: sans-serif;
-	line-height: 1.5em;
-}
 body.__config_no_header {
 	#__content_container {
 		display: table;
@@ -22,13 +18,6 @@ body.__config_no_header {
 	#__content {
 		vertical-align: middle;
 	}
-}
-#__content_container > div > div {
-	text-align: center;
-	padding: 1em;
-}
-a {
-	color: $trim;
 }
 #__edit:link {
 	position: absolute;
@@ -45,10 +34,6 @@ a {
 }
 .__config_custom_domain #__edit {
 	display: none;
-}
-img {
-	max-width: 90%;
-	height: auto;
 }
 [download-url] {
 	cursor: pointer;
