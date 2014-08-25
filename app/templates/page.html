@@ -17,7 +17,9 @@
 </head>
 
 <body class='{{ config_classes }}'>
-	<a id='__edit' href='javascript:__edit()' nofollow class='icon-cog'></a>
+	{% if not edit %}
+		<a id='__edit' href='?edit' nofollow class='icon-cog'></a>
+	{% endif %}
 	<div id='__content_container'>
 		{% if header %} 
 		<div>
@@ -27,9 +29,15 @@
 		</div>
 		{% endif %}
 		<div>
+			{% if edit %}
+			<div id='__content' contentEditable>
+				{{ source | safe }}
+			</div>
+			{% else %}
 			<div id='__content'>
 				{{rendered | safe}}
 			</div>
+			{% endif %}
 		</div>
 		{% if is_header %}
 		<div>
@@ -43,7 +51,10 @@
 		{% if edit %}
 		{% include "toolbar.html" %}
 		<script>
-		$("#__content").attr({contentEditable: true});
+		(function() {
+			// remove the '?edit' from the URL:
+			window.history.replaceState({}, "", window.location.href.split('?')[0]);
+		})();
 		</script>
 		{% endif %}
 	</div>

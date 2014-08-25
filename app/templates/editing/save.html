@@ -9,8 +9,8 @@
 		var isSaving = ((saveInProgress && !waitingOnThrottle) || savePending);
 		if (isSaving != wasSaving) {
 			wasSaving = isSaving;
-			if (isSaving) Loader.increment();
-			else Loader.decrement();
+			if (isSaving) SaveIndicator.increment();
+			else SaveIndicator.decrement();
 		}
 	}
 	

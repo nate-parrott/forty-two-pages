@@ -1,33 +1,95 @@
-<div id='__loader' style='display: none'>
-	
+<div class="__spinner">
+  <div class="__double-bounce1"></div>
+  <div class="__double-bounce2"></div>
 </div>
 
 <style>
 
-#__loader {
-	position: fixed;
-	bottom: 10px;
-	left: 10px;
-	z-index: 20;
-	background-image: url(/static/ajax-loader.gif);
-	background-size: contain;
-	width: 12px;
-	height: 12px;
+.__spinner {
+	display: none;
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  top: 50%;
+	left: 50%;
+	margin-top: -20px;
+	margin-left: -20px;
+}
+
+.__double-bounce1, .__double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #333;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  -webkit-animation: bounce 2.0s infinite ease-in-out;
+  animation: bounce 2.0s infinite ease-in-out;
+}
+
+.__double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes bounce {
+  0%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
 }
 
 </style>
 
 <script>
+SaveIndicator = {
+	count: 0,
+	increment: function() {
+		SaveIndicator.count++;
+		if (SaveIndicator.count == 1) {
+			SaveIndicator.setLoading(true);
+		}
+	},
+	decrement: function() {
+		SaveIndicator.count--;
+		if (SaveIndicator.count == 0) {
+			SaveIndicator.setLoading(false);
+		}
+	},
+	setLoading: function(loading) {
+		$('#__done_btn').css({opacity: loading? 0.7 : 1}).text(loading? "Saving..." : "Done").attr({disabled: loading});
+	}
+}
 Loader = {
 	count: 0,
 	increment: function() {
 		Loader.count++;
-		$('#__loader').fadeIn();
+		if (Loader.count == 1) {
+			Loader.setLoading(true);
+		}
 	},
 	decrement: function() {
 		Loader.count--;
 		if (Loader.count == 0) {
-			$('#__loader').fadeOut();
+			Loader.setLoading(false);
+		}
+	},
+	setLoading: function(loading) {
+		if (loading) {
+			$('.__spinner').fadeIn();
+		} else {
+			$('.__spinner').fadeOut();
 		}
 	}
 }

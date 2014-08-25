@@ -18,6 +18,7 @@ def page(name = ""):
 	site = model.Site.current()
 	page = model.Page(site, name)
 	
+	source = page.record.get('source', '')
 	rendered = page.render()
 	css = page.record.get('css', '')
 	js = page.record.get('js', '')
@@ -47,7 +48,8 @@ def page(name = ""):
 	
 	return templ8("page.html", {
 		"title": title, 
-		"rendered": rendered, 
+		"rendered": rendered,
+		"source": source, 
 		"css": css, 
 		"js": js,
 		"config_classes": ' '.join(config_classes),

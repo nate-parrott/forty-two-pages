@@ -1,15 +1,15 @@
 <div id='__settings_sidebar'>
 	
 	<form id='__settings_form' action='{{ action_url }}'>
-		<h3>Site settings</h3>
-		{{ site_fields | safe }}
-		<div>
-			<a href='/__meta/domain' target='_blank'>Set up a custom domain</a>
-		</div>
+			<h3>Site settings</h3>
+			{{ site_fields | safe }}
+			<div>
+				<a href='/__meta/domain' target='_blank'>Set up a custom domain</a>
+			</div>
 		
-		<h3>Page settings</h3>
-		{{ page_fields | safe }}
-		<input type='submit' value='Save'/>
+			<h3>Page settings</h3>
+			{{ page_fields | safe }}
+		<input type='submit' value='Save' class='__sidebar_bottom'/>
 	</form>
 
 	<script>
@@ -25,7 +25,8 @@
 					data: $(form).serialize(),
 					success: function(response) {
 						Loader.decrement();
-						$('#__settings_sidebar').replaceWith(response);
+						Sidebar.dismiss();
+						//$('#__settings_sidebar').replaceWith(response);
 					},
 					error: function() {
 						Loader.decrement();
