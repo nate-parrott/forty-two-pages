@@ -36,4 +36,5 @@ import upload
 import settings
 import code_edit
 import custom_domain
+import index
 import page # imported last, because it has a catch-all URL pattern

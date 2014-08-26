@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block body %}
+<h2 style='text-align: center'>
+Every site on 42pag.es
+</h2>
+<p>
+	42pag.es is not responsible for user-generated content created with our tools. If you have an issue, please <a href='http://the.42pag.es/contact'>contact us</a>.
+</p>
+
+<ol>
+	{% for item in items %}
+	<li>
+		<h3>
+			{% if item.title %}
+			{{ item.title }}
+			{% else %}
+			{{ item.name }}
+			{% endif %}
+		</h3>
+		<a href='http://{{ item.name }}.42pag.es'>{{ item.name }}.42pag.es</a>
+	</li>
+	{% endfor %}
+</ol>
+
+<p>
+	{% if prev %} <a href='{{ prev }}'>Previous</a> {% endif %}
+	{% if next %}<a href='{{ next }}'>Next</a> {% endif %}
+</p>
+
+<style>
+ol {
+	list-style-type: none;
+	width: 300px;
+	margin: auto;
+}
+ol > li {
+}
+ol > li > h3 {
+	display: inline-block;
+}
+ol > li:hover {
+	background-color: #eee;
+}
+</style>
+
+
+{% endblock %}
