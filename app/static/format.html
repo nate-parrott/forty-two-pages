@@ -15,10 +15,16 @@
 		<button class='icon-uniE609' title="Bullet list" exec="insertUnorderedList"></button>
 		<button class='icon-uniE608' title="Numbered list" exec="insertOrderedList"></button>
 	</p>
-	<p>
-		<label>
-			
-		</label>
+	<p id='__font_size'>
+		<label>Text size</label>
+		<br/>
+		<button data-size='1'>10</button>
+		<button data-size='2'>12</button>
+		<button data-size='3'>16</button>
+		<button data-size='4'>20</button>
+		<button data-size='5'>24</button>
+		<button data-size='6'>32</button>
+		<button data-size='7'>48</button>
 	</p>
 </div>
 
@@ -32,6 +38,10 @@
 		
 	$('#__format_container *[exec]').click(function(e) {
 		exec($(e.target).attr('exec'), true, null);
+	});
+	
+	$('#__font_size button').click(function(e) {
+		exec("fontSize", true, $(e.target).attr('data-size'));
 	});
 })();
 
