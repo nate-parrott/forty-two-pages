@@ -2,6 +2,7 @@ import flask, sys
 from app import db
 import pymongo
 from BeautifulSoup import BeautifulSoup as bs
+import os
 
 def site():
 	name_for_custom_domain = site_name_if_custom_domain()
@@ -24,3 +25,6 @@ def log(txt):
 
 def html_has_text(html):
 	return bs(html).text.strip() != ''
+
+def data_file(name):
+	return open(os.path.join(os.path.dirname(__file__), 'data', name), 'r').read()

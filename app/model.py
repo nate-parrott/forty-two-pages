@@ -1,15 +1,21 @@
 from app import db
 import util
 import os
+import util
+import settings
+from BeautifulSoup import BeautifulSoup, Tag
 
 class MongoObject(object):
 	collection = None
 	def load_record(self, unique_dict):
 		self.record = self.collection.find_one(unique_dict)
 		if self.record == None:
-			self.record = dict(unique_dict) # copy it
-			self.initialize_record()
-			self.record['_id'] = self.collection.insert(self.record)
+			self.create_record(unique_dict)
+	
+	def create_record(self, unique_dict=None):
+		self.record = dict(unique_dict) if unique_dict else {}
+		self.initialize_record()
+		self.record['_id'] = self.collection.insert(self.record)
 	
 	def initialize_record(self):
 		pass
@@ -37,7 +43,7 @@ class Site(MongoObject):
 		return Page(self, '__meta/header')
 
 
-DEFAULT_CSS = open(os.path.join(os.path.dirname(__file__), 'data', 'defaultCSS.css'), 'r').read()
+DEFAULT_CSS = util.data_file('defaultCSS.css')
 
 class Page(MongoObject):
 	collection = db.pages
@@ -49,7 +55,7 @@ class Page(MongoObject):
 		page = self.record['name']
 		site = self.record['site']
 		name = page if page != '' else site
-		self.record['source'] = "<h1>%s</h1>\n<p>[click the gear to edit]</p>"%(name)
+		self.record['source'] = "<h1>%s</h1>\n<p>[your text here]</p>"%(name)
 		if is_header:
 			self.record['source'] = ""
 		self.record['title'] = page.split('/')[-1] if page!='' else site
@@ -58,4 +64,12 @@ class Page(MongoObject):
 			self.record['css'] = DEFAULT_CSS
 	
 	def render(self):
-		return self.record['source']
+		source = self.record['source']
+		soup = BeautifulSoup(source)
+		for file_element in soup.findAll(attrs={'download-url': True}):
+			tag = Tag(soup, "a")
+			tag['href'] = file_element['download-url']
+			#tag['download'] = file_element['download-url'].split('/')[-1]
+			file_element.replaceWith(tag)
+			tag.insert(0, file_element)
+		return str(soup)

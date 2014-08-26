@@ -7,6 +7,7 @@ import json
 import flask
 from flask import request
 import os
+import util
 
 S3_KEY = "AKIAJKHOHZKDFQEKWPXA"
 S3_SECRET = "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"
@@ -20,7 +21,7 @@ def upload():
 	conn.upload(s3_name, file, "easyaf")
 	return json.dumps({"name": name, "url": "https://s3.amazonaws.com/easyaf/" + s3_name, "mimetype": file.mimetype})
 
-FILE_IMAGE_SVG = open(os.path.join(os.path.dirname(__file__), 'data', 'fileImage.svg'), 'r').read()
+FILE_IMAGE_SVG = util.data_file('fileImage.svg')
 @app.route('/__meta/fileImage/<filename>')
 def file_image(filename):
 	svg = FILE_IMAGE_SVG.replace('<!--filename-->', filename)

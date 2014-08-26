@@ -1,9 +1,8 @@
 body {
-	padding-left: 1em;
-	padding-right: 1em;
 	
 	/* limit the page content to 750 pixels wide, with equal margins on each side */
 	max-width: 750px;
+	width: 90%;
 	margin-left: auto;
 	margin-right: auto;
 	
@@ -23,3 +22,4 @@ img {
 	max-width: 90%;
 	height: auto; /* preserve aspect ratio -- don't stretch images */
 }
+

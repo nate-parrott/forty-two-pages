@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>{{ name }}</h1>
+<div>
+	<form method='POST'>
+		{{ settings_html | safe }}
+		<input type='submit' value='Save'/>
+	</form>
+</div>
+{% endblock %}
