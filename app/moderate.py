@@ -23,7 +23,7 @@ def moderate():
 		elif action == 'Gain edit access':
 			return flask.redirect(permissions.generate_access_url(site, permissions.MASTER_KEY_EMAIL))
 	
-	site = model.Site(site_name) if site_name else None
+	site = model.Site(site_name) if site_name and site_name != '' else None
 	
 	return templ8("moderate.html", {
 		"site": site}
