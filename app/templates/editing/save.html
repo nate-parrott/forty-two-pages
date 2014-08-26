@@ -1,65 +1,116 @@
 <script>
-// responsible for saving the document:
-(function() {
-	var minimumSaveInterval = 2 * 1000;
+function Throttle(options) {
+	var self = {};
+	self.uploadDelay = options.uploadDelay;
+	if (self.uploadDelay == undefined) self.uploadDelay = 400;
+	self.timeBetweenUploads = options.timeBetweenUploads;
+	if (self.timeBetweenUploads == undefined) self.timeBetweenUploads = 1500;
+	self.upload = options.upload;
+	self.setLoading = options.setLoading;
 	
-	var title = document.title;
-	var wasSaving = false;
-	var updateTitle = function() {
-		var isSaving = ((saveInProgress && !waitingOnThrottle) || savePending);
-		if (isSaving != wasSaving) {
-			wasSaving = isSaving;
-			if (isSaving) SaveIndicator.increment();
+	/*
+	This class attempts to uphold the following rules:
+	1. don't upload if the data has changed within the uploadDelay interval
+	2. don't upload with less than timeBetweenUploads time between uploads
+	3. always upload eventually
+	4. exponential backoff in the event of failures (not yet implemented)
+	*/
+	
+	self.uploadingData = null;
+	self.uploadStartTime = null;
+	self.uploadInProgress = false;
+	
+	self.uploadedData = null;
+	self.uploadFinishTime = null;
+		
+	self.currentData = null;
+	self.currentDataTime = Date.now();
+	
+	self.lastFailureTime = null;
+	self.nFailures = 0;
+	
+	self.setData = function(data) {
+		self.currentData = data;
+		self.currentDataTime = Date.now();
+		work();
+	}
+	
+	var work = function() {
+		var backoffWaitTime = self.nFailures > 0 ? Math.pow(2, self.nFailures) * 1000 : 0;
+		if (self.nFailures > 0 && Date.now() - self.lastFailureTime < backoffWaitTime) {
+			setTimeout(work, backoffWaitTime - (Date.now() - self.lastFailureTime));
+		} else {		
+			var needsUpload = self.currentData != self.uploadingData;
+			var finished = self.currentData == self.uploadedData;
+			self.setLoading(!finished);
+			if (needsUpload) {
+				if (Date.now() - self.currentDataTime < self.uploadDelay) {
+					// try again after uploadDelay:
+					setTimeout(work, self.uploadDelay);
+				} else {
+					// we can try to upload now:
+					if (!self.uploadInProgress) {
+						if (Date.now() - self.uploadFinishTime < self.timeBetweenUploads) {
+							// try again after timeBetweenUploads:
+							setTimeout(work, self.timeBetweenUploads);
+						} else {
+							var toUpload = self.currentData;
+							self.uploadingData = toUpload;
+							self.uploadStartTime = Date.now();
+							self.uploadInProgress = true;
+							self.upload(toUpload, function(success) {
+								self.uploadInProgress = false;
+								if (success) {
+									self.uploadedData = toUpload;
+									self.uploadFinishTime = Date.now();
+								} else {
+									self.nFailures++;
+									self.lastFailureTime = Date.now();
+								}
+								work();
+							});
+						}
+					}
+				}
+			}
+		}
+	}
+	return self;
+}
+
+
+// responsible for saving the document:
+(function() {	
+	var wasLoading = false;
+	var setLoading = function(loading) {
+		if (loading != wasLoading) {
+			wasLoading = loading;
+			if (loading) SaveIndicator.increment();
 			else SaveIndicator.decrement();
 		}
 	}
 	
-	var saveInProgress = false;
-	var savePending = false;
-	var nFailures = 0;
-	var waitingOnThrottle = false;
-	var save = function() {
-		var requestStartTime = new Date();
-		if (saveInProgress) {
-			savePending = true;
-			updateTitle();
-		} else {
-			saveInProgress = true;
-			updateTitle();
-			savePending = false;
+	var throttle = Throttle({
+		setLoading: setLoading,
+		upload: function(data, callbackWithSuccess) {
 			$.ajax({
 				url: '/__meta/save'+location.pathname,
 				type: 'POST',
-				data: {source: $('#__content').html()},
+				data: {source: data},
 				success: function() {
-					nFailures = 0;
-					var finish = function() {
-						saveInProgress = false;
-						waitingOnThrottle = false;
-						updateTitle();
-						if (savePending) {
-							save();
-						}
-					}
-					var wait = minimumSaveInterval - (new Date() - requestStartTime);
-					if (wait <= 0) {
-						finish();
-					} else {
-						waitingOnThrottle = true;
-						updateTitle();
-						setTimeout(finish, wait);
-					}
+					callbackWithSuccess(true);
 				},
 				error: function() {
-					nFailures++;
-					setTimeout(function() {
-						saveInProgress = false;
-						save();
-					}, Math.pow(2, nFailures)); // exponential backoff
+					callbackWithSuccess(false);
 				}
-			})
+			});
 		}
+	});
+	
+	var save = function() {
+		throttle.setData($('#__content').html());
 	}
+	
 	$('#__content').bind("input", function() {
 		save();
 	});
