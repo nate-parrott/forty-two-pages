@@ -39,6 +39,18 @@ else:
 db.sites.ensure_index("name", background=True)
 db.pages.ensure_index("name", background=True)
 
+# memcached:
+import bmemcached
+if 'MEMCACHIER_SERVERS' in os.environ:
+	mc_servers = os.environ['MEMCACHIER_SERVERS'].split(',')
+	mc_username = os.environ['MEMCACHIER_USERNAME']
+	mc_password = os.environ['MEMCACHIER_PASSWORD']
+else:
+	mc_servers = ['mc5.dev.ec2.memcachier.com:11211']
+	mc_username = 'fccd85'
+	mc_password = 'd30cef12a0'
+memcached = bmemcached.Client(mc_servers, mc_username, mc_password)
+
 # import pages:
 import edit
 import upload

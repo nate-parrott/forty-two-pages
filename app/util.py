@@ -1,5 +1,5 @@
 import flask, sys
-from app import db
+from app import db, memcached
 import pymongo
 from BeautifulSoup import BeautifulSoup as bs
 import os
@@ -28,3 +28,16 @@ def html_has_text(html):
 
 def data_file(name):
 	return open(os.path.join(os.path.dirname(__file__), 'data', name), 'r').read()
+
+def cache_it(func, get_key):
+	def cache(*args, **kwargs):
+		key = get_key(*args, **kwargs)
+		cached = memcached.get(key) if key else None
+		if cached:
+			log("Served %s from cache! (key: %s)"%flask.request.url, key)
+			return cached
+		else:
+			result = func(*args, **kwargs)
+			if key:
+				memcached.set(key, result)
+			return result

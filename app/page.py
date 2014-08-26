@@ -10,11 +10,19 @@ def get_title(page, site):
 	else:
 		return page.record['name'].split('/')[-1]
 
+def cache_key_for_page_request(name = ""):
+	if 'edit' in flask.request.args:
+		return None
+	site = util.site()
+	return "page "+name+" on "+name
+
+#@util.cache_it(cache_key_for_page_request) # don't use, doesn't handle invalidation
 @app.route('/')
 @app.route('/<path:name>')
 def page(name = ""):
 	if util.site() == None:
 		return "index!"
+		
 	site = model.Site.current()
 	page = model.Page(site, name)
 	

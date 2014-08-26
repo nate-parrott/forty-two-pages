@@ -11,6 +11,7 @@ newrelic==2.26.2.24
 parsedatetime==1.2
 pyScss==1.2.0.post3
 pymongo==2.6.3
+python-binary-memcached==0.24.2
 python-postmark==0.4.3
 requests==2.2.1
 sendgrid==0.3.7
