@@ -34,10 +34,10 @@ class Site(MongoObject):
 	
 	@staticmethod
 	def exists(name):
-		return db.sites.find_one({"name": name}) != None
+		return db.sites.find_one({"name": name.lower()}) != None
 	
 	def __init__(self, name):
-		self.load_record({"name": name})
+		self.load_record({"name": name.lower()})
 	
 	def header(self):
 		return Page(self, '__meta/header')
@@ -72,4 +72,4 @@ class Page(MongoObject):
 			#tag['download'] = file_element['download-url'].split('/')[-1]
 			file_element.replaceWith(tag)
 			tag.insert(0, file_element)
-		return str(soup)
+		return unicode(soup)
