@@ -45,15 +45,17 @@ class Page(MongoObject):
 		self.load_record({"site": site.record['name'], "name": page})
 	
 	def initialize_record(self):
+		is_header = (self.record['name'] == '__meta/header')
 		page = self.record['name']
 		site = self.record['site']
 		name = page if page != '' else site
 		self.record['source'] = "<h1>%s</h1>\n<p>[click the gear to edit]</p>"%(name)
-		if self.record['name'] == '__meta/header':
+		if is_header:
 			self.record['source'] = ""
 		self.record['title'] = page.split('/')[-1] if page!='' else site
 		self.record['include_header'] = True
-		self.record['css'] = DEFAULT_CSS
+		if not is_header:
+			self.record['css'] = DEFAULT_CSS
 	
 	def render(self):
 		return self.record['source']
