@@ -13,12 +13,21 @@ body > div > div {
 <form action='' method='POST'>
 <div>
 	<label>Site:</label>
-	<input type='text' name='site' value='{{ site }}'/>
+	<input type='text' name='site' value='{{ site.record.name }}'/>
 	<em>This the subdomain of the site; e.g. for http://pikachu.42pag.es, the site name would be 'pikachu'.</em>
 </div>
+{% if site %}
 <div>
-	<input type='submit' name='action' value='Delete'/>
+	<h3>Site info</h3>
+	<p>
+		<strong>Emails:</strong> {{ site.record.emails_that_can_edit }}
+	</p>
+</div>
+{% endif %}
+<div>
+	<input type='submit' name='action' value='Reveal info'/>
 	<input type='submit' name='action' value='Gain edit access'/>
+	<input type='submit' name='action' value='Delete'/>
 </div>
 </form>
 

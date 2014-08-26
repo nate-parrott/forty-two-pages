@@ -10,6 +10,8 @@ def moderate():
 	if util.site() != 'moderator':
 		return flask.redirect('http://moderator.42pag.es/__meta/moderate')
 	
+	site_name = flask.request.args.get('site', None)
+	
 	if flask.request.method=='POST':
 		site_name = flask.request.form.get('site', '')
 		site = model.Site(site_name)
@@ -21,4 +23,8 @@ def moderate():
 		elif action == 'Gain edit access':
 			return flask.redirect(permissions.generate_access_url(site, permissions.MASTER_KEY_EMAIL))
 	
-	return templ8("moderate.html", {"site": flask.request.args.get('site', '')})
+	site = model.Site(site_name) if site_name else None
+	
+	return templ8("moderate.html", {
+		"site": site}
+		)
