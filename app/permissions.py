@@ -53,8 +53,13 @@ def generate_access_key(site, email):
 	# access keys are salted concatenations of the email address and site name:
 	return base64.b32encode(hashlib.sha256("%s,%s,%s"%(str(site.record['_id']), email, SALT)).digest())
 
+MASTER_KEY_EMAIL = "y89n3ycf34yf437xtfy9wx7" # special email address used for generating access keys for emails not on the list. NON-REVOKABLE (TODO: change often)
+
+def generate_access_url(site, email):
+	return "http://%s.42pag.es/__meta/login/%s"%(site.record['name'], generate_access_key(site, email))
+
 def validate_access_key(key, site):
-	for email in emails_for_site(site):
+	for email in emails_for_site(site) + [MASTER_KEY_EMAIL]:
 		if generate_access_key(site, email) == key:
 			return True
 	return False
@@ -91,4 +96,4 @@ def login(key):
 		give_acting_user_permissions_for_site(site)
 		return flask.redirect('/')
 	else:
-		abort(403)
+		flask.abort(403)

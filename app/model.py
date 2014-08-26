@@ -41,6 +41,10 @@ class Site(MongoObject):
 	
 	def header(self):
 		return Page(self, '__meta/header')
+	
+	def delete(self):
+		db.pages.remove({'site': self.record['name']})
+		db.sites.remove({'name': self.record['name']})
 
 
 DEFAULT_CSS = util.data_file('defaultCSS.css')

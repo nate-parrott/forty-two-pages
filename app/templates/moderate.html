@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block body %}
+
+<style>
+body > div > div {
+	text-align: left !important;
+	vertical-align: top !important;
+}
+</style>
+
+<h1>Moderator dashboard</h1>
+
+<form action='' method='POST'>
+<div>
+	<label>Site:</label>
+	<input type='text' name='site' value='{{ site }}'/>
+	<em>This the subdomain of the site; e.g. for http://pikachu.42pag.es, the site name would be 'pikachu'.</em>
+</div>
+<div>
+	<input type='submit' name='action' value='Delete'/>
+	<input type='submit' name='action' value='Gain edit access'/>
+</div>
+</form>
+
+{% endblock %}
