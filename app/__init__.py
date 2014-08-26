@@ -1,6 +1,8 @@
 import os
 from flask import Flask
 import pymongo
+import newrelic.agent
+newrelic.agent.initialize('newrelic.ini')
 
 class Flask42(Flask):
     def get_send_file_max_age(self, name):
@@ -30,6 +32,8 @@ if 'MONGOHQ_URL' in os.environ:
 	db = pymongo.MongoClient(os.environ['MONGOHQ_URL']).app28469442
 else:
 	db = pymongo.MongoClient().fortytwo
+db.sites.ensure_index("name", background=True)
+db.pages.ensure_index("name", background=True)
 
 import edit
 import upload
