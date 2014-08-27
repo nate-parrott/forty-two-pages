@@ -80,3 +80,6 @@
               #__undo_btn {
                 display: none;   }
 }
+
+#__done_btn {
+  min-width: 73px; }

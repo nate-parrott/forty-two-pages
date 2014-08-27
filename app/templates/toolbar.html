@@ -16,6 +16,7 @@
 		<h6>Edit</h6>
 		<button id='__format_btn' class='icon-tools'>Format</button>
 		<button id='__code_btn' class='icon-code'>Code</button>
+		<button id='__lock_btn' {% if locked %} class='icon-lock' {% else %} class='icon-lock-open' {% endif %}></button>
 	</div>
 </div>
 
@@ -44,10 +45,11 @@
 	});
 	
 	if (window.navigator.userAgent.indexOf(/(iPhone|iPad|iPod)/) != -1) {
+		/*  fixed-position bars don't work while the keyboard is up on ios, so just hide them */
 		$("#__content").focus(function() {
-		
+			$("#__toolbar").hide();
 		}).blur(function() {
-		
+			$("#__toolbar").show();
 		})
 	};
 	

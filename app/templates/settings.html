@@ -24,9 +24,12 @@
 					type: 'POST',
 					data: $(form).serialize(),
 					success: function(response) {
+						// upload lock icon:
+						var locked = $("#__field_emails_that_can_edit").val().length > 0;
+						$("#__lock_btn").removeClass('icon-lock').removeClass('icon-lock-open').addClass(locked ? 'icon-lock' : 'icon-lock-open');
+						
 						Loader.decrement();
 						Sidebar.dismiss();
-						//$('#__settings_sidebar').replaceWith(response);
 					},
 					error: function() {
 						Loader.decrement();

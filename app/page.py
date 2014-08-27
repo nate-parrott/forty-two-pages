@@ -67,5 +67,6 @@ def page(name = ""):
 		"config_classes": ' '.join(config_classes),
 		"edit": edit,
 		"header": header,
-		"is_header": is_header
+		"is_header": is_header,
+		"locked": len(permissions.emails_for_site(site)) > 0
 	})

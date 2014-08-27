@@ -105,6 +105,12 @@
 		location = "/__meta/code?page="+encodeURIComponent(pageName);
 	});
 	
+	$("#__lock_btn").click(function() {
+		Sidebar.show("/__meta/settings?page=" + encodeURIComponent(location.pathname.substring(1)), function() {
+			$("#__field_emails_that_can_edit").focus();
+		});
+	})
+	
 })();
 
 </script>

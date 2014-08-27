@@ -2,7 +2,7 @@
 
 Sidebar = {
 	current: null,
-	show: function(url) {
+	show: function(url, callback) { // callback is optional
 		$.ajax({
 			url: url,
 			success: function(response) {
@@ -13,6 +13,7 @@ Sidebar = {
 				}).get(0);
 				$(content).append(close).appendTo(document.body);
 				Sidebar.current = content;
+				if (callback) callback();
 			}
 		})
 	},

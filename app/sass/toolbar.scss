@@ -86,3 +86,7 @@ body.__config_viewing_header #__content {
 		display: none;
 	}
 }
+
+#__done_btn {
+	min-width: 73px; /* so that it doesn't shift the layout when we change the text to 'saving...' */
+}
