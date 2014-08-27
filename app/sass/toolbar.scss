@@ -11,19 +11,17 @@
 .__icons {
 	position: fixed;
 	top: 0px;
-	right: 0px;
-	height: 100%;
-	width: 90px;
-	padding-right: 10px;
+	left: 0px;
+	width: 100%;
 	background-color: rgba(255,255,255,0.9);
 	z-index: 10;
-	text-align: right;
-	display: table;
-	overflow: scroll;
+	text-align: center;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	white-space: nowrap;
 }
 .__icons > div {
-	display: table-cell;
-	vertical-align: middle;
+	
 }
 
 .__icons {
@@ -34,7 +32,7 @@
 		color: $trim;
 		height: 40px;
 		outline: none;
-		width: 100%;
+		padding: 0.4em;
 		-webkit-tap-highlight-color: transparent;
 		text-align: right;
 	}
@@ -48,6 +46,8 @@
 	h6 {
 		font-weight: normal;
 		color: gray;
+		display: inline-block;
+		display: none;
 	}
 }
 
@@ -78,4 +78,11 @@ body.__config_viewing_header #__content {
 }
 #__content_container {
 	cursor: text;
+}
+
+/* hide undo button unless on mobile */
+@media screen and (min-width: 500px) {
+	#__undo_btn {
+		display: none;
+	}
 }
