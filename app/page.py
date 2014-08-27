@@ -21,7 +21,7 @@ def cache_key_for_page_request(name = ""):
 @app.route('/<path:name>')
 def page(name = ""):
 	if util.site() == None:
-		return "index!"
+		return flask.redirect('http://42pag.es')
 		
 	site = model.Site.current()
 	page = model.Page(site, name)
