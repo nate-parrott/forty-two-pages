@@ -53,6 +53,7 @@ def page(name = ""):
 	is_header = name == '__meta/header'
 	if is_header:
 		config_classes.append("__config_viewing_header")
+		css = model.DEFAULT_CSS
 	
 	if header == None and not is_header:
 		config_classes.append("__config_no_header")
