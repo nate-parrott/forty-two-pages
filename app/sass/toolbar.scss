@@ -57,7 +57,7 @@
 }
 #__header:before {
 	position: absolute;
-	top: 10px;
+	top: 50px;
 	left: 0px;
 	width: 100%;
 	font-weight: bold;
@@ -65,6 +65,12 @@
 	content: "edit header";
 	opacity: 0;
 	@include transition(opacity 0.7s ease);
+	color: $trim;
+	text-shadow:
+	   -1px -1px 0 white,  
+	    1px -1px 0 white,
+	    -1px 1px 0 white,
+	     1px 1px 0 white;
 }
 #__header:hover {
 	opacity: 1;
@@ -89,4 +95,8 @@ body.__config_viewing_header #__content {
 
 #__done_btn {
 	min-width: 73px; /* so that it doesn't shift the layout when we change the text to 'saving...' */
+}
+
+body.__config_viewing_header {
+	padding-top: 50px;
 }

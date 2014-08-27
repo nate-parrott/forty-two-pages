@@ -51,7 +51,7 @@
 
   #__header:before {
     position: absolute;
-    top: 10px;
+    top: 50px;
     left: 0px;
     width: 100%;
     font-weight: bold;
@@ -61,7 +61,9 @@
     -webkit-transition: opacity 0.7s ease;
     -moz-transition: opacity 0.7s ease;
     -o-transition: opacity 0.7s ease;
-    transition: opacity 0.7s ease; }
+    transition: opacity 0.7s ease;
+    color: #e22;
+    text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white; }
 
     #__header:hover {
       opacity: 1;
@@ -83,3 +85,6 @@
 
 #__done_btn {
   min-width: 73px; }
+
+  body.__config_viewing_header {
+    padding-top: 50px; }

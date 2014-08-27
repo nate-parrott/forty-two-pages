@@ -52,6 +52,8 @@ def page(name = ""):
 	
 	is_header = name == '__meta/header'
 	if is_header:
+		if not edit:
+			return flask.redirect('/')
 		config_classes.append("__config_viewing_header")
 		css = model.DEFAULT_CSS
 	

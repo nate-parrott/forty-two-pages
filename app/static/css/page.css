@@ -37,3 +37,6 @@ html, body, #__content_container {
       #__header_example_content {
         opacity: 0.5;
         cursor: not-allowed; }
+
+        #__header {
+          padding-top: 1em; }
