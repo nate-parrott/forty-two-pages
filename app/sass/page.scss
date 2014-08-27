@@ -5,19 +5,17 @@ html, body, #__content_container {
 	height: 100%;
 	margin: 0px;
 }
-body.__config_no_header {
-	#__content_container {
-		display: table;
-	}
-	#__content_container > div {
-		display: table-row;
-	}
-	#__content_container > div > div {
-		display: table-cell;
-	}
-	#__content {
-		vertical-align: middle;
-	}
+#__content_container {
+	display: table;
+}
+#__content_container > div {
+	display: table-row;
+}
+#__content_container > div > div {
+	display: table-cell;
+}
+#__content {
+	vertical-align: middle;
 }
 #__edit:link {
 	position: absolute;
@@ -34,11 +32,4 @@ body.__config_no_header {
 }
 .__config_custom_domain #__edit {
 	display: none;
-}
-#__header_example_content {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
-#__header {
-	padding-top: 1em;
 }

@@ -86,14 +86,6 @@ def settings():
 	page_fields = [
 		FormField(page, "title", "Title"),
 	]
-	if page_name != '__meta/header' and False: # turned off for now
-		page_fields.append(
-			BooleanFormField(page, "include_header",
-				label="Show header",
-				type="checkbox",
-				description="The header appears at the top of every page on your site. <a href='/__meta/header?edit' target='_blank'>Edit header</a>"
-			)
-		)
 	
 	if request.method == 'POST':
 		permissions.give_acting_user_permissions_for_site(site) # in case the user modifies settings and locks themselves out

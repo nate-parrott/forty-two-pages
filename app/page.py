@@ -36,29 +36,9 @@ def page(name = ""):
 	if edit and not permissions.can_acting_user_edit_site(site):
 		return flask.redirect("/__meta/noedit")
 	
-	header = None
-	if page.record.get('include_header', False) and name != '__meta/header':
-		header_model = site.header()
-		if header_model and util.html_has_text(header_model.record.get('source', '')):
-			header = {
-				"rendered": header_model.render(),
-				"css": header_model.record.get('css', ''),
-				"js": header_model.record.get('js', '')
-			}
-	
 	config_classes = []
 	if util.site_name_if_custom_domain() != None:
 		config_classes.append("__config_custom_domain")
-	
-	is_header = name == '__meta/header'
-	if is_header:
-		if not edit:
-			return flask.redirect('/')
-		config_classes.append("__config_viewing_header")
-		css = model.DEFAULT_CSS
-	
-	if header == None and not is_header:
-		config_classes.append("__config_no_header")
 	
 	return templ8("page.html", {
 		"title": title, 
@@ -68,7 +48,5 @@ def page(name = ""):
 		"js": js,
 		"config_classes": ' '.join(config_classes),
 		"edit": edit,
-		"header": header,
-		"is_header": is_header,
 		"locked": len(permissions.emails_for_site(site)) > 0
 	})

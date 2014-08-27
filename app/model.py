@@ -39,9 +39,6 @@ class Site(MongoObject):
 	def __init__(self, name):
 		self.load_record({"name": name.lower()})
 	
-	def header(self):
-		return Page(self, '__meta/header')
-	
 	def delete(self):
 		db.pages.remove({'site': self.record['name']})
 		db.sites.remove({'name': self.record['name']})
@@ -55,17 +52,12 @@ class Page(MongoObject):
 		self.load_record({"site": site.record['name'], "name": page})
 	
 	def initialize_record(self):
-		is_header = (self.record['name'] == '__meta/header')
 		page = self.record['name']
 		site = self.record['site']
 		name = page if page != '' else site
 		self.record['source'] = "<h1>%s</h1>\n<p>[your text here]</p>"%(name)
-		if is_header:
-			self.record['source'] = ""
 		self.record['title'] = page.split('/')[-1] if page!='' else site
-		self.record['include_header'] = True
-		if not is_header:
-			self.record['css'] = DEFAULT_CSS
+		self.record['css'] = DEFAULT_CSS
 	
 	def render(self):
 		source = self.record['source']

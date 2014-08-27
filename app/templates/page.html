@@ -21,7 +21,6 @@
 
 	</script>
 	
-	{% if header %} <style> {{ header.css | safe }} </style> {% endif %}
 	<style>{{ css | safe }}</style>
 </head>
 
@@ -30,13 +29,6 @@
 		<a id='__edit' href='?edit' nofollow class='icon-cog'></a>
 	{% endif %}
 	<div id='__content_container'>
-		{% if header %} 
-		<div>
-			<div id='__header'>
-				{{ header.rendered | safe }}
-			</div>
-		</div>
-		{% endif %}
 		<div>
 			{% if edit %}
 			<div id='__content' contentEditable>
@@ -48,13 +40,6 @@
 			</div>
 			{% endif %}
 		</div>
-		{% if is_header %}
-		<div>
-			<div id='__header_example_content'>
-				{% include "editing/header_example_content.html" %}
-			</div>
-		</div>
-		{% endif %}
 	</div>
 	<div id='__toolbar'>
 		{% if edit %}
