@@ -4,23 +4,39 @@ import os
 import util
 import settings
 from BeautifulSoup import BeautifulSoup, Tag
+import datetime
 
 class MongoObject(object):
 	collection = None
+	lazy = False # lazy objects are not created until update() is called. they may not have '_id' values
 	def load_record(self, unique_dict):
 		self.record = self.collection.find_one(unique_dict)
 		if self.record == None:
 			self.create_record(unique_dict)
 	
+	def id(self):
+		self.insert_record_if_needed()
+		return self.record['_id']
+	
 	def create_record(self, unique_dict=None):
 		self.record = dict(unique_dict) if unique_dict else {}
 		self.initialize_record()
-		self.record['_id'] = self.collection.insert(self.record)
+		if not self.lazy:
+			self.insert_record_if_needed()
+	
+	def insert_record_if_needed(self):
+		if '_id' not in self.record:
+			util.log("INSERTING RECORD " + str(self.record))
+			self.record['_id'] = self.collection.insert(self.record)
 	
 	def initialize_record(self):
-		pass
+		self.record['created'] = datetime.datetime.now()
+		self.record['last_updated'] = datetime.datetime.now()
 	
 	def update(self, dictionary):
+		self.insert_record_if_needed()
+		dictionary = dict(dictionary)
+		dictionary['last_updated'] = datetime.datetime.now()
 		self.collection.update({"_id": self.record['_id']}, {"$set": dictionary})
 		for k, v in dictionary.iteritems():
 			self.record[k] = v
@@ -48,7 +64,8 @@ DEFAULT_CSS = util.data_file('defaultCSS.css')
 
 class Page(MongoObject):
 	collection = db.pages
-	def __init__(self, site, page):
+	def __init__(self, site, page, lazy=False):
+		self.lazy = lazy
 		self.load_record({"site": site.record['name'], "name": page})
 	
 	def initialize_record(self):

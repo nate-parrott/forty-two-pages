@@ -1,0 +1,28 @@
+<ul id='__themes_list'>
+	{% for theme in themes %}
+	<li style='background-image: url(/__meta/theme/{{ theme.name }}/thumbnail)'>
+		<div> {{ theme.name }}</div>
+	</li>
+	{% endif %}
+</ul>
+
+<style>
+
+#__themes_list {
+	white-space: nowrap;
+	padding: 0;
+}
+#__themes_list > li {
+	display: inline-block;
+	margin: 1em;
+	width: 70px;
+	position: relative;
+}
+#__themes_list > li > div {
+	text-align: center;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+}
+
+</style>

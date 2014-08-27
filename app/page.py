@@ -1,6 +1,7 @@
 from app import app, db, templ8
 import flask, util, model
 import permissions
+import themes
 
 def get_title(page, site):
 	if 'title' in page.record and len(page.record['title']) > 0:
@@ -22,16 +23,26 @@ def cache_key_for_page_request(name = ""):
 def page(name = ""):
 	if util.site() == None:
 		return flask.redirect('http://42pag.es')
+	
+	edit = "edit" in flask.request.args
+	
+	is_theme_editor = name=='/__meta/theme'
+	if is_theme_editor:
+		if not edit:
+			return flask.redirect('/__meta/theme?edit')
+		theme_list_code = themes.theme_list()
+	else:
+		theme_list_code = None
+	
 		
 	site = model.Site.current()
-	page = model.Page(site, name)
+	page = model.Page(site, name, lazy=True)
 	
 	source = page.record.get('source', '')
 	rendered = page.render()
 	css = page.record.get('css', '')
 	js = page.record.get('js', '') 
 	title = page.record['title']
-	edit = "edit" in flask.request.args
 	
 	if edit and not permissions.can_acting_user_edit_site(site):
 		return flask.redirect("/__meta/noedit")
@@ -48,5 +59,7 @@ def page(name = ""):
 		"js": js,
 		"config_classes": ' '.join(config_classes),
 		"edit": edit,
-		"locked": len(permissions.emails_for_site(site)) > 0
+		"locked": len(permissions.emails_for_site(site)) > 0,
+		"is_theme_editor": is_theme_editor,
+		"theme_list_code": theme_list_code
 	})

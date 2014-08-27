@@ -41,22 +41,26 @@
 			{% endif %}
 		</div>
 	</div>
-	<div id='__toolbar'>
-		{% if edit %}
-		{% include "toolbar.html" %}
+	{% if edit %}
+		<div id='__toolbar'>
+			{% include "toolbar.html" %}
+		</div>
+		{% if is_theme_editor %}
+			<div id='__theme_list'>
+				{{ theme_list_code | safe }}
+			</div>
+		{% endif %}
 		<script>
 		(function() {
 			// remove the '?edit' from the URL:
 			window.history.replaceState({}, "", window.location.href.split('?')[0]);
 		})();
 		</script>
-		{% endif %}
-	</div>
-	
-	{% if header %} <script> {{ header.js | safe }} </script> {% endif %}
-	<script>
-	{{ js | safe }}
-	</script>
-	
+	{% endif %}
+	{% if not edit %}
+		<script>
+		{{ js | safe }}
+		</script>
+	{% endif %}
 </body>
 </html>

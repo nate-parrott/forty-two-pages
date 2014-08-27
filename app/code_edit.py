@@ -18,7 +18,11 @@ def code_edit():
 		return templ8("code_edit.html", {"source": source, "css": css, "js": js, "page_name": page_name, "site_name": site_name})
 	elif flask.request.method == 'POST':
 		form = flask.request.form
-		page.update({"source": form['source'], "css": form['css'], "js": form['js']})
+		update_dict = {}
+		for key in ['source', 'css', 'js']:
+			if key in form:
+				update_dict[key] = form[key]
+		page.update(update_dict)
 		return json.dumps({"success": True})
 
 @app.route('/__meta/blank')
