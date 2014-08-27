@@ -86,7 +86,7 @@ def settings():
 	page_fields = [
 		FormField(page, "title", "Title"),
 	]
-	if page_name != '__meta/header':
+	if page_name != '__meta/header' and False: # turned off for now
 		page_fields.append(
 			BooleanFormField(page, "include_header",
 				label="Show header",
