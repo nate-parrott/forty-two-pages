@@ -1,4 +1,4 @@
-from app import app, db, templ8
+from app import app, db, templ8, limiter
 import flask, util, model
 import permissions
 import themes
@@ -44,12 +44,11 @@ def page(name = ""):
 		theme = page.theme().record
 	
 	source = page.record.get('source', '')
-	rendered = page.render()
 	css = page.record.get('css', '')
 	js = page.record.get('js', '') 
 	title = page.record['title']
 	
-	page_code = page.render(preserve_source=edit)
+	page_code = page.render(edit, preserve_source=edit)
 	
 	if edit and not permissions.can_acting_user_edit_site(site):
 		return flask.redirect("/__meta/noedit")

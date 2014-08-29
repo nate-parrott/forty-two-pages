@@ -1,4 +1,4 @@
-from app import app, db, templ8
+from app import app, db, templ8, limiter
 import flask
 import model
 import re
@@ -69,6 +69,7 @@ def validate_access_key(key, site):
 	return False
 
 @app.route('/__meta/noedit', methods=["GET", "POST"])
+@limiter.limit("20/hour; 50/day")
 def noedit():
 	site = model.Site.current()
 	owners = emails_for_site(site)

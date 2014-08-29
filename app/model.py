@@ -97,15 +97,16 @@ class Page(MongoObject):
 		text = text.replace(magic_string, "<div id='__content'>" + self.record['source'] + "</div>")
 		return text
 	
-	def render(self, preserve_source=False):
+	def render(self, editing, preserve_source=False):
 		wrapped_source = self.wrap_source_with_theme(preserve_source=preserve_source)
 		soup = BeautifulSoup(wrapped_source)
-		for file_element in soup.findAll(attrs={'download-url': True}):
-			tag = Tag(soup, "a")
-			tag['href'] = file_element['download-url']
-			#tag['download'] = file_element['download-url'].split('/')[-1]
-			file_element.replaceWith(tag)
-			tag.insert(0, file_element)
+		if not editing:
+			for file_element in soup.findAll(attrs={'download-url': True}):
+				tag = Tag(soup, "a")
+				tag['href'] = file_element['download-url']
+				#tag['download'] = file_element['download-url'].split('/')[-1]
+				file_element.replaceWith(tag)
+				tag.insert(0, file_element)
 		return unicode(soup)
 	
 	def theme(self):

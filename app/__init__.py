@@ -1,4 +1,4 @@
-import os
+import os, logging
 
 # new relic:
 import newrelic.agent
@@ -51,6 +51,11 @@ else:
 	mc_username = 'fccd85'
 	mc_password = 'd30cef12a0'
 memcached = bmemcached.Client(mc_servers, mc_username, mc_password)
+
+# rate limiting:
+from flask_limiter import Limiter
+limiter = Limiter(app, global_limits=["3 per second"])
+limiter.logger.addHandler(logging.StreamHandler())
 
 # import pages:
 import edit
