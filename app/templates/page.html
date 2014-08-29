@@ -54,6 +54,11 @@
 			{% endif %}
 			// make it editable:
 			$(window.EditableElement).attr({contentEditable: true});
+			
+			if (window.innerWidth <= 600 && !localStorage.__smallScreenWarningDisplayed) {
+				alert("The 42pag.es editor doesn't work great on small screens, but you're welcome to give it a shot. It's much better on a computer.");
+				localStorage.__smallScreenWarningDisplayed = true;
+			}
 		})();
 		</script>
 		
