@@ -32,7 +32,7 @@
 
 (function() {
 	var exec = function(command, showDefaultUI, value) {
-		$("#__content").focus();
+		$(window.EditableElement).focus();
 		document.execCommand(command, showDefaultUI, value);
 	}
 		

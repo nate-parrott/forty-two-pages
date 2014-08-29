@@ -1,4 +1,4 @@
-#__content {
+#__content, #__theme_root {
   outline: none; }
 
   #__toolbar {
@@ -75,16 +75,23 @@
         body.__config_viewing_header #__content {
           border: 2px dotted gray; }
 
-          #__content_container {
-            cursor: text; }
-
-            @media screen and (min-width: 500px) {
-              #__undo_btn {
-                display: none;   }
+          @media screen and (min-width: 500px) {
+            #__undo_btn {
+              display: none;   }
 }
 
 #__done_btn {
   min-width: 73px; }
 
-  body.__config_viewing_header {
-    padding-top: 50px; }
+  body.__config_edit_mode #__theme_root {
+    cursor: not-allowed; }
+
+    body.__config_edit_mode #__content {
+      cursor: text; }
+
+      body.__config_edit_mode.__config_theme_page #__theme_root {
+        cursor: text; }
+
+        #__content {
+          outline: none;
+          border: 1px dashed rgba(0, 0, 0, 0.5); }

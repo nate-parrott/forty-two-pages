@@ -1,6 +1,6 @@
 @import 'util';
 
-#__content {
+#__content, #__theme_root {
 	outline: none;
 }
 #__toolbar {
@@ -82,9 +82,6 @@
 body.__config_viewing_header #__content {
 	border: 2px dotted gray;
 }
-#__content_container {
-	cursor: text;
-}
 
 /* hide undo button unless on mobile */
 @media screen and (min-width: 500px) {
@@ -97,6 +94,16 @@ body.__config_viewing_header #__content {
 	min-width: 73px; /* so that it doesn't shift the layout when we change the text to 'saving...' */
 }
 
-body.__config_viewing_header {
-	padding-top: 50px;
+body.__config_edit_mode #__theme_root {
+	cursor: not-allowed;
+}
+body.__config_edit_mode #__content {
+	cursor: text;
+}
+body.__config_edit_mode.__config_theme_page #__theme_root {
+	cursor: text;
+}
+#__content {
+	outline: none;
+	border: 1px dashed rgba(0,0,0,0.5);
 }

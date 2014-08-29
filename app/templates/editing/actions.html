@@ -4,12 +4,16 @@
 
 (function() {
 	var exec = function(command, showDefaultUI, value) {
-		$("#__content").focus();
+		$(window.EditablElement).focus();
 		document.execCommand(command, showDefaultUI, value);
 	}
 	
 	$('#__done_btn').click(function() {
-		window.location = window.location.href.split('?')[0]; // reload page
+		if (window.location.pathname=='/theme') {
+			window.location = '/';
+		} else {
+			window.location = window.location.href.split('?')[0]; // reload page
+		}
 	});
 
 	$('#__undo_btn').click(function() {

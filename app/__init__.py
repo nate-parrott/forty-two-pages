@@ -5,6 +5,7 @@ import newrelic.agent
 newrelic.agent.initialize('newrelic.ini')
 
 # flask:
+import flask
 from flask import Flask
 class Flask42(Flask):
     def get_send_file_max_age(self, name):
@@ -60,4 +61,9 @@ import custom_domain
 import index
 import moderate
 import themes
+
+@app.route('/__meta/<path:name>')
+def meta_catchall(name):
+	flask.abort(404) # prevent a page render on unknown meta pages
+
 import page # imported last, because it has a catch-all URL pattern

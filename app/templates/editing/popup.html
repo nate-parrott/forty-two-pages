@@ -10,7 +10,7 @@ Popup = {
 	clickHandlers: []
 }
 
-$("#__content").click(function(e) {
+$(window.EditableElement).click(function(e) {
 	if ($(e.target).parent('.__popup').length > 0) return;
 	
 	Popup.pos = $(e.target).offset();

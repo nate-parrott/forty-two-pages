@@ -1,9 +1,8 @@
+
 <ul id='__themes_list'>
-	{% for theme in themes %}
-	<li style='background-image: url(/__meta/theme/{{ theme.name }}/thumbnail)'>
+	{% for theme in themes %}<li data-theme-name='{{ theme.name }}' style='background-image: url("/__meta/theme/thumbnail?theme={{ theme.name }}")'>
 		<div> {{ theme.name }}</div>
-	</li>
-	{% endif %}
+	</li>{% endfor %}
 </ul>
 
 <style>
@@ -11,18 +10,52 @@
 #__themes_list {
 	white-space: nowrap;
 	padding: 0;
+	position: absolute;
+	left: 0px;
+	width: 100%;
+	bottom: 0px;
+	background-color: rgba(0,0,0,0.6);
+	margin: 0px;
+	padding: 1em 0;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	font-family: sans-serif;
+	text-align: center;
+	color: black;
+	font-weight: bold;
 }
 #__themes_list > li {
 	display: inline-block;
-	margin: 1em;
+	padding: 1em;
+	margin: 0 0.5em;
 	width: 70px;
+	height: 70px;
 	position: relative;
+	background-size: cover;
+	cursor: default;
+	border: 1px solid transparent;
+}
+#__themes_list > li:hover {
+	border: 1px solid black;
 }
 #__themes_list > li > div {
 	text-align: center;
+	position: absolute;
 	bottom: 0px;
 	left: 0px;
 	width: 100%;
 }
 
 </style>
+
+<script>
+
+$("#__themes_list > li").click(function(e) {
+	Loader.increment();
+	var name = $(e.target).closest('li').attr('data-theme-name');
+	var nameField = $("<input/>").attr({name: "theme", value: name});
+	var form = $("<form></form>").attr({method: 'POST', action: '/__meta/theme/set_theme'}).append(nameField);
+	form.submit();
+})
+
+</script>

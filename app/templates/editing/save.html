@@ -108,10 +108,10 @@ function Throttle(options) {
 	});
 	
 	var save = function() {
-		throttle.setData($('#__content').html());
+		throttle.setData($(window.EditableElement).html());
 	}
 	
-	$('#__content').bind("input", function() {
+	$(window.EditableElement).bind("input", function() {
 		save();
 	});
 	

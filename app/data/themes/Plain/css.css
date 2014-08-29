@@ -1,0 +1,17 @@
+
+#__container1 {
+	line-height: 1.4;
+	color: #111;
+	font-family: sans-serif;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+#__container2 {
+	margin: auto;
+	padding: 10px;
+	max-width: 700px;
+}
+a {
+	color: #e22;
+}

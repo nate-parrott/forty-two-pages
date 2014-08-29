@@ -5,6 +5,7 @@ import util
 import settings
 from BeautifulSoup import BeautifulSoup, Tag
 import datetime
+import themes
 
 class MongoObject(object):
 	collection = None
@@ -26,7 +27,6 @@ class MongoObject(object):
 	
 	def insert_record_if_needed(self):
 		if '_id' not in self.record:
-			util.log("INSERTING RECORD " + str(self.record))
 			self.record['_id'] = self.collection.insert(self.record)
 	
 	def initialize_record(self):
@@ -59,9 +59,6 @@ class Site(MongoObject):
 		db.pages.remove({'site': self.record['name']})
 		db.sites.remove({'name': self.record['name']})
 
-
-DEFAULT_CSS = util.data_file('defaultCSS.css')
-
 class Page(MongoObject):
 	collection = db.pages
 	def __init__(self, site, page, lazy=False):
@@ -72,13 +69,33 @@ class Page(MongoObject):
 		page = self.record['name']
 		site = self.record['site']
 		name = page if page != '' else site
-		self.record['source'] = "<h1>%s</h1>\n<p>[your text here]</p>"%(name)
-		self.record['title'] = page.split('/')[-1] if page!='' else site
-		self.record['css'] = DEFAULT_CSS
+		if self.record['name'] == 'theme':
+			default_theme = themes.Theme.named("Centered")
+			ct = default_theme.get_theme_content()
+			self.record['source'] = ct['html']
+			self.record['css'] = ct['css']
+			self.record['js'] = ct['js']
+			self.record['title'] = "Site theme"
+		else:
+			self.record['source'] = "<h1>%s</h1>\n<p>[your text here]</p>"%(name)
+			self.record['title'] = page.split('/')[-1] if page!='' else site
 	
-	def render(self):
-		source = self.record['source']
-		soup = BeautifulSoup(source)
+	def wrap_source_with_theme(self, preserve_source=False):
+		theme = self.theme()
+		if not theme:
+			return self.record['source']
+		magic_string = "NFNIFHUIFGPRIUGWRPIWR" # TODO: there _must_ be a better way to do this
+		theme_soup = BeautifulSoup(theme.record['source'])
+		content_placeholder = theme_soup.find(id='PAGE_CONTENT_HERE')
+		if content_placeholder:
+			content_placeholder.replaceWith(magic_string)
+		text = unicode(theme_soup)
+		text = text.replace(magic_string, "<div id='__content'>" + self.record['source'] + "</div>")
+		return text
+	
+	def render(self, preserve_source=False):
+		wrapped_source = self.wrap_source_with_theme(preserve_source=preserve_source)
+		soup = BeautifulSoup(wrapped_source)
 		for file_element in soup.findAll(attrs={'download-url': True}):
 			tag = Tag(soup, "a")
 			tag['href'] = file_element['download-url']
@@ -86,3 +103,9 @@ class Page(MongoObject):
 			file_element.replaceWith(tag)
 			tag.insert(0, file_element)
 		return unicode(soup)
+	
+	def theme(self):
+		if self.record['name'] == 'theme':
+			return None
+		else:
+			return Page(Site(self.record['site']), 'theme', lazy=True)

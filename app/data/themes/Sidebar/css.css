@@ -1,0 +1,35 @@
+#__theme_root {
+	font-family: sans-serif;
+	line-height: 1.4;
+	color: #111;
+}
+img {
+	max-width: 90%;
+	margin: auto;
+}
+
+@media screen and (max-width: 749px) {
+	#__theme_root {
+		padding: 10px;
+	}
+}
+@media screen and (min-width: 750px) {
+	#__theme_sidebar {
+		position: absolute;
+		left: 0px;
+		padding: 10px;
+		width: 210px;
+		bottom: 0px;
+		top: 0px;
+		background-color: #f2f2f2;
+	}
+	#__theme_body {
+		position: absolute;
+		top: 0px;
+		left: 230px;
+		bottom: 10px;
+		right: 10px;
+		padding: 10px;
+		max-width: 1200px;
+	}
+}

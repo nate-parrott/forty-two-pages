@@ -21,6 +21,7 @@
 
 	</script>
 	
+	{% if theme and theme.css %} <style> {{ theme.css | safe }} </style> {% endif %}
 	<style>{{ css | safe }}</style>
 </head>
 
@@ -28,36 +29,46 @@
 	{% if not edit %}
 		<a id='__edit' href='?edit' nofollow class='icon-cog'></a>
 	{% endif %}
-	<div id='__content_container'>
-		<div>
-			{% if edit %}
-			<div id='__content' contentEditable>
-				{{ source | safe }}
-			</div>
-			{% else %}
-			<div id='__content'>
-				{{rendered | safe}}
-			</div>
-			{% endif %}
-		</div>
+	
+	<div id='__theme_root'>
+		{{ page_code | safe }}
 	</div>
+	
 	{% if edit %}
-		<div id='__toolbar'>
-			{% include "toolbar.html" %}
-		</div>
-		{% if is_theme_editor %}
-			<div id='__theme_list'>
-				{{ theme_list_code | safe }}
-			</div>
-		{% endif %}
 		<script>
 		(function() {
 			// remove the '?edit' from the URL:
 			window.history.replaceState({}, "", window.location.href.split('?')[0]);
+		
+			{% if is_theme_editor %}
+			window.EditableElement = $("#__theme_root").get(0);
+			{% else %}
+			window.EditableElement = $("#__content").get(0);
+			$("#__theme_root").click(function(e) {
+				if ($(e.target).parents('#__content').length == 0) {
+					window.open("/theme", "theme");
+				}
+			})
+			{% endif %}
+			// make it editable:
+			$(window.EditableElement).attr({contentEditable: true});
 		})();
 		</script>
+		
+		<div id='__toolbar'>
+			{% include "toolbar.html" %}
+		</div>
+		{% if is_theme_editor %}
+			{{ theme_list_code | safe }}
+		{% endif %}
 	{% endif %}
 	{% if not edit %}
+		{% if theme and theme.js %}
+		<script> {{ theme.js }} </script>
+		{% endif %}
+		<script>
+		
+		</script>
 		<script>
 		{{ js | safe }}
 		</script>
