@@ -2,6 +2,7 @@ from app import app, db, templ8
 import flask, util, model
 import permissions
 import themes
+import datetime
 
 def get_title(page, site):
 	if 'title' in page.record and len(page.record['title']) > 0:
@@ -61,6 +62,17 @@ def page(name = ""):
 	if is_theme_editor:
 		config_classes.append("__config_theme_page")
 	
+	if 'create' in flask.request.args:
+		util.log("CREATE")
+		flask.session['created_sites'] = list(set(flask.session.get('created_sites', []) + [site.record['name']]))
+	
+	show_edit_hint = False
+	show_published_hint = False
+	if not edit and name=='' and site.record['name'] in flask.session.get('created_sites', []) and site.record['name'] not in flask.session.get('sites_shown_published_hint_for', []):
+		util.log("HINT")
+		show_published_hint = True
+		flask.session['sites_shown_published_hint_for'] = flask.session.get('sites_shown_published_hint_for', []) + [site.record['name']]
+	
 	return templ8("page.html", {
 		"title": title, 
 		"page_code": page_code,
@@ -71,5 +83,8 @@ def page(name = ""):
 		"locked": len(permissions.emails_for_site(site)) > 0,
 		"is_theme_editor": is_theme_editor,
 		"theme": theme,
-		"theme_list_code": theme_list_code
+		"theme_list_code": theme_list_code,
+		"page_url": flask.request.base_url,
+		"show_edit_hint": show_edit_hint,
+		"show_published_hint": show_published_hint
 	})

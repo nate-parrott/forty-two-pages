@@ -54,7 +54,7 @@
 		
 		$("#save").click(function() {
 			// we need to do this directly in the click handler, so open the window and just refresh it when the load completes
-			previewWindow = open("/__meta/blank", "{{page_name}}");
+			previewWindow = open("/__meta/blank", "");
 			
 			var form = {};
 			codeTypes.forEach(function(type) {

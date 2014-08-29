@@ -1,13 +1,67 @@
 <style>
+@media screen and (max-width: 500px) {
+	.__hint {
+		display: none;
+		top: 100% !important; /* never show on mobile */
+	}
+}
 .__hint {
-	display: none;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	padding: 10px;
+	padding-right: 60px;
+	background-color: #111;
+	color: white;
+	font-family: sans-serif;
+	font-size: small;
+}
+.__hint span {
+	vertical-align: middle;
+}
+.__hint .addthis_sharing_toolbox {
+	display: inline-block;
+	position: relative;
+}
+.__hint:after {
+	content: "×";
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	padding: 10px;
+	width: 50px;
+	font-weight: bold;
+	text-align: center;
+	font-size: large;
+}
+.__hint:after:hover {
+	background-color: #333;
 }
 </style>
 
-{% if edit %}
+{% if show_edit_hint %}
 <div class='__hint'>
 	You're editing your site live. You may be interested in the <a href='http://guide.42pag.es'>guide</a> or some <a href='http://inspiration.42pag.es'>inspiration</a>.
 </div>
-{% else %}
-
 {% endif %}
+
+{% if show_published_hint %}
+<div class='__hint' id='__post_edit_hint'>
+	
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53fff2df0ff60d06"></script>
+	
+	<span>You did it. Your site is now live on the web. Show the world:</span>
+	
+	<div class="addthis_sharing_toolbox"></div>
+</div>
+{% endif %}
+
+<script>
+$(".__hint").click(function(e) {
+	if ($(e.target).hasClass('__hint')) {
+		$(e.target).hide();
+	}
+});
+</script>

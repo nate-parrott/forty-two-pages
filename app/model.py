@@ -6,6 +6,7 @@ import settings
 from BeautifulSoup import BeautifulSoup, Tag
 import datetime
 import themes
+import flask
 
 class MongoObject(object):
 	collection = None
@@ -43,6 +44,8 @@ class MongoObject(object):
 
 
 class Site(MongoObject):
+	# lazy = True
+	
 	collection = db.sites
 	@staticmethod
 	def current():
@@ -66,6 +69,7 @@ class Page(MongoObject):
 		self.load_record({"site": site.record['name'], "name": page})
 	
 	def initialize_record(self):
+		super(Page, self).initialize_record()
 		page = self.record['name']
 		site = self.record['site']
 		name = page if page != '' else site
