@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block title %} Setup a custom domain {% endblock %}
 {% block body %}
 
 <style>
@@ -31,7 +32,7 @@ body > div > div {
 
 <form action='' method='POST'>
 {{ settings | safe }}
-<input type='submit' value='Save'/>
+<input type='submit' value='Save' id='save'/>
 </form>
 
 <p>
@@ -41,5 +42,15 @@ body > div > div {
 <p>
 	Note that on your custom domain, <strong>you won't see any edit buttons.</strong> To edit, access the website at its old URL, <strong>{{ site_name }}.42pag.es</strong>.
 </p>
+
+<script>
+$("#save").click(function() {
+	if (prompt("Important: Have you already registered a domain with a registrar such as Namecheap or GoDaddy, and then added a CNAME record pointing to 42pag.es? Please type 'yes' or 'no'.").toLowerCase() == 'yes') {
+		return true;
+	} else {
+		return false;
+	}
+})
+</script>
 
 {% endblock %}

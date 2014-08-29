@@ -1,4 +1,4 @@
-from app import app, db, templ8
+from app import app, db, templ8, limiter
 import settings
 import model
 import flask
@@ -15,7 +15,14 @@ class CustomDomainFormField(settings.FormFieldRecordingSetDate):
 			self.error_msg = "We couldn't register that domain."
 			return False
 
+def custom_domain_rate_limit():
+	if flask.request.method == 'POST':
+		return '10/day;2/minute'
+	else:
+		return '1/second'
+
 @app.route('/__meta/domain', methods=['GET', 'POST'])
+@limiter.limit(custom_domain_rate_limit)
 @permissions.protected
 def domain():
 	site = model.Site.current()

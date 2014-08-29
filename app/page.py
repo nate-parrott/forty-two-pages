@@ -12,15 +12,15 @@ def get_title(page, site):
 	else:
 		return page.record['name'].split('/')[-1]
 
-def cache_key_for_page_request(name = ""):
+def page_limit():
 	if 'edit' in flask.request.args:
-		return None
-	site = util.site()
-	return "page "+name+" on "+name
+		return '15/minute;500/hour;1000/day'
+	else:
+		return '4/second'
 
-#@util.cache_it(cache_key_for_page_request) # don't use, doesn't handle invalidation
 @app.route('/')
 @app.route('/<path:name>')
+@limiter.limit(page_limit)
 def page(name = ""):
 	if util.site() == None:
 		return flask.redirect('http://42pag.es')
