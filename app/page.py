@@ -62,13 +62,11 @@ def page(name = ""):
 		config_classes.append("__config_theme_page")
 	
 	if 'create' in flask.request.args:
-		util.log("CREATE")
 		flask.session['created_sites'] = list(set(flask.session.get('created_sites', []) + [site.record['name']]))
 	
 	show_edit_hint = False
 	show_published_hint = False
 	if not edit and name=='' and site.record['name'] in flask.session.get('created_sites', []) and site.record['name'] not in flask.session.get('sites_shown_published_hint_for', []):
-		util.log("HINT")
 		show_published_hint = True
 		flask.session['sites_shown_published_hint_for'] = flask.session.get('sites_shown_published_hint_for', []) + [site.record['name']]
 	

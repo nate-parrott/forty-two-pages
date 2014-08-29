@@ -44,7 +44,7 @@ class MongoObject(object):
 
 
 class Site(MongoObject):
-	# lazy = True
+	lazy = True
 	
 	collection = db.sites
 	@staticmethod
