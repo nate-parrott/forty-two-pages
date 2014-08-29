@@ -52,8 +52,8 @@ def svg():
 def theme_thumbnail():
 	return Theme.named(flask.request.args.get('theme')).thumbnail()
 
-@permissions.protected
 @app.route('/__meta/theme/set_theme', methods=['POST'])
+@permissions.protected
 def use_theme():
 	page = model.Page(model.Site.current(), 'theme')
 	theme = Theme.named(flask.request.form.get('theme'))

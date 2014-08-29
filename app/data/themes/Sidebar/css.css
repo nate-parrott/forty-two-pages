@@ -3,11 +3,13 @@
 	line-height: 1.4;
 	color: #111;
 }
-img {
-	max-width: 90%;
-	margin: auto;
+a {
+	color: #e22;
 }
-
+img {
+	max-width: 100%;
+	height: auto;
+}
 @media screen and (max-width: 749px) {
 	#__theme_root {
 		padding: 10px;
@@ -15,13 +17,14 @@ img {
 }
 @media screen and (min-width: 750px) {
 	#__theme_sidebar {
-		position: absolute;
+		position: fixed;
 		left: 0px;
 		padding: 10px;
 		width: 210px;
 		bottom: 0px;
 		top: 0px;
 		background-color: #f2f2f2;
+		overflow-y: auto;
 	}
 	#__theme_body {
 		position: absolute;

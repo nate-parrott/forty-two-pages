@@ -7,14 +7,18 @@ import hashlib
 import os
 import base64
 import json
+import util
+from functools import wraps
 
 # use this as a decorator to mark endpoints as requiring that the acting user has edit permision:
 def protected(func):
+	@wraps(func)
 	def require_write_permissions(*args, **kwargs):
 		if can_acting_user_edit_site(model.Site.current()):
 			return func(*args, **kwargs)
 		else:
-			abort(403)
+			flask.abort(403)
+	return require_write_permissions
 
 def can_acting_user_edit_site(site):
 	emails = emails_for_site(site)

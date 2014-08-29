@@ -4,8 +4,8 @@ import model
 import permissions
 import util
 
-@permissions.protected
 @app.route('/__meta/moderate', methods=['GET', 'POST'])
+@permissions.protected
 def moderate():
 	if util.site() != 'moderator':
 		return flask.redirect('http://moderator.42pag.es/__meta/moderate')

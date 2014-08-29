@@ -39,6 +39,7 @@ def placeholder(id):
 	})
 
 @app.route('/__meta/embed/:id/edit', methods=['GET', 'POST'])
+@permissions.protected
 def edit(id):
 	embed = Embed(id)
 	settings = embed.settings_fields()

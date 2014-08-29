@@ -69,8 +69,8 @@ class FormFieldRecordingSetDate(FormField):
                 self.model.update({self.name: str_content, self.name+'_set_date': datetime.datetime.now()})
                 return True
 
-@permissions.protected
 @app.route('/__meta/settings', methods=['GET', 'POST'])
+@permissions.protected
 def settings():
 	page_name = request.args.get('page')
 	site = model.Site.current()

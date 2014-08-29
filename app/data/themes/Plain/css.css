@@ -15,3 +15,7 @@
 a {
 	color: #e22;
 }
+img {
+	max-width: 100%;
+	height: auto;
+}

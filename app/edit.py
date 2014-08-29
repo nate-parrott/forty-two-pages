@@ -15,6 +15,7 @@ def toolbar():
 
 @app.route('/__meta/save/', methods=['POST'])
 @app.route('/__meta/save/<path:name>', methods=['POST'])
+@permissions.protected
 def save_source(name=''):
 	source = flask.request.form['source']
 	source = bs(source).prettify()
@@ -22,8 +23,3 @@ def save_source(name=''):
 	page.update({"source": source})
 	return "ok"
 
-@permissions.protected
-@app.route('/__meta/source/')
-@app.route('/__meta/source/<path:name>')
-def get_source(name=''):
-	return model.Page(model.Site.current(), name).record['source']

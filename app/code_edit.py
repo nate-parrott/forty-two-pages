@@ -4,8 +4,8 @@ from permissions import protected
 import model
 import json
 
-@protected
 @app.route('/__meta/code', methods=['GET', 'POST'])
+@protected
 def code_edit():
 	site = model.Site.current()
 	site_name = site.record['name']

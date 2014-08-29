@@ -4,6 +4,7 @@ import model
 import flask
 import heroku
 import util
+import permissions
 
 class CustomDomainFormField(settings.FormFieldRecordingSetDate):
 	def try_set_str(self, str):
@@ -15,6 +16,7 @@ class CustomDomainFormField(settings.FormFieldRecordingSetDate):
 			return False
 
 @app.route('/__meta/domain', methods=['GET', 'POST'])
+@permissions.protected
 def domain():
 	site = model.Site.current()
 	settings = [
