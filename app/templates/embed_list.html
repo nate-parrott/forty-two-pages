@@ -24,7 +24,7 @@ $("#__embed_list button").click(function(e) {
 	Loader.increment();
 	$.ajax({
 		method: 'POST',
-		url: "/__meta/embed/create?type="+encodeURIComponent(name)+"&url="+window.location.href,
+		url: "/__meta/embed/create?type="+encodeURIComponent(name)+"&url="+encodeURIComponent(window.location.href),
 		success: function(response) {
 			Loader.decrement();
 			Exec("insertHTML", false, response);

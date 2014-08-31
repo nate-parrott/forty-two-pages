@@ -33,15 +33,8 @@ class Embed(model.MongoObject):
 	def render(self):
 		return ""
 	
-	"""def placeholder_size(self):
-		return (100, 100)
-	
-	def render_placeholder(self):
-		w,h = self.placeholder_size()
-		classes = ['__embed']
-		if len(self.settings_fields()) > 0:
-			classes.append('__editable_embed')
-		return "<img data-embed-id='%s' class='%s' src='/__meta/embed/%s/placeholder.svg' style='width: %f; height: %f'/>"%(self.id(), ' '.join(classes), self.id(), w, h)"""
+	def embed_element_attrs(self):
+		return ""
 
 @app.route('/__meta/embed/<id>/placeholder.svg')
 def placeholder(id):
@@ -95,8 +88,6 @@ class Example(Embed):
 		return [settings.FormField(self, "text", label="Text")]
 	def render(self):
 		return "<h1 style='text-shadow: 0px 0px 3px purple'>%s</h1>"%self.record['text']
-	def embed_element_attrs(self):
-		return ""
 CLASSES_FOR_EMBED_TYPES['example'] = Example
 
 class LikeButton(Embed):
