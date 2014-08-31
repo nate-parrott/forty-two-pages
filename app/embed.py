@@ -100,7 +100,7 @@ CLASSES_FOR_EMBED_TYPES['example'] = Example
 class LikeButton(Embed):
 	def display_name(self): return "Like button"
 	def render(self):
-		like_url = flask.request.url
+		like_url = flask.request.args.get('url', '')
 		return """<iframe src="//www.facebook.com/plugins/like.php?href={URL}&amp;width=136&amp;layout=button_count&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=21&amp;appId=280031018856571" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:136px; height:21px;" allowTransparency="true"></iframe>""".replace("{URL}", urllib.quote_plus(like_url))
 	def placeholder_size(self):
 		return (136,21)
