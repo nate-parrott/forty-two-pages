@@ -1,18 +1,39 @@
 @import 'util';
 
-#__edit:link {
+#__edit {
 	position: absolute;
 	top: 0;
 	right: 0;
 	padding: 0.5em;
-	font-size: large;
 	color: black;
 	text-decoration: none;
-	@include transition(transform 0.7s ease);
 	z-index: 100;
+	font-family: sans-serif;
+	font-size: large;
+	cursor: default;
 }
-#__edit:link:hover {
+#__edit #__gear {
+	display: inline-block;
+	@include transition(transform 0.7s ease);
+	cursor: pointer;
+}
+#__edit:hover #__gear {
 	@include transform(rotate(180deg));
+}
+#__edit #__callout {
+	display: none;
+	position: relative;
+	top: -4px;
+	font-size: small;
+	padding: 4px;
+	color: white;
+	background-color: #222;
+}
+#__edit #__callout a {
+	color: $trim;
+}
+#__edit:hover #__callout {
+	display: inline-block;
 }
 .__config_custom_domain #__edit {
 	display: none;
