@@ -82,7 +82,7 @@ def create_embed():
 	classes = []
 	if len(obj.settings_fields()) > 0:
 		classes.append("__editable_embed")
-	return "<div data-embed-id='%s' draggable='true' class='%s'>%s</div>"%(obj.id(), classes, innerHTML)
+	return "<div data-embed-id='%s' draggable='true' class='%s' %s>%s</div>"%(obj.id(), classes, obj.embed_element_attrs(), innerHTML)
 
 CLASSES_FOR_EMBED_TYPES = {}
 
@@ -95,6 +95,8 @@ class Example(Embed):
 		return [settings.FormField(self, "text", label="Text")]
 	def render(self):
 		return "<h1 style='text-shadow: 0px 0px 3px purple'>%s</h1>"%self.record['text']
+	def embed_element_attrs(self):
+		return ""
 CLASSES_FOR_EMBED_TYPES['example'] = Example
 
 class LikeButton(Embed):
@@ -102,6 +104,25 @@ class LikeButton(Embed):
 	def render(self):
 		like_url = flask.request.args.get('url', '')
 		return """<iframe src="//www.facebook.com/plugins/like.php?href={URL}&amp;width=136&amp;layout=button_count&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=21&amp;appId=280031018856571" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:136px; height:21px;" allowTransparency="true"></iframe>""".replace("{URL}", urllib.quote_plus(like_url))
-	def placeholder_size(self):
-		return (136,21)
 CLASSES_FOR_EMBED_TYPES['like'] = LikeButton
+
+class Disqus(Embed):
+	def display_name(self): return "Disqus comments"
+	def embed_element_attrs(self): return "style='width: 100%'"
+	def render(self):
+		return """<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = '42pages'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    """
+CLASSES_FOR_EMBED_TYPES['disqus'] = Disqus
