@@ -1,17 +1,19 @@
-<ul id='__embed_list'>
-	<li data-embed-name='example'>
-		<h3>Example embed</li>
-	</li>
-	<li data-embed-name='like'>
-		<h3>Facebook "Like" button</li>
-	</li>
-</ul>
+<h2>Extras</h2>
+<div id='__embed_list'>
+	<div data-embed-name='like'>
+		<h4>Facebook "Like" button</h4>
+		<p>
+			Make it easy for viewers to like and share your page on Facebook.
+		</p>
+		<button>Add</button>
+	</div>
+</div>
 
 
 <script>
 
-$("#__embed_list > li").click(function(e) {
-	var name = $(e.target).closest("#__embed_list > li").attr('data-embed-name');
+$("#__embed_list button").click(function(e) {
+	var name = $(e.target).closest("div[data-embed-name]").attr('data-embed-name');
 	Loader.increment();
 	$.ajax({
 		method: 'POST',
@@ -30,3 +32,7 @@ $("#__embed_list > li").click(function(e) {
 });
 
 </script>
+
+<style>
+
+</style>

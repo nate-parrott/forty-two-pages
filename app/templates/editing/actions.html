@@ -114,12 +114,8 @@
 		var embeds = $(e.target).closest('[data-embed-id]');
 		if (embeds.length > 0) {
 			var embed = embeds.get(0);
-			if ($(embed).hasClass('__editable_embed')) {
-				var id = $(embed).attr("data-embed-id");
-				window.open("/__meta/embed/"+id+"/edit", "");
-			} else {
-				alert("This item has no settings to customize.");
-			}
+			var id = $(embed).attr("data-embed-id");
+			Sidebar.show("/__meta/embed/"+id+"/edit");
 			return false;
 		}
 	});

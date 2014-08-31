@@ -1,6 +1,6 @@
 <div id='__settings_sidebar'>
 	
-	<form id='__settings_form' action='{{ action_url }}'>
+	<form class='__settings_form' action='{{ action_url }}'>
 			<h3>Site settings</h3>
 			{{ site_fields | safe }}
 			<div>
@@ -18,7 +18,7 @@
 	<script>
 
 	(function() {
-		var form = $("#__settings_form").get(0);
+		var form = $(".__settings_form").get(0);
 		$(form).submit(function() {
 			Loader.increment();
 			try {

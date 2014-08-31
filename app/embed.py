@@ -65,9 +65,10 @@ def edit(id):
 	settings_html = '\n'.join(map(lambda x: x.html(), settings))
 	return templ8("embed_settings.html", {
 		"name": embed.display_name(),
-		"settings_html": settings_html
+		"settings_html": settings_html,
+		"id": id,
+		"embed_content": embed.render()
 	})
-
 
 @app.route('/__meta/embed')
 def embed_list():

@@ -1,10 +1,43 @@
-{% extends "base.html" %}
-{% block body %}
-<h1>{{ name }}</h1>
+<div id='__embed_settings_sidebar'>
+
+<h2>{{ name }} Settings</h1>
 <div>
-	<form method='POST'>
+	<form class='__embed_settings_form' method='POST' action='/__meta/embed/{{ id }}/edit'>
 		{{ settings_html | safe }}
 		<input type='submit' value='Save'/>
 	</form>
+	
+	<div style='display: none' id='__embed_content_data_container'>{{ embed_content }}</div>
+	
+	<script>
+	$("[data-embed-id={{ id }}]").get(0).innerHTML = $("#__embed_content_data_container").text();
+	(function() {
+		var form = $(".__embed_settings_form").get(0);
+		$(form).submit(function() {
+			Loader.increment();
+			try {
+				$.ajax({
+					url: $(form).attr('action'),
+					type: 'POST',
+					data: $(form).serialize(),
+					success: function(response) {
+						Loader.decrement();
+						$("#__embed_settings_sidebar").replaceWith(response);
+						Save.save();
+					},
+					error: function() {
+						Loader.decrement();
+						alert("Error saving!");
+					}
+				})
+			} catch (e) {
+				alert(e);
+			}
+			return false;
+		})
+	})();
+	</script>
 </div>
-{% endblock %}
+
+	
+</div>

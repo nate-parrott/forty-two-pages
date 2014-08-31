@@ -435,7 +435,7 @@
 			},
 			"properties": {
 				"id": 115,
-				"order": 20,
+				"order": 19,
 				"prevSize": 20,
 				"code": 58897,
 				"name": "lock",
@@ -465,6 +465,29 @@
 			},
 			"setIdx": 4,
 			"iconIdx": 116
+		},
+		{
+			"icon": {
+				"paths": [
+					"M0 256v512c0 56.32 46.080 102.4 102.4 102.4h819.2c56.32 0 102.4-46.080 102.4-102.4v-512c0-56.32-46.080-102.4-102.4-102.4h-819.2c-56.32 0-102.4 46.080-102.4 102.4zM921.6 256v512h-819.2v-512h819.2z"
+				],
+				"tags": [
+					"landscape",
+					"frame",
+					"document"
+				],
+				"grid": 20
+			},
+			"properties": {
+				"id": 155,
+				"order": 21,
+				"prevSize": 20,
+				"code": 58899,
+				"name": "landscape",
+				"ligatures": ""
+			},
+			"setIdx": 4,
+			"iconIdx": 155
 		}
 	],
 	"height": 1024,
