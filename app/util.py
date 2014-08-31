@@ -41,3 +41,7 @@ def cache_it(func, get_key):
 			if key:
 				memcached.set(key, result)
 			return result
+
+def soup_for_fragment_inside_div(fragment, attrs=""):
+	return bs("<div %s>"%attrs + fragment + "</div>").div
+	

@@ -3,66 +3,104 @@ import model
 import permissions
 import util
 import flask
+import urllib
+import settings
+from bson.objectid import ObjectId
 
 class Embed(model.MongoObject):
-	def __init__(self, id=None):
-		if id:
-			self.load_record({"_id": id})
+	collection = db.embeds
+	def __init__(self, record=None):
+		if record:
+			self.record = record
 		else:
 			self.create_record()
 	
-	collection = db.embeds
+	@classmethod
+	def WithId(self, id):
+		record = self.collection.find_one({"_id": ObjectId(id)})
+		return globals()[record['class']](record)
+
 	def initialize_record(self):
-		pass
+		super(Embed, self).initialize_record()
+		self.record['class'] = self.__class__.__name__
 	
 	def display_name(self):
 		return "An embed"
-	
-	def size(self):
-		return (100, 100)
 	
 	def settings_fields(self):
 		return []
 	
 	def render(self):
 		return ""
+	
+	"""def placeholder_size(self):
+		return (100, 100)
+	
+	def render_placeholder(self):
+		w,h = self.placeholder_size()
+		classes = ['__embed']
+		if len(self.settings_fields()) > 0:
+			classes.append('__editable_embed')
+		return "<img data-embed-id='%s' class='%s' src='/__meta/embed/%s/placeholder.svg' style='width: %f; height: %f'/>"%(self.id(), ' '.join(classes), self.id(), w, h)"""
 
-
-@app.route('/__meta/embed/:id/placeholder.svg')
+@app.route('/__meta/embed/<id>/placeholder.svg')
 def placeholder(id):
-	embed = Embed(id)
-	w, h = embed.size()
-	return templ8("embedPlaceholderImage.svg", {
-		"embed": embed.display_name(),
-		"width": width,
-		"height": height
+	embed = Embed.WithId(id)
+	w, h = embed.placeholder_size()
+	text = templ8("embedPlaceholderImage.svg", {
+		"name": embed.display_name(),
+		"width": w,
+		"height": h
 	})
+	return flask.Response(text, mimetype='image/svg+xml')
 
-@app.route('/__meta/embed/:id/edit', methods=['GET', 'POST'])
+@app.route('/__meta/embed/<id>/edit', methods=['GET', 'POST'])
 @permissions.protected
 def edit(id):
-	embed = Embed(id)
+	embed = Embed.WithId(id)
 	settings = embed.settings_fields()
 	if flask.request.method == 'POST':
 		for field in settings:
 			field.set_from_form(flask.request.form)
 	settings_html = '\n'.join(map(lambda x: x.html(), settings))
-	return templ8("embedSettings.html", {
+	return templ8("embed_settings.html", {
 		"name": embed.display_name(),
 		"settings_html": settings_html
 	})
 
 
+@app.route('/__meta/embed')
+def embed_list():
+	return templ8("embed_list.html", {})
+
+@app.route('/__meta/embed/create', methods=['POST'])
+def create_embed():
+	type = flask.request.args.get('type')
+	obj = CLASSES_FOR_EMBED_TYPES[type]()
+	innerHTML = obj.render()
+	classes = []
+	if len(obj.settings_fields()) > 0:
+		classes.append("__editable_embed")
+	return "<div data-embed-id='%s' draggable='true' class='%s'>%s</div>"%(obj.id(), classes, innerHTML)
+
+CLASSES_FOR_EMBED_TYPES = {}
+
+class Example(Embed):
+	def display_name(self): return "Example"
+	def initialize_record(self):
+		super(Example, self).initialize_record()
+		self.record['text'] = 'abcdef'
+	def settings_fields(self):
+		return [settings.FormField(self, "text", label="Text")]
+	def render(self):
+		return "<h1 style='text-shadow: 0px 0px 3px purple'>%s</h1>"%self.record['text']
+CLASSES_FOR_EMBED_TYPES['example'] = Example
 
 class LikeButton(Embed):
 	def display_name(self): return "Like button"
 	def render(self):
 		like_url = flask.request.url
-		return """<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=280031018856571&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script><div class="fb-like" data-href="{URL}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>""".replace("{URL}", flask.url_for(''))
+		return """<iframe src="//www.facebook.com/plugins/like.php?href={URL}&amp;width=136&amp;layout=button_count&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=21&amp;appId=280031018856571" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:136px; height:21px;" allowTransparency="true"></iframe>""".replace("{URL}", urllib.quote_plus(like_url))
+	def placeholder_size(self):
+		return (136,21)
+CLASSES_FOR_EMBED_TYPES['like'] = LikeButton

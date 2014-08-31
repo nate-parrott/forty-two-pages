@@ -1,0 +1,32 @@
+<ul id='__embed_list'>
+	<li data-embed-name='example'>
+		<h3>Example embed</li>
+	</li>
+	<li data-embed-name='like'>
+		<h3>Facebook "Like" button</li>
+	</li>
+</ul>
+
+
+<script>
+
+$("#__embed_list > li").click(function(e) {
+	var name = $(e.target).closest("#__embed_list > li").attr('data-embed-name');
+	Loader.increment();
+	$.ajax({
+		method: 'POST',
+		url: "/__meta/embed/create?type="+encodeURIComponent(name),
+		success: function(response) {
+			Loader.decrement();
+			Exec("insertHTML", false, response);
+			Dragging.bindDraggables();
+			Save.save();
+		},
+		error: function() {
+			Loader.decrement();
+			alert("An error occurred.");
+		}
+	})
+});
+
+</script>

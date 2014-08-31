@@ -24,3 +24,7 @@ html, body, #__theme_root {
 #__content {
 	min-height: 100px;
 }
+[draggable] {
+ display: inline-block;
+ position: relative;
+}

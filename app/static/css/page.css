@@ -27,3 +27,7 @@
 
         #__content {
           min-height: 100px; }
+
+          [draggable] {
+            display: inline-block;
+            position: relative; }

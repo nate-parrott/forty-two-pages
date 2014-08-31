@@ -7,7 +7,7 @@
 
 <style><![CDATA[
 text{
-    font: bold 100% sans-serif;
+    font: bold 12px Helvetica;
 }
 ]]></style>
 </svg>

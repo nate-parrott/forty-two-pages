@@ -1,0 +1,72 @@
+<script>
+
+// from http://jsfiddle.net/gXScu
+
+Dragging = {currently: false};
+Dragging.bindDraggables = function() {
+    $('[draggable]').attr("contenteditable", false);
+    $('[draggable]').off('dragstart').on('dragstart', function(e) {
+		 Dragging.currently = true;
+        if (!e.target.id)
+            e.target.id = (new Date()).getTime();
+			console.log(e.target.outerHTML)
+        e.originalEvent.dataTransfer.setData('text/html', e.target.outerHTML);
+        $(e.target).addClass('dragged');
+    });
+}
+
+$(window.EditableElement).on('dragover', function (e) {
+	if (!Dragging.currently) return true;
+    e.preventDefault();
+    return false;
+});
+
+$(window.EditableElement).on('drop', function(e) {
+	if (!Dragging.currently) return true;
+	Dragging.currently = false;
+    e.preventDefault();
+    var e = e.originalEvent;
+    var content = e.dataTransfer.getData('text/html');
+    var range = null;
+	if (document.caretRangeFromPoint) { // Chrome
+		range = document.caretRangeFromPoint(e.clientX, e.clientY);
+	}
+	else if (e.rangeParent) { // Firefox
+		range = document.createRange();
+        range.setStart(e.rangeParent, e.rangeOffset);
+	}
+	var sel = window.getSelection();
+	sel.removeAllRanges(); sel.addRange(range);
+			
+	$(window.EditableElement).get(0).focus(); // essential
+	Exec('insertHTML',false, content);
+	sel.removeAllRanges();
+    Dragging.bindDraggables();
+    $('.dragged').remove();
+	 Save.save();
+});
+
+Dragging.bindDraggables();
+</script>
+
+<style>
+[draggable] {
+    cursor: move !important;
+}
+[draggable]:hover:after {
+	background-color: rgba(100,100,100,0.5);
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	padding: 3px;
+	padding-top: 0px;
+	/*content: "⇗";*/
+	content: " ";
+	color: white;
+	font-size: small;
+	text-align: right;
+}
+</style>

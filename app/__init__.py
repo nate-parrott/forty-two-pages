@@ -66,6 +66,7 @@ import custom_domain
 import index
 import moderate
 import themes
+import embed
 
 @app.route('/__meta/<path:name>')
 def meta_catchall(name):

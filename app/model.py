@@ -62,6 +62,8 @@ class Site(MongoObject):
 		db.pages.remove({'site': self.record['name']})
 		db.sites.remove({'name': self.record['name']})
 
+import embed
+
 class Page(MongoObject):
 	collection = db.pages
 	def __init__(self, site, page, lazy=False):
@@ -107,6 +109,8 @@ class Page(MongoObject):
 				#tag['download'] = file_element['download-url'].split('/')[-1]
 				file_element.replaceWith(tag)
 				tag.insert(0, file_element)
+			"""for placeholder in soup.findAll(attrs={'data-embed-id': True}):
+				placeholder.replaceWith(util.soup_for_fragment_inside_div(embed.Embed.WithId(placeholder['data-embed-id']).render(), "style='display: inline-block'"))"""
 		return unicode(soup)
 	
 	def theme(self):

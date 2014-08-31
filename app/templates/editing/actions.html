@@ -4,9 +4,16 @@
 
 (function() {
 	var exec = function(command, showDefaultUI, value) {
-		$(window.EditablElement).focus();
-		document.execCommand(command, showDefaultUI, value);
+		$(window.EditableElement).focus();
+		if (command == 'insertHTML') {
+			document.execCommand("insertHTML", false, "<h6 id='__placeholder'>_</h6>");
+			$("#__placeholder").replaceWith(value);
+			Save.save();
+		} else {
+			document.execCommand(command, showDefaultUI, value);
+		}
 	}
+	Exec = exec;
 	
 	$('#__done_btn').click(function() {
 		if (window.location.pathname=='/theme') {
@@ -98,6 +105,23 @@
 	
 	$('#__format_btn').click(function() {
 		Sidebar.show("/static/format.html");
+	});
+	
+	$("#__embed_btn").click(function() {
+		Sidebar.show("/__meta/embed");
+	});
+	$(window.EditableElement).click(function(e) {
+		var embeds = $(e.target).closest('[data-embed-id]');
+		if (embeds.length > 0) {
+			var embed = embeds.get(0);
+			if ($(embed).hasClass('__editable_embed')) {
+				var id = $(embed).attr("data-embed-id");
+				window.open("/__meta/embed/"+id+"/edit", "");
+			} else {
+				alert("This item has no settings to customize.");
+			}
+			return false;
+		}
 	});
 	
 	$("#__settings_btn").click(function() {
