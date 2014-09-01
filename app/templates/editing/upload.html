@@ -16,11 +16,12 @@
         canvas.height = img.height * scale;
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         thumbnail = canvas.toDataURL("image/png");
+		  var outputMimeType = file.type == 'image/jpeg' ? 'image/jpeg' : 'image/png'
 		  canvas.toBlob(
 		          function (blob) {
 						 callback(blob);
 		          },
-		          'image/png'
+		          outputMimeType
 		 		);
 	  };
 	  img.src = URL.createObjectURL(file);
@@ -56,7 +57,7 @@
 			Loader.increment();
 		});
 		dropzone.processFileData = function(file, callback) {
-			if (file.type.match(/image.*/) && file.size <= 30 * 1024 * 1024) {
+			if (file.type.match(/image.*/) && file.type != 'image/gif' && file.size <= 30 * 1024 * 1024) {
 				resizeImageFileForUpload(file, function(resizedBlob) {
 					callback(resizedBlob);
 				});
