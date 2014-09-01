@@ -1,0 +1,92 @@
+{% include "editing/canvas_to_blob.html" %}
+
+<script>
+
+// setup file dropping:
+(function() {
+	var maxImageDimension = 1200;
+	var resizeImageFileForUpload = function(file, callback) {
+      var img = document.createElement("img");
+      img.onload = function() {
+			URL.revokeObjectURL(img.src);
+			var scale = Math.min(1, Math.min(maxImageDimension / img.width, maxImageDimension / img.height));
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        thumbnail = canvas.toDataURL("image/png");
+		  canvas.toBlob(
+		          function (blob) {
+						 callback(blob);
+		          },
+		          'image/png'
+		 		);
+	  };
+	  img.src = URL.createObjectURL(file);
+	}
+	
+	
+	var dummyPreviewsContainer = $("<div></div").get(0);
+	
+	var url = '/__meta/upload';
+	var fullDropzone = new Dropzone("body", {
+		url: url,
+		autoProcessQueue: true,
+		addRemoveLinks: false,
+		clickable: false,
+		previewsContainer: dummyPreviewsContainer
+	});
+	// disable the full-page dropzone on mousedown inside the page b/c we don't want the dropzone to interfere with internal dragging
+	$("body").mousedown(function() {
+		fullDropzone.disable();
+	}).mouseup(function() {
+		fullDropzone.enable();
+	});
+	var buttonDropzoneOpts = {
+		url: url,
+		autoProcessQueue: true,
+		addRemoveLinks: false,
+		previewsContainer: dummyPreviewsContainer
+	};
+	var photoDropzone = new Dropzone('#__photo_btn', buttonDropzoneOpts);
+	var fileDropzone = new Dropzone('#__file_btn', buttonDropzoneOpts);
+	[fullDropzone, photoDropzone, fileDropzone].forEach(function(dropzone) {
+		dropzone.on('addedfile', function() {
+			Loader.increment();
+		});
+		dropzone.processFileData = function(file, callback) {
+			if (file.type.match(/image.*/) && file.size <= 30 * 1024 * 1024) {
+				resizeImageFileForUpload(file, function(resizedBlob) {
+					callback(resizedBlob);
+				});
+			} else {
+				callback(file);
+			}
+		}
+		dropzone.on('success', function(file, response) {
+			var info = JSON.parse(response);
+			var type = info.mimetype.split('/')[0];
+			if (type == 'image') {
+				Exec("insertImage", true, info.url);
+			} else {
+				var element;
+				if (type == 'audio') {
+					element = $("<audio controls draggable/>").attr({src: info.url, alt: info.name}).get(0);
+				} else if (type == 'video') {
+					element = $("<video controls draggable/>").attr({src: info.url, alt: info.name}).get(0);
+				} else {
+          element = $("<img/>")
+          .attr({src: "/__meta/fileImage/"+encodeURIComponent(info.name), "download-filename": info.name, "download-url": info.url, alt: info.name})
+          .get(0);
+				}
+				Exec("insertHTML", true, element.outerHTML);
+			}
+		});
+		dropzone.on('complete', function() {
+			Loader.decrement();
+		});
+	});
+})();
+
+</script>

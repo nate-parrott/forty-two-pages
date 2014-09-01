@@ -1476,11 +1476,32 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
           }
         }
       }
+			var waiting = 1;
+			var checkDoneWaiting = function() {
+				if (waiting == 0) {
+					xhr.send(formData);
+				}
+			}
+			
       for (i = _m = 0, _ref5 = files.length - 1; 0 <= _ref5 ? _m <= _ref5 : _m >= _ref5; i = 0 <= _ref5 ? ++_m : --_m) {
-        formData.append(this._getParamName(i), files[i], files[i].name);
+				var paramName = this._getParamName(i);
+				var file = files[i];
+				var name = file.name;
+				waiting++;
+				this.processFileData(file, function(processedFile) {
+	        formData.append(paramName, processedFile, name);
+					waiting--;
+					checkDoneWaiting();
+				});
       }
-      return xhr.send(formData);
+			waiting--;
+			checkDoneWaiting();
+			return null;
     };
+		
+		Dropzone.prototype.processFileData = function(file, callback) {
+			callback(file);
+		}
 
     Dropzone.prototype._finished = function(files, responseText, e) {
       var file, _i, _len;
