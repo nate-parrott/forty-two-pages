@@ -4,6 +4,8 @@ Flask-Limiter==0.6.3
 Jinja2==2.7.3
 MarkupSafe==0.23
 Werkzeug==0.9.6
+beautiful-print==0.11
+beautifulsoup4==4.3.2
 -e git+https://github.com/imiric/flask-sass.git@12323e631749cae5da105c7096e7db5a033dddaf#egg=flask_sass-master
 futures==2.1.6
 gunicorn==18.0

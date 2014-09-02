@@ -23,6 +23,8 @@ class Embed(model.MongoObject):
 	def initialize_record(self):
 		super(Embed, self).initialize_record()
 		self.record['class'] = self.__class__.__name__
+		self.record['site'] = model.Site.current().record['name']
+		self.record['like_url'] = flask.request.args.get('url', '')
 	
 	def display_name(self):
 		return "An embed"
@@ -51,6 +53,8 @@ def placeholder(id):
 @permissions.protected
 def edit(id):
 	embed = Embed.WithId(id)
+	if 'site' in embed.record and not permissions.can_acting_user_edit_site(model.Site(embed.record['site'])):
+		flask.abort(503)
 	settings = embed.settings_fields()
 	if flask.request.method == 'POST':
 		for field in settings:
@@ -93,7 +97,7 @@ CLASSES_FOR_EMBED_TYPES['example'] = Example
 class LikeButton(Embed):
 	def display_name(self): return "Like button"
 	def render(self):
-		like_url = flask.request.args.get('url', '')
+		like_url = self.record['like_url']
 		return """<iframe src="//www.facebook.com/plugins/like.php?href={URL}&amp;width=136&amp;layout=button_count&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=21&amp;appId=280031018856571" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:136px; height:21px;" allowTransparency="true"></iframe>""".replace("{URL}", urllib.quote_plus(like_url))
 CLASSES_FOR_EMBED_TYPES['like'] = LikeButton
 

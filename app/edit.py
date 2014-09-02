@@ -3,7 +3,7 @@ import model
 import flask
 import util
 import permissions
-from BeautifulSoup import BeautifulSoup as bs
+from beautiful_print import beautiful_print
 
 @app.route('/toolbar')
 def toolbar():
@@ -18,7 +18,7 @@ def toolbar():
 @permissions.protected
 def save_source(name=''):
 	source = flask.request.form['source']
-	source = bs(source).prettify()
+	source = beautiful_print(source)
 	page = model.Page(model.Site.current(), name)
 	page.update({"source": source})
 	return "ok"
