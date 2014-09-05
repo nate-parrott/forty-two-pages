@@ -38,6 +38,9 @@ def page(name = ""):
 	site = model.Site.current()
 	page = model.Page(site, name, lazy=True)
 	
+	if site.record.get('locked_forever', False):
+		flask.abort(404)
+	
 	if is_theme_editor:
 		theme = None
 	else:

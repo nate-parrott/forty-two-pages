@@ -22,9 +22,12 @@ def moderate():
 			return flask.redirect('http://42pag.es')
 		elif action == 'Gain edit access':
 			return flask.redirect(permissions.generate_access_url(site, permissions.MASTER_KEY_EMAIL))
+		elif action == 'Lock forever':
+			site.delete()
+			model.Site(site_name).update({"locked_forever": True})
 	
 	site = model.Site(site_name) if site_name and site_name != '' else None
 	
 	return templ8("moderate.html", {
-		"site": site}
-		)
+		"site": site
+	})

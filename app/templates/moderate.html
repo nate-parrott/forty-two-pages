@@ -22,12 +22,16 @@ body > div > div {
 	<p>
 		<strong>Emails:</strong> {{ site.record.emails_that_can_edit }}
 	</p>
+	<p>
+		<strong>IPs:</strong> {% if site.record.ips %} {{ site.record.ips }} {% else %} (none known) {% endif %}
+	</p>
 </div>
 {% endif %}
 <div>
 	<input type='submit' name='action' value='Reveal info'/>
 	<input type='submit' name='action' value='Gain edit access'/>
 	<input type='submit' name='action' value='Delete'/>
+	<input type='submit' name='action' value='Lock forever'/>
 </div>
 </form>
 

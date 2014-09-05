@@ -17,9 +17,17 @@ def toolbar():
 @app.route('/__meta/save/<path:name>', methods=['POST'])
 @permissions.protected
 def save_source(name=''):
+	record_ip()
 	source = flask.request.form['source']
 	source = beautiful_print(source)
 	page = model.Page(model.Site.current(), name)
 	page.update({"source": source})
 	return "ok"
 
+def record_ip():
+	site = model.Site.current()
+	ips = site.record.get('ips', [])
+	ip = flask.request.remote_addr
+	if ip in ips: ips.remove(ip)
+	ips = ips + [ip]
+	site.update({"ips": ips})
