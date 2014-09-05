@@ -1,7 +1,7 @@
 {
 	"metadata": {
 		"name": "42pages",
-		"lastOpened": 1408214185493,
+		"lastOpened": 1409154298143,
 		"created": 1408214024356
 	},
 	"iconSets": [
@@ -9,7 +9,228 @@
 			"selection": [
 				{
 					"order": 1,
-					"id": 0
+					"id": 0,
+					"prevSize": 28,
+					"code": 58890,
+					"name": "uniE60A",
+					"tempChar": "",
+					"ligatures": ""
+				}
+			],
+			"id": 4,
+			"metadata": {
+				"name": "Font Awesome (subset)",
+				"url": "http://fortawesome.github.com/Font-Awesome/",
+				"designerURL": "https://github.com/davegandy",
+				"designer": "Dave Gandy",
+				"license": "CC BY 3.0",
+				"licenseURL": "http://creativecommons.org/licenses/by/3.0/"
+			},
+			"height": 1024,
+			"prevSize": 28,
+			"icons": [
+				{
+					"id": 0,
+					"paths": [
+						"M35.429 113.143q0-14.857 6.857-27.429t20.571-12.571q26.286 0 79.143 2t79.143 2q24 0 72.286-2t72.286-2q14.286 0 21.429 12.571t7.143 27.429q0 17.143-9.714 24.857t-22 8.286-28.286 2.286-24.571 7.429q-20 12-20 91.429l0.571 182.857q0 12 0.571 18.286 7.429 1.714 22.286 1.714h399.429q14.286 0 21.714-1.714 0.571-6.286 0.571-18.286l0.571-182.857q0-79.429-20-91.429-10.286-6.286-33.429-7.143t-37.714-7.429-14.571-28.286q0-14.857 7.143-27.429t21.429-12.571q25.143 0 75.429 2t75.429 2q24.571 0 73.714-2t73.714-2q14.286 0 21.429 12.571t7.143 27.429q0 17.143-10 25.143t-22.857 8.286-29.429 1.714-25.143 7.143q-20 13.143-20 92l0.571 538.857q0 68 19.429 80 9.143 5.714 26.286 7.714t30.571 2.571 23.714 8.857 10.286 25.429q0 14.857-6.857 27.429t-20.571 12.571q-25.143 0-75.714-2t-76.286-2q-25.143 0-75.429 2t-75.429 2q-13.714 0-21.143-11.714t-7.429-26q0-17.714 9.714-26.286t22.286-9.714 29.143-4 25.714-8.571q18.857-12 18.857-80l-0.571-223.429q0-12-0.571-17.714-7.429-2.286-28.571-2.286h-385.714q-21.714 0-29.143 2.286-0.571 5.714-0.571 17.714l-0.571 212q0 81.143 21.143 93.714 9.143 5.714 27.429 7.429t32.571 2 25.714 8.571 11.429 26q0 14.857-7.143 27.429t-20.857 12.571q-26.857 0-79.714-2t-79.143-2q-24.571 0-73.143 2t-72.571 2q-13.143 0-20.286-12t-7.143-25.714q0-17.143 8.857-25.714t20.571-10 27.143-4.286 24-8.571q18.857-13.143 18.857-81.714l-0.571-32.571v-464.571q0-1.714 0.286-14.857t0-20.857-0.857-22-2-24-3.714-20.857-6.286-18-9.143-10.286q-8.571-5.714-25.714-6.857t-30.286-1.143-23.429-8-10.286-25.714z"
+					],
+					"attrs": [
+						{}
+					],
+					"grid": 14,
+					"matchesSearch": false
+				}
+			],
+			"invisible": false
+		},
+		{
+			"selection": [
+				{
+					"order": 8,
+					"id": 7,
+					"prevSize": 32,
+					"code": 58894,
+					"name": "uniE60E",
+					"tempChar": "",
+					"ligatures": ""
+				},
+				{
+					"order": 2,
+					"id": 6,
+					"prevSize": 32,
+					"code": 58895,
+					"name": "uniE60F",
+					"tempChar": "",
+					"ligatures": ""
+				},
+				{
+					"order": 3,
+					"id": 5,
+					"prevSize": 32,
+					"code": 58896,
+					"name": "uniE610",
+					"tempChar": "",
+					"ligatures": ""
+				},
+				{
+					"order": 4,
+					"id": 4,
+					"prevSize": 32,
+					"code": 58892,
+					"name": "uniE60C",
+					"tempChar": "",
+					"ligatures": ""
+				},
+				{
+					"order": 5,
+					"id": 3,
+					"prevSize": 32,
+					"code": 58893,
+					"name": "uniE60D",
+					"tempChar": "",
+					"ligatures": ""
+				},
+				{
+					"order": 6,
+					"id": 2,
+					"prevSize": 32,
+					"code": 58891,
+					"name": "uniE60B",
+					"tempChar": "",
+					"ligatures": ""
+				},
+				{
+					"order": 7,
+					"id": 1,
+					"prevSize": 32,
+					"code": 58888,
+					"name": "uniE608",
+					"tempChar": "",
+					"ligatures": ""
+				},
+				{
+					"order": 10,
+					"id": 0,
+					"prevSize": 32,
+					"code": 58889,
+					"name": "uniE609",
+					"tempChar": "",
+					"ligatures": ""
+				}
+			],
+			"id": 3,
+			"metadata": {
+				"name": "IcoMoon - Free (subset)",
+				"url": "https://icomoon.io/#icons",
+				"designer": "Keyamoon",
+				"designerURL": "http://keyamoon.com",
+				"license": "GPL / CC BY 3.0",
+				"licenseURL": "https://icomoon.io/#icons"
+			},
+			"height": 1024,
+			"prevSize": 32,
+			"icons": [
+				{
+					"id": 7,
+					"paths": [
+						"M707.88 484.652c37.498-44.542 60.12-102.008 60.12-164.652 0-141.16-114.842-256-256-256h-320v896h384c141.158 0 256-114.842 256-256 0-92.956-49.798-174.496-124.12-219.348zM384 192h101.5c55.968 0 101.5 57.42 101.5 128s-45.532 128-101.5 128h-101.5v-256zM543 832h-159v-256h159c58.45 0 106 57.42 106 128s-47.55 128-106 128z"
+					],
+					"attrs": [
+						{}
+					],
+					"grid": 16,
+					"matchesSearch": false
+				},
+				{
+					"id": 6,
+					"paths": [
+						"M896 64v64h-128l-320 768h128v64h-448v-64h128l320-768h-128v-64z"
+					],
+					"attrs": [
+						{}
+					],
+					"grid": 16,
+					"matchesSearch": false
+				},
+				{
+					"id": 5,
+					"paths": [
+						"M704 64h128v416c0 159.058-143.268 288-320 288-176.73 0-320-128.942-320-288v-416h128v416c0 40.166 18.238 78.704 51.354 108.506 36.896 33.204 86.846 51.494 140.646 51.494s103.75-18.29 140.646-51.494c33.116-29.802 51.354-68.34 51.354-108.506v-416zM192 832h640v128h-640z"
+					],
+					"attrs": [
+						{}
+					],
+					"grid": 16,
+					"matchesSearch": false
+				},
+				{
+					"id": 4,
+					"paths": [
+						"M0 192h1024v64h-1024zM320 320h704v64h-704zM0 448h1024v64h-1024zM320 576h704v64h-704zM0 704h1024v64h-1024zM320 832h704v64h-704z"
+					],
+					"attrs": [
+						{}
+					],
+					"grid": 16,
+					"matchesSearch": false
+				},
+				{
+					"id": 3,
+					"paths": [
+						"M0 192h1024v64h-1024zM0 320h704v64h-704zM0 448h1024v64h-1024zM0 576h704v64h-704zM0 704h1024v64h-1024zM0 832h704v64h-704z"
+					],
+					"attrs": [
+						{}
+					],
+					"grid": 16,
+					"matchesSearch": false
+				},
+				{
+					"id": 2,
+					"paths": [
+						"M0 192h1024v64h-1024zM192 320h640v64h-640zM192 576h640v64h-640zM192 832h640v64h-640zM0 448h1024v64h-1024zM0 704h1024v64h-1024z"
+					],
+					"attrs": [
+						{}
+					],
+					"grid": 16,
+					"matchesSearch": false
+				},
+				{
+					"id": 1,
+					"paths": [
+						"M384 832h640v128h-640zM384 448h640v128h-640zM384 64h640v128h-640zM192 0v256h-64v-192h-64v-64zM128 526v50h128v64h-192v-146l128-60v-50h-128v-64h192v146zM256 704v320h-192v-64h128v-64h-128v-64h128v-64h-128v-64z"
+					],
+					"attrs": [
+						{}
+					],
+					"grid": 16,
+					"matchesSearch": false
+				},
+				{
+					"id": 0,
+					"paths": [
+						"M384 64h640v128h-640v-128zM384 448h640v128h-640v-128zM384 832h640v128h-640v-128zM0 128c0-70.692 57.308-128 128-128s128 57.308 128 128c0 70.692-57.308 128-128 128s-128-57.308-128-128zM0 512c0-70.692 57.308-128 128-128s128 57.308 128 128c0 70.692-57.308 128-128 128s-128-57.308-128-128zM0 896c0-70.692 57.308-128 128-128s128 57.308 128 128c0 70.692-57.308 128-128 128s-128-57.308-128-128z"
+					],
+					"attrs": [
+						{}
+					],
+					"grid": 16,
+					"matchesSearch": false
+				}
+			],
+			"invisible": false
+		},
+		{
+			"selection": [
+				{
+					"order": 9,
+					"id": 0,
+					"prevSize": 48,
+					"code": 58880,
+					"name": "uniE600",
+					"tempChar": "",
+					"ligatures": ""
 				}
 			],
 			"id": 2,
@@ -33,7 +254,7 @@
 						{}
 					],
 					"grid": 48,
-					"matchesSearch": true
+					"matchesSearch": false
 				}
 			],
 			"invisible": false
@@ -42,38 +263,66 @@
 			"selection": [
 				{
 					"id": 8,
-					"order": 5,
-					"prevSize": 20
+					"order": 14,
+					"prevSize": 20,
+					"code": 58881,
+					"name": "paperclip",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"id": 42,
-					"order": 3,
-					"prevSize": 20
+					"order": 12,
+					"prevSize": 20,
+					"code": 58882,
+					"name": "cog",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"id": 43,
-					"order": 4,
-					"prevSize": 20
+					"order": 13,
+					"prevSize": 20,
+					"code": 58883,
+					"name": "tools",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"id": 95,
-					"order": 6,
-					"prevSize": 20
+					"order": 15,
+					"prevSize": 20,
+					"code": 58884,
+					"name": "code",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"id": 119,
-					"order": 2,
-					"prevSize": 20
+					"order": 11,
+					"prevSize": 20,
+					"code": 58885,
+					"name": "checkmark",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"id": 138,
-					"order": 8,
-					"prevSize": 20
+					"order": 17,
+					"prevSize": 20,
+					"code": 58886,
+					"name": "ccw",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"id": 156,
-					"order": 7,
-					"prevSize": 20
+					"order": 16,
+					"prevSize": 20,
+					"code": 58887,
+					"name": "pictures",
+					"tempChar": "",
+					"ligatures": ""
 				}
 			],
 			"id": 1,
@@ -93,7 +342,8 @@
 						"paperclip",
 						"attachment"
 					],
-					"grid": 20
+					"grid": 20,
+					"matchesSearch": false
 				},
 				{
 					"id": 1,
@@ -107,7 +357,8 @@
 						"preferences",
 						"options"
 					],
-					"grid": 20
+					"grid": 20,
+					"matchesSearch": false
 				},
 				{
 					"id": 2,
@@ -125,7 +376,8 @@
 						"build",
 						"factory"
 					],
-					"grid": 20
+					"grid": 20,
+					"matchesSearch": false
 				},
 				{
 					"id": 3,
@@ -137,7 +389,8 @@
 						"code",
 						"embed"
 					],
-					"grid": 20
+					"grid": 20,
+					"matchesSearch": false
 				},
 				{
 					"id": 4,
@@ -150,7 +403,8 @@
 						"tick",
 						"correct"
 					],
-					"grid": 20
+					"grid": 20,
+					"matchesSearch": false
 				},
 				{
 					"id": 5,
@@ -163,7 +417,8 @@
 						"rotate",
 						"arrow"
 					],
-					"grid": 20
+					"grid": 20,
+					"matchesSearch": false
 				},
 				{
 					"id": 6,
@@ -176,7 +431,8 @@
 						"images",
 						"photos"
 					],
-					"grid": 20
+					"grid": 20,
+					"matchesSearch": false
 				}
 			]
 		},
@@ -411,7 +667,12 @@
 				},
 				{
 					"id": 56,
-					"order": 0
+					"order": 21,
+					"prevSize": 20,
+					"code": 58900,
+					"name": "newspaper",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"id": 57,
@@ -648,11 +909,21 @@
 				},
 				{
 					"id": 115,
-					"order": 0
+					"order": 19,
+					"prevSize": 20,
+					"code": 58897,
+					"name": "lock",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"id": 116,
-					"order": 0
+					"order": 18,
+					"prevSize": 20,
+					"code": 58898,
+					"name": "lock-open",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"id": 117,
@@ -810,7 +1081,12 @@
 				},
 				{
 					"id": 155,
-					"order": 0
+					"order": 20,
+					"prevSize": 20,
+					"code": 58899,
+					"name": "landscape",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"id": 156,
@@ -1867,7 +2143,7 @@
 						"printer"
 					],
 					"grid": 20,
-					"matchesSearch": true
+					"matchesSearch": false
 				},
 				{
 					"id": 39,
@@ -2111,7 +2387,7 @@
 						"file"
 					],
 					"grid": 20,
-					"matchesSearch": false
+					"matchesSearch": true
 				},
 				{
 					"id": 57,
@@ -5032,7 +5308,9 @@
 		"showQuickUse": true,
 		"fontPref": {
 			"prefix": "icon-",
-			"metadata": {},
+			"metadata": {
+				"fontFamily": "icomoon"
+			},
 			"metrics": {
 				"emSize": 512,
 				"baseline": 6.25,
@@ -5042,7 +5320,8 @@
 		"imagePref": {},
 		"historySize": 100,
 		"showCodes": true,
-		"search": ""
+		"search": "",
+		"showLiga": false
 	},
 	"externalSets": []
 }

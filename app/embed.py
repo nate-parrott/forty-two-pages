@@ -37,6 +37,12 @@ class Embed(model.MongoObject):
 	
 	def embed_element_attrs(self):
 		return ""
+	
+	def classes(self):
+		c = ['__dim_on_hover_embed']
+		if len(self.settings_fields()) > 0:
+			c.append('__editable_embed')
+		return c
 
 @app.route('/__meta/embed/<id>/placeholder.svg')
 def placeholder(id):
@@ -76,10 +82,8 @@ def create_embed():
 	type = flask.request.args.get('type')
 	obj = CLASSES_FOR_EMBED_TYPES[type]()
 	innerHTML = obj.render()
-	classes = []
-	if len(obj.settings_fields()) > 0:
-		classes.append("__editable_embed")
-	return "<div data-embed-id='%s' draggable='true' class='%s' %s>%s</div>"%(obj.id(), classes, obj.embed_element_attrs(), innerHTML)
+	classes = obj.classes()
+	return "<div data-embed-id='%s' draggable='true' class='%s' %s>%s</div>"%(obj.id(), ' '.join(classes), obj.embed_element_attrs(), innerHTML)
 
 CLASSES_FOR_EMBED_TYPES = {}
 
@@ -121,3 +125,14 @@ class Disqus(Embed):
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     """
 CLASSES_FOR_EMBED_TYPES['disqus'] = Disqus
+
+class Float(Embed):
+	def classes(self):
+		c = super(Float, self).classes()
+		c.remove('__dim_on_hover_embed')
+		return c
+	def render(self):
+		return "<div style='width: 100%; height: 100%' contentEditable>Your text here</div>"
+	def embed_element_attrs(self):
+		return "style='float: right; width: 100%; max-width: 320px; background-color: rgba(0,0,0,0.1); padding: 20px 4px'"
+CLASSES_FOR_EMBED_TYPES['float'] = Float

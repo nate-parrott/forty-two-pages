@@ -56,13 +56,17 @@
 		Sidebar.show("/__meta/embed");
 	});
 	$(window.EditableElement).click(function(e) {
-		var embeds = $(e.target).closest('[data-embed-id]');
+		var embeds = $(e.target).closest('.__editable_embed');
 		if (embeds.length > 0) {
 			var embed = embeds.get(0);
 			var id = $(embed).attr("data-embed-id");
 			Sidebar.show("/__meta/embed/"+id+"/edit");
 			return false;
 		}
+	});
+	
+	$("#__layout_btn").click(function() {
+		window.location = '/theme';
 	});
 	
 	$("#__settings_btn").click(function() {

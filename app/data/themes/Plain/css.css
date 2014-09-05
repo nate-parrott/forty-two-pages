@@ -1,8 +1,5 @@
 
 #__container1 {
-	line-height: 1.4;
-	color: #111;
-	font-family: sans-serif;
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -18,4 +15,9 @@ a {
 img {
 	max-width: 100%;
 	height: auto;
+}
+body {
+	line-height: 1.4;
+	color: #111;
+	font-family: sans-serif;
 }

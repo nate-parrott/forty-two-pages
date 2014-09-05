@@ -1,4 +1,4 @@
-import os, logging
+import os, logging, datetime
 
 # new relic:
 import newrelic.agent
@@ -16,6 +16,7 @@ class Flask42(Flask):
 app = Flask42(__name__)
 app.secret_key = "94nY3,R83nf#8qjq02@^ frwfjiwHFEhe028.dfumf2x 0d"
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
+app.permanent_session_lifetime = datetime.timedelta(days=365)
 
 # production logging:
 import logging

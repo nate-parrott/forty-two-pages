@@ -1,4 +1,4 @@
-#__theme_root {
+body {
 	font-family: sans-serif;
 	line-height: 1.4;
 	color: #111;
@@ -13,6 +13,9 @@ img {
 @media screen and (max-width: 749px) {
 	#__theme_root {
 		padding: 10px;
+	}
+	#__theme_sidebar {
+		border-bottom: 1px solid rgba(0,0,0,0.1);
 	}
 }
 @media screen and (min-width: 750px) {

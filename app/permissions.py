@@ -34,6 +34,7 @@ def can_user_edit_site():
 	return json.dumps({"can_edit": can_edit})
 
 def give_acting_user_permissions_for_site(site):
+	flask.session.permanent = True
 	flask.session['sites'] = list(set(flask.session.get('sites', []) + [site.record['name']]))
 
 def emails_for_site(site):

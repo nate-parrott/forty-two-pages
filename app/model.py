@@ -81,7 +81,7 @@ class Page(MongoObject):
 			self.record['source'] = ct['html']
 			self.record['css'] = ct['css']
 			self.record['js'] = ct['js']
-			self.record['title'] = "Site theme"
+			self.record['title'] = "Site layout"
 		else:
 			self.record['source'] = "<h1>%s</h1>\n<p>[your text here]</p>"%(name)
 			self.record['title'] = page.split('/')[-1] if page!='' else site
