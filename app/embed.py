@@ -126,13 +126,22 @@ class Disqus(Embed):
     """
 CLASSES_FOR_EMBED_TYPES['disqus'] = Disqus
 
-class Float(Embed):
-	def classes(self):
-		c = super(Float, self).classes()
-		c.remove('__dim_on_hover_embed')
-		return c
+class Map(Embed):
+	def display_name(self): return "Map"
+	def embed_element_attrs(self): return "style='width: 100%'"
+	def initialize_record(self):
+		super(Map, self).initialize_record()
+		self.record['search'] = "Eiffel Tower, Paris, France"
+	def settings_fields(self):
+		return [settings.FormField(self, 
+			"search", 
+			label="Place to show", 
+			placeholder="123 Main Street, Tulsa, Oklahoma, United States",
+			description="Enter a full address, the name of a city, town or country, or even a search, like \"restaurants near the IFC Center, New York, USA.\"")]
 	def render(self):
-		return "<div style='width: 100%; height: 100%' contentEditable>Your text here</div>"
-	def embed_element_attrs(self):
-		return "style='float: right; width: 100%; max-width: 320px; background-color: rgba(0,0,0,0.1); padding: 20px 4px'"
-CLASSES_FOR_EMBED_TYPES['float'] = Float
+		util.log("SEARCH:" + self.record['search'])
+		return """
+		<iframe width="100%" height="450" frameborder="0" style="border:0"
+		src="https://www.google.com/maps/embed/v1/search?q={{query}}&key=AIzaSyBeW-B0p38d7tJ5Pdx4u703uFKQep9MARc"></iframe>
+		""" .replace('{{query}}', urllib.quote_plus(self.record['search']))
+CLASSES_FOR_EMBED_TYPES['map'] = Map

@@ -61,6 +61,17 @@ class Site(MongoObject):
 	def delete(self):
 		db.pages.remove({'site': self.record['name']})
 		db.sites.remove({'name': self.record['name']})
+	
+	def wrap_html_with_site_theme(self, html):
+		theme = Page(self, 'theme')
+		magic_string = "NFNIFHUIFGPRIUGWRPIWR" # TODO: there _must_ be a better way to do this
+		theme_soup = BeautifulSoup(theme.record['source'])
+		content_placeholder = theme_soup.find(id='PAGE_CONTENT_HERE')
+		if content_placeholder:
+			content_placeholder.replaceWith(magic_string)
+		text = unicode(theme_soup)
+		text = text.replace(magic_string, "<div id='__content'>" + html + "</div>")
+		return text
 
 import embed
 
@@ -87,17 +98,20 @@ class Page(MongoObject):
 			self.record['title'] = page.split('/')[-1] if page!='' else site
 	
 	def wrap_source_with_theme(self, preserve_source=False):
-		theme = self.theme()
-		if not theme:
-			return self.record['source']
-		magic_string = "NFNIFHUIFGPRIUGWRPIWR" # TODO: there _must_ be a better way to do this
-		theme_soup = BeautifulSoup(theme.record['source'])
-		content_placeholder = theme_soup.find(id='PAGE_CONTENT_HERE')
-		if content_placeholder:
-			content_placeholder.replaceWith(magic_string)
-		text = unicode(theme_soup)
-		text = text.replace(magic_string, "<div id='__content'>" + self.record['source'] + "</div>")
-		return text
+		html = self.record['source']
+		if self.theme():
+			return self.site().wrap_html_with_site_theme(html)
+		else:
+			return html
+	
+	def site(self):
+		return Site(self.record['site'])
+	
+	def theme(self):
+		if self.record['name'] == 'theme':
+			return None
+		else:
+			return Page(self.site(), 'theme')
 	
 	def render(self, editing, preserve_source=False):
 		wrapped_source = self.wrap_source_with_theme(preserve_source=preserve_source)
@@ -113,9 +127,4 @@ class Page(MongoObject):
 				placeholder.replaceWith(util.soup_for_fragment_inside_div(embed.Embed.WithId(placeholder['data-embed-id']).render(), "style='display: inline-block'"))"""
 		return unicode(soup)
 	
-	def theme(self):
-		if self.record['name'] == 'theme':
-			return None
-		else:
-			return Page(Site(self.record['site']), 'theme', lazy=True)
 
