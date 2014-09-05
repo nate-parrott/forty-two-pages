@@ -1,0 +1,38 @@
+<div id='__code_debugger'>
+	<a href='/__meta/code?page={{ page.name }}'>Back to editing code</a>
+	<a href='javascript:$("#__code_debugger").hide()'>Close<a>
+	<div id='__error_list'>
+		<div id='__no_errors_yet'>No errors yet</div>
+	</div>
+</div>
+
+<style>
+
+#__code_debugger {
+	position: fixed;
+	left: 10px;
+	bottom: 10px;
+	width: 250px;
+	background-color: #eee;
+	border-radius: 6px;
+	box-shadow: 0px 0px 3px black;
+	max-height: 50%;
+}
+
+#__error_list > * {
+	margin: 10px;
+	font-family: monospace;
+}
+
+</style>
+
+<script>
+
+$(window).error(function(e) {
+	$("#__no_errors_yet").remove();
+	var errorNode = $("<div></div>");
+	errorNode.text(e.originalEvent.message);
+	$("#__error_list").append(errorNode);
+})
+
+</script>

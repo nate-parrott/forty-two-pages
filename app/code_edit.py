@@ -23,7 +23,7 @@ def code_edit():
 			if key in form:
 				update_dict[key] = form[key]
 		page.update(update_dict)
-		return json.dumps({"success": True})
+		return flask.redirect('/' + page_name + '?d')
 
 @app.route('/__meta/blank')
 def blank():

@@ -39,7 +39,7 @@ if 'MONGOHQ_URL' in os.environ:
 else:
 	db = pymongo.MongoClient().fortytwo
 db.sites.ensure_index("name", background=True)
-db.pages.ensure_index("name", background=True)
+db.pages.ensure_index("site", background=True)
 
 # memcached:
 import bmemcached

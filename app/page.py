@@ -85,6 +85,8 @@ def page(name = ""):
 		"theme": theme,
 		"theme_list_code": theme_list_code,
 		"page_url": flask.request.base_url,
+		"page": page,
 		"show_edit_hint": show_edit_hint,
-		"show_published_hint": show_published_hint
+		"show_published_hint": show_published_hint,
+		"show_debugger": 'd' in flask.request.args
 	})
