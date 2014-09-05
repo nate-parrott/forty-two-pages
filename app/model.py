@@ -118,3 +118,4 @@ class Page(MongoObject):
 			return None
 		else:
 			return Page(Site(self.record['site']), 'theme', lazy=True)
+

@@ -21,7 +21,8 @@ def save_source(name=''):
 	source = flask.request.form['source']
 	source = beautiful_print(source)
 	page = model.Page(model.Site.current(), name)
-	page.update({"source": source})
+	title = flask.request.form['title']
+	page.update({"source": source, "title": title})
 	return "ok"
 
 def record_ip():

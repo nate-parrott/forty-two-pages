@@ -84,7 +84,6 @@ def settings():
 	]
 	
 	page_fields = [
-		FormField(page, "title", "Title"),
 	]
 	
 	if request.method == 'POST':

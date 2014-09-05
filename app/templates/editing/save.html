@@ -1,4 +1,6 @@
 <script>
+
+
 function Throttle(options) {
 	var self = {};
 	self.uploadDelay = options.uploadDelay;
@@ -90,13 +92,26 @@ function Throttle(options) {
 		}
 	}
 	
+	var getTitle = function() {
+		var headers = $(window.EditableElement).find("h1, h2, h3, h4, h5, h6").toArray().map(function(e) {return e.tagName});
+		if (headers.length) {
+			headers.sort();
+			var biggestHeader = headers[0];
+			return $(window.EditableElement).find(biggestHeader).text().trim();
+		} else {
+			return $(window.EditableElement).text().split("\n")[0].trim();
+		}
+	}
+	
 	var throttle = Throttle({
 		setLoading: setLoading,
 		upload: function(data, callbackWithSuccess) {
+			var title = getTitle();
+			document.title = title;
 			$.ajax({
 				url: '/__meta/save'+location.pathname,
 				type: 'POST',
-				data: {source: data},
+				data: {source: data, title: title},
 				success: function() {
 					callbackWithSuccess(true);
 				},
