@@ -25,7 +25,7 @@ class Embed(model.MongoObject):
 	@classmethod
 	def WithId(self, id):
 		record = self.collection.find_one({"_id": ObjectId(id), "site": model.Site.current().record['name']})
-		return globals()[record['class']](record)
+		return globals()[record['class']](record) if record else None
 
 	def initialize_record(self):
 		super(Embed, self).initialize_record()
