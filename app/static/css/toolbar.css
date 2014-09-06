@@ -95,20 +95,3 @@
         #__content {
           outline: none;
           border: 1px dashed rgba(0, 0, 0, 0.5); }
-
-          body.__config_not_theme_page #__theme_root p,
-          body.__config_not_theme_page #__theme_root h1,
-          body.__config_not_theme_page #__theme_root h2,
-          body.__config_not_theme_page #__theme_root h3,
-          body.__config_not_theme_page #__theme_root h4,
-          body.__config_not_theme_page #__theme_root [draggable],
-          body.__config_not_theme_page #__theme_root a {
-            cursor: alias; }
-            body.__config_not_theme_page #__theme_root p:hover,
-            body.__config_not_theme_page #__theme_root h1:hover,
-            body.__config_not_theme_page #__theme_root h2:hover,
-            body.__config_not_theme_page #__theme_root h3:hover,
-            body.__config_not_theme_page #__theme_root h4:hover,
-            body.__config_not_theme_page #__theme_root [draggable]:hover,
-            body.__config_not_theme_page #__theme_root a:hover {
-              opacity: 0.7; }
