@@ -79,17 +79,17 @@
 		{% endif %}
 	{% endif %}
 	{% if not edit %}
-		{% if theme and theme.js %}
-		<script> {{ theme.js }} </script>
-		{% endif %}
+	
 		<script>
 		$("#__edit").click(function() {
 			window.location = "?edit";
 		});
 		</script>
-		<script>
-		{{ js | safe }}
-		</script>
+	
+		{% if theme and theme.js %}
+		<script src='/__meta/servejs/{{ theme.name }}'></script>
+		{% endif %}
+		<script src='/__meta/servejs/{{ page.name }}'></script>
 	{% endif %}
 </body>
 </html>

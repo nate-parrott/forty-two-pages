@@ -77,7 +77,6 @@ def page(name = ""):
 		"title": title, 
 		"page_code": page_code,
 		"css": css,
-		"js": js,
 		"config_classes": ' '.join(config_classes),
 		"edit": edit,
 		"locked": len(permissions.emails_for_site(site)) > 0,
@@ -88,5 +87,11 @@ def page(name = ""):
 		"page": page,
 		"show_edit_hint": show_edit_hint,
 		"show_published_hint": show_published_hint,
-		"show_debugger": 'd' in flask.request.args
+		"show_debugger": 'd' in flask.request.args and permissions.can_acting_user_edit_site(site)
 	})
+
+@app.route('/__meta/servejs/')
+@app.route('/__meta/servejs/<path:name>')
+def serve_js(name=''):
+	page = model.Page(model.Site.current(), name)
+	return page.record.get('js', '')
