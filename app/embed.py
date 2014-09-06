@@ -172,7 +172,7 @@ class PageList(Embed):
 		pages = db.pages.find({"site": site.record['name']}, sort=[("created", -1)], **kwargs)
 		pages = [p for p in pages if p['name'] not in model.special_pages]
 		for p in pages:
-			p['formatted_date'] = util.format_date(p['created'])
+			p['formatted_date'] = util.format_date(p['created']) if 'created' in p else ""
 		is_authorized_user = permissions.can_acting_user_edit_site(site)
 		return templ8("page_list.html", 
 		{
