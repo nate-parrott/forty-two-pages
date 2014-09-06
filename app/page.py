@@ -63,6 +63,8 @@ def page(name = ""):
 		config_classes.append("__config_edit_mode")
 	if is_theme_editor:
 		config_classes.append("__config_theme_page")
+	else:
+		config_classes.append("__config_not_theme_page")
 	
 	if 'create' in flask.request.args:
 		flask.session['created_sites'] = list(set(flask.session.get('created_sites', []) + [site.record['name']]))

@@ -10,8 +10,9 @@ from bson.objectid import ObjectId
 def refresh_embeds(soup):
 	for tag in soup.findAll(attrs={'data-embed-id': True}):
 		embed = Embed.WithId(tag['data-embed-id'])
-		replacement = util.soup_for_fragment_inside_div(embed.get_rendered_and_wrapped_html()).div
-		tag.replaceWith(replacement)
+		if 'class' in embed:
+			replacement = util.soup_for_fragment_inside_div(embed.get_rendered_and_wrapped_html()).div
+			tag.replaceWith(replacement)
 
 class Embed(model.MongoObject):
 	collection = db.embeds
@@ -88,7 +89,7 @@ def create_embed(type):
 @app.route('/__meta/embed/create', methods=['POST'])
 def create_embed_endpoint():
 	type = flask.request.args.get('type')
-	return self.create_embed(type).get_rendered_and_wrapped_html()
+	return create_embed(type).get_rendered_and_wrapped_html()
 
 CLASSES_FOR_EMBED_TYPES = {}
 
