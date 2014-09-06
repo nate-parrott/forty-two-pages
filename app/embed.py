@@ -10,7 +10,7 @@ from bson.objectid import ObjectId
 def refresh_embeds(soup):
 	for tag in soup.findAll(attrs={'data-embed-id': True}):
 		embed = Embed.WithId(tag['data-embed-id'])
-		if 'class' in embed:
+		if embed:
 			replacement = util.soup_for_fragment_inside_div(embed.get_rendered_and_wrapped_html()).div
 			tag.replaceWith(replacement)
 
