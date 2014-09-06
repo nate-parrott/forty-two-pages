@@ -45,3 +45,5 @@ def cache_it(func, get_key):
 def soup_for_fragment_inside_div(fragment, attrs=""):
 	return bs("<div %s>"%attrs + fragment + "</div>").div
 	
+def format_date(dt):
+	return "{month} {dt.day}, {dt.year}".format(month=dt.strftime("%B"), dt=dt) 

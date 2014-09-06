@@ -1,0 +1,29 @@
+#__container1 {
+	display: table;
+	max-width: 800px;
+	margin: auto !important;
+}
+
+#__container2 {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	padding: 20px;
+}
+html, body, #__theme_root, #__container1 {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+}
+img {
+	max-width: 100%;
+	height: auto;
+}
+body {
+	line-height: 1.4;
+	color: #111;
+	font-family: sans-serif;
+}
+a {
+	color: #e22;
+}

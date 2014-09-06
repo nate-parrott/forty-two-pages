@@ -21,6 +21,13 @@
 		</p>
 		<button>Add</button>
 	</div>
+	<div data-embed-name='page_list'>
+		<h4>List of recently created pages</h4>
+		<p>
+			A list of the pages you've recently added to your site.
+		</p>
+		<button>Add</button>
+	</div>
 </div>
 
 
@@ -34,7 +41,7 @@ $("#__embed_list button").click(function(e) {
 		url: "/__meta/embed/create?type="+encodeURIComponent(name)+"&url="+encodeURIComponent(window.location.href),
 		success: function(response) {
 			Loader.decrement();
-			Exec("insertHTML", false, response);
+			Exec("insertHTML", false, response + "<br/>");
 			Dragging.bindDraggables();
 			Save.save();
 		},

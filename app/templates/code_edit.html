@@ -60,7 +60,7 @@
 		$("#save").click(function() {
 			$("#submit_form").empty();
 			codeTypes.forEach(function(type) {
-				$("#submit_form").append($("<input/>").attr({name: type.id, value: type.editor.getValue()}));
+				$("#submit_form").append($("<input/>").attr({name: type.id, value: type.editor.getValue(), type: 'hidden'}));
 			});
 			$("#submit_form").submit();
 		});

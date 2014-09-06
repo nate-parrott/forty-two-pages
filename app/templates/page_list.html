@@ -1,0 +1,25 @@
+<div style='text-align: left'>
+
+{% if is_authorized_user and not show_all_link %}
+<p><a href='/__meta/new-page'>New page</a></p>
+{% endif %}
+
+
+<p><ol style='padding: 0px'>
+	{% for page in pages %}
+	<li style='padding: 0px; list-style-type: none; text-align: left'>
+		<a href='/{{ page.name }}'>{{ page.title }}</a>
+		<br/>
+		<em style='font-size: small'>{{ page.formatted_date }}</em>
+	</li>
+	{% endfor %}
+</ol></p>
+
+{% if show_all_link %}
+<p>
+	<a href='/all-pages'>All</a>
+	{% if is_authorized_user %} <a href='/new-page'>New page</a> {% endif %}
+</p>
+{% endif %}
+	
+</div>

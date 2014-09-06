@@ -44,7 +44,7 @@ def page(name = ""):
 	if is_theme_editor:
 		theme = None
 	else:
-		theme = page.theme().record
+		theme = page.theme()
 	
 	source = page.record.get('source', '')
 	css = page.record.get('css', '')

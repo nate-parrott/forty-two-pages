@@ -25,7 +25,7 @@
 
 	</script>
 	
-	{% if theme and theme.css %} <style> {{ theme.css | safe }} </style> {% endif %}
+	{% if theme and theme.record.css %} <style> {{ theme.record.css | safe }} </style> {% endif %}
 	<style>{{ css | safe }}</style>
 </head>
 
@@ -86,10 +86,10 @@
 		});
 		</script>
 	
-		{% if theme and theme.js %}
-		<script src='/__meta/servejs/{{ theme.name }}'></script>
+		{% if theme and theme.record.js %}
+		<script src='/__meta/servejs/{{ theme.record.name }}'></script>
 		{% endif %}
-		<script src='/__meta/servejs/{{ page.name }}'></script>
+		<script src='/__meta/servejs/{{ page.record.name }}'></script>
 	{% endif %}
 </body>
 </html>

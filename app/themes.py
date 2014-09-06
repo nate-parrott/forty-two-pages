@@ -1,4 +1,4 @@
-from app import app, templ8
+from app import app, templ8, limiter
 import flask
 import os
 import json
@@ -49,6 +49,7 @@ def svg():
 	return flask.Response(YOUR_CONTENT_HERE, mimetype='image/svg+xml')
 
 @app.route('/__meta/theme/thumbnail')
+@limiter.limit('100/second')
 def theme_thumbnail():
 	return Theme.named(flask.request.args.get('theme')).thumbnail()
 

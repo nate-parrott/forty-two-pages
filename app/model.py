@@ -7,6 +7,7 @@ from BeautifulSoup import BeautifulSoup, Tag
 import datetime
 import themes
 import flask
+import new_page_model
 
 class MongoObject(object):
 	collection = None
@@ -93,6 +94,15 @@ class Page(MongoObject):
 			self.record['css'] = ct['css']
 			self.record['js'] = ct['js']
 			self.record['title'] = "Site layout"
+		elif self.record['name'] == 'all-pages':
+			self.lazy = False # so we don't create + save a new embed object every time this page is visited
+			all_pages_embed = embed.create_embed('page_list')
+			all_pages_embed.record.update({"count": ""})
+			self.record['source'] = "<h1>All Pages</h1> <p>" + all_pages_embed.get_rendered_and_wrapped_html() + "</p>"
+			self.record['title'] = 'All Pages'
+		elif self.record['name'] == 'new-page':
+			for key, val in new_page_model.model.iteritems():
+				self.record[key] = val
 		else:
 			self.record['source'] = "<h1>%s</h1>\n<p>[your text here]</p>"%(name)
 			self.record['title'] = page.split('/')[-1] if page!='' else site
@@ -116,6 +126,7 @@ class Page(MongoObject):
 	def render(self, editing, preserve_source=False):
 		wrapped_source = self.wrap_source_with_theme(preserve_source=preserve_source)
 		soup = BeautifulSoup(wrapped_source)
+		embed.refresh_embeds(soup)
 		if not editing:
 			for file_element in soup.findAll(attrs={'download-url': True}):
 				tag = Tag(soup, "a")
@@ -123,8 +134,6 @@ class Page(MongoObject):
 				#tag['download'] = file_element['download-url'].split('/')[-1]
 				file_element.replaceWith(tag)
 				tag.insert(0, file_element)
-			"""for placeholder in soup.findAll(attrs={'data-embed-id': True}):
-				placeholder.replaceWith(util.soup_for_fragment_inside_div(embed.Embed.WithId(placeholder['data-embed-id']).render(), "style='display: inline-block'"))"""
 		return unicode(soup)
-	
 
+special_pages = set(["theme", "all-pages"])

@@ -7,6 +7,12 @@ import urllib
 import settings
 from bson.objectid import ObjectId
 
+def refresh_embeds(soup):
+	for tag in soup.findAll(attrs={'data-embed-id': True}):
+		embed = Embed.WithId(tag['data-embed-id'])
+		replacement = util.soup_for_fragment_inside_div(embed.get_rendered_and_wrapped_html()).div
+		tag.replaceWith(replacement)
+
 class Embed(model.MongoObject):
 	collection = db.embeds
 	def __init__(self, record=None):
@@ -17,14 +23,13 @@ class Embed(model.MongoObject):
 	
 	@classmethod
 	def WithId(self, id):
-		record = self.collection.find_one({"_id": ObjectId(id)})
+		record = self.collection.find_one({"_id": ObjectId(id), "site": model.Site.current().record['name']})
 		return globals()[record['class']](record)
 
 	def initialize_record(self):
 		super(Embed, self).initialize_record()
 		self.record['class'] = self.__class__.__name__
 		self.record['site'] = model.Site.current().record['name']
-		self.record['like_url'] = flask.request.args.get('url', '')
 	
 	def display_name(self):
 		return "An embed"
@@ -38,22 +43,21 @@ class Embed(model.MongoObject):
 	def embed_element_attrs(self):
 		return ""
 	
+	def embed_type(self):
+		for type_name, class_obj in CLASSES_FOR_EMBED_TYPES.iteritems():
+			if isinstance(self, class_obj):
+				return type_name
+	
 	def classes(self):
 		c = ['__dim_on_hover_embed']
 		if len(self.settings_fields()) > 0:
 			c.append('__editable_embed')
 		return c
-
-@app.route('/__meta/embed/<id>/placeholder.svg')
-def placeholder(id):
-	embed = Embed.WithId(id)
-	w, h = embed.placeholder_size()
-	text = templ8("embedPlaceholderImage.svg", {
-		"name": embed.display_name(),
-		"width": w,
-		"height": h
-	})
-	return flask.Response(text, mimetype='image/svg+xml')
+	
+	def get_rendered_and_wrapped_html(self):
+		innerHTML = self.render()
+		classes = self.classes()
+		return "<div data-embed-id='%s' data-embed-type='%s' draggable='true' class='%s' %s>%s</div>"%(self.id(), self.embed_type(), ' '.join(classes), self.embed_element_attrs(), innerHTML)
 
 @app.route('/__meta/embed/<id>/edit', methods=['GET', 'POST'])
 @permissions.protected
@@ -77,13 +81,14 @@ def edit(id):
 def embed_list():
 	return templ8("embed_list.html", {})
 
-@app.route('/__meta/embed/create', methods=['POST'])
-def create_embed():
-	type = flask.request.args.get('type')
+def create_embed(type):
 	obj = CLASSES_FOR_EMBED_TYPES[type]()
-	innerHTML = obj.render()
-	classes = obj.classes()
-	return "<div data-embed-id='%s' draggable='true' class='%s' %s>%s</div>"%(obj.id(), ' '.join(classes), obj.embed_element_attrs(), innerHTML)
+	return obj
+
+@app.route('/__meta/embed/create', methods=['POST'])
+def create_embed_endpoint():
+	type = flask.request.args.get('type')
+	return self.create_embed(type).get_rendered_and_wrapped_html()
 
 CLASSES_FOR_EMBED_TYPES = {}
 
@@ -101,8 +106,8 @@ CLASSES_FOR_EMBED_TYPES['example'] = Example
 class LikeButton(Embed):
 	def display_name(self): return "Like button"
 	def render(self):
-		like_url = self.record['like_url']
-		return """<iframe src="//www.facebook.com/plugins/like.php?href={URL}&amp;width=136&amp;layout=button_count&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=21&amp;appId=280031018856571" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:136px; height:21px;" allowTransparency="true"></iframe>""".replace("{URL}", urllib.quote_plus(like_url))
+		like_url = flask.request.url
+		return """<iframe src="//www.facebook.com/plugins/like.php?href={URL}&amp;width=136&amp;layout=button_count&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=21&amp;appId=280031018856571" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:136px; height:21px" allowTransparency="true"></iframe>""".replace("{URL}", urllib.quote_plus(like_url))
 CLASSES_FOR_EMBED_TYPES['like'] = LikeButton
 
 class Disqus(Embed):
@@ -139,9 +144,39 @@ class Map(Embed):
 			placeholder="123 Main Street, Tulsa, Oklahoma, United States",
 			description="Enter a full address, the name of a city, town or country, or even a search, like \"restaurants near the IFC Center, New York, USA.\"")]
 	def render(self):
-		util.log("SEARCH:" + self.record['search'])
 		return """
 		<iframe width="100%" height="450" frameborder="0" style="border:0"
 		src="https://www.google.com/maps/embed/v1/search?q={{query}}&key=AIzaSyBeW-B0p38d7tJ5Pdx4u703uFKQep9MARc"></iframe>
 		""" .replace('{{query}}', urllib.quote_plus(self.record['search']))
 CLASSES_FOR_EMBED_TYPES['map'] = Map
+
+
+class PageList(Embed):
+	def display_name(self): return "Recently Created Pages List"
+	def initialize_record(self):
+		super(PageList, self).initialize_record()
+		self.record['count'] = 10
+	def settings_fields(self):
+				return [settings.FormField(self,
+				"count", 			
+				label="Numbers of pages to show", 			
+				description="We'll list this number of the most recently created pages on your site. Leave this blank to list every post.")]
+	def render(self):
+		site = model.Site.current()
+		kwargs = {}
+		try:
+			kwargs['limit'] = int(self.record['count'])
+		except Exception:
+			pass
+		pages = db.pages.find({"site": site.record['name']}, sort=[("created", -1)], **kwargs)
+		pages = [p for p in pages if p['name'] not in model.special_pages]
+		for p in pages:
+			p['formatted_date'] = util.format_date(p['created'])
+		is_authorized_user = permissions.can_acting_user_edit_site(site)
+		return templ8("page_list.html", 
+		{
+			"pages": pages,
+			"show_all_link": 'limit' in kwargs,
+			"is_authorized_user": is_authorized_user
+		})
+CLASSES_FOR_EMBED_TYPES['page_list'] = PageList
