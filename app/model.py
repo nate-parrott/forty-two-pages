@@ -50,7 +50,11 @@ class Site(MongoObject):
 	collection = db.sites
 	@staticmethod
 	def current():
-		return Site(util.site())
+		current = getattr(flask.g, 'current_site', None)
+		if current: return current
+		else:
+			flask.g.current_site = Site(util.site())
+			return flask.g.current_site
 	
 	@staticmethod
 	def exists(name):
@@ -62,6 +66,7 @@ class Site(MongoObject):
 	def delete(self):
 		db.pages.remove({'site': self.record['name']})
 		db.sites.remove({'name': self.record['name']})
+		flask.g.current_site = None
 	
 	def wrap_html_with_site_theme(self, html):
 		theme = Page(self, 'theme')

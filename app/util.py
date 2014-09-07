@@ -16,8 +16,15 @@ def site():
 
 def site_name_if_custom_domain():
 	host = flask.request.host
-	site = db.sites.find_one({"custom_domain": host}, sort=[("custom_domain_set_date", pymongo.ASCENDING)])
-	return site['name'] if site else None
+	if is_custom_domain(host):
+		site = db.sites.find_one({"custom_domain": host}, sort=[("custom_domain_set_date", pymongo.ASCENDING)])
+		return site['name'] if site else None
+	else:
+		return None
+
+def is_custom_domain(host):
+	parts = host.split('.42pag.es')
+	return len(parts) > 1 and parts[-1] == ''
 
 def log(txt):
 	print txt
