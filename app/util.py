@@ -24,7 +24,7 @@ def site_name_if_custom_domain():
 
 def is_custom_domain(host):
 	parts = host.split('.42pag.es')
-	return len(parts) > 1 and parts[-1] == ''
+	return not (len(parts) > 1 and parts[-1] == '')
 
 def log(txt):
 	print txt
