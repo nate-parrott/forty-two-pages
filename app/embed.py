@@ -181,3 +181,4 @@ class PageList(Embed):
 			"is_authorized_user": is_authorized_user
 		})
 CLASSES_FOR_EMBED_TYPES['page_list'] = PageList
+

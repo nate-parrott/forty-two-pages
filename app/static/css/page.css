@@ -52,3 +52,16 @@
                   [draggable] {
                     display: inline-block;
                     position: relative; }
+
+                    pre {
+                      white-space: pre-wrap; }
+
+                      code {
+                        text-align: left;
+                        background-color: rgba(0, 0, 0, 0.1);
+                        line-height: 1.1;
+                        display: block;
+                        padding: 1em; }
+
+                        code > div {
+                          min-height: 1em; }

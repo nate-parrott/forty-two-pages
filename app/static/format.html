@@ -26,6 +26,9 @@
 		<button data-size='6'>32</button>
 		<button data-size='7'>48</button>
 	</p>
+	<p>
+		<button id='__insert_code'>Insert sample code</button>
+	</p>
 </div>
 
 <script>
@@ -42,6 +45,10 @@
 	
 	$('#__font_size button').click(function(e) {
 		exec("fontSize", true, $(e.target).attr('data-size'));
+	});
+
+	$('#__insert_code').click(function(e) {
+		exec("insertHTML", false, "<pre><code><div></div></code></pre>");
 	});
 })();
 
