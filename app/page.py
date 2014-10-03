@@ -75,7 +75,7 @@ def page(name = ""):
 		show_published_hint = True
 		flask.session['sites_shown_published_hint_for'] = flask.session.get('sites_shown_published_hint_for', []) + [site.record['name']]
 	
-	return templ8("page.html", {
+	markup = templ8("page.html", {
 		"title": title, 
 		"page_code": page_code,
 		"css": css,
@@ -91,6 +91,7 @@ def page(name = ""):
 		"show_published_hint": show_published_hint,
 		"show_debugger": 'd' in flask.request.args and permissions.can_acting_user_edit_site(site)
 	})
+	return (markup, 200, {"X-XSS-Protection": 0})
 
 @app.route('/__meta/servejs/')
 @app.route('/__meta/servejs/<path:name>')
