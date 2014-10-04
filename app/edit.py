@@ -32,3 +32,11 @@ def record_ip():
 	if ip in ips: ips.remove(ip)
 	ips = ips + [ip]
 	site.update({"ips": ips})
+
+@app.route('/__meta/delete', methods=['POST'])
+@permissions.protected
+def delete():
+	name = flask.request.form['page']
+	page = model.Page(model.Site.current(), name)
+	page.delete()
+	return flask.redirect('/all-pages')

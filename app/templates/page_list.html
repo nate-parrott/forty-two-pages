@@ -9,8 +9,15 @@
 	{% for page in pages %}
 	<li style='padding: 0px; list-style-type: none; text-align: left'>
 		<a href='/{{ page.name }}'>{{ page.title }}</a>
-		<br/>
-		<em style='font-size: small'>{{ page.formatted_date }}</em>
+		<div style='font-size: small'>
+			<em>{{ page.formatted_date }}</em>
+			{% if is_authorized_user %}
+				<form method='POST' action='/__meta/delete' style='display: inline'>
+					<input type='hidden' name='page' value='{{ page.name }}'/>
+					<input type='submit' value='Delete'/>
+				</form>
+			{% endif %}
+		</div>
 	</li>
 	{% endfor %}
 </ol></p>

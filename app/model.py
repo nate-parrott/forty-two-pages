@@ -83,10 +83,13 @@ import embed
 
 class Page(MongoObject):
 	collection = db.pages
-	def __init__(self, site, page, lazy=False):
+	def __init__(self, site, page, lazy=True):
 		self.lazy = lazy
 		self.load_record({"site": site.record['name'], "name": page})
 	
+	def delete(self):
+		db.pages.remove({'site': self.record['site'], "name": self.record['name']})
+
 	def initialize_record(self):
 		super(Page, self).initialize_record()
 		page = self.record['name']
