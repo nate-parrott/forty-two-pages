@@ -93,7 +93,7 @@ function Throttle(options) {
 	}
 	
 	var getTitle = function() {
-		var headers = $(window.EditableElement).find("h1, h2, h3, h4, h5, h6").toArray().map(function(e) {return e.tagName});
+		var headers = $(window.EditableElement).find("title, h1, h2, h3, h4, h5, h6").toArray().map(function(e) {return e.tagName});
 		if (headers.length) {
 			headers.sort();
 			var biggestHeader = headers[0];
