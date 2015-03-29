@@ -2,11 +2,9 @@
 
 <script>
 
-var __42pages_max_image_dimension = 1200;
-
 // setup file dropping:
 (function() {
-	var maxImageDimension = __42pages_max_image_dimension;
+	var maxImageDimension = 1200;
 	var resizeImageFileForUpload = function(file, callback) {
       var img = document.createElement("img");
       img.onload = function() {
@@ -59,7 +57,7 @@ var __42pages_max_image_dimension = 1200;
 			Loader.increment();
 		});
 		dropzone.processFileData = function(file, callback) {
-			if (file.type.match(/image.*/) && file.type != 'image/gif' && file.size <= 30 * 1024 * 1024) {
+			if (file.type.match(/image.*/) && file.type != 'image/gif' && file.size <= 30 * 1024 * 1024 && !window.__42pages_no_image_resample) {
 				resizeImageFileForUpload(file, function(resizedBlob) {
 					callback(resizedBlob);
 				});
