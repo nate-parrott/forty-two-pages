@@ -2,9 +2,11 @@
 
 <script>
 
+var __42pages_max_image_dimension = 1200;
+
 // setup file dropping:
 (function() {
-	var maxImageDimension = 1200;
+	var maxImageDimension = __42pages_max_image_dimension;
 	var resizeImageFileForUpload = function(file, callback) {
       var img = document.createElement("img");
       img.onload = function() {
