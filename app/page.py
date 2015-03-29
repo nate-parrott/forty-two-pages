@@ -27,7 +27,7 @@ def extract_place_in_head_content(code):
 	if start in code and end in code:
 		snip_start = code.index(start)
 		snip_end = code.index(end) + len(end)
-		if snip_start > snip_end:
+		if snip_start < snip_end:
 			place_in_head = code[snip_start:snip_end]
 			code = code[:snip_start] + code[snip_end:]
 	return (place_in_head, code)
