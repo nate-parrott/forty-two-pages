@@ -1,8 +1,9 @@
 import requests
 import base64
 import util
+import os
 
-API_TOKEN = "541cfc9701806d5f038e9e8819ff2e881f9119ba"
+API_TOKEN = os.environ.get('HEROKU_API_KEY', 'uhhhh')
 
 headers = {
 	"Accept": "application/vnd.heroku+json; version=3",
