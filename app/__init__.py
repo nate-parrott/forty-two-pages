@@ -35,7 +35,7 @@ def templ8(name, vars):
 # mongodb:
 import pymongo
 if 'MONGOHQ_URL' in os.environ:
-	db = pymongo.MongoClient(os.environ['MONGOHQ_URL'])
+	db = pymongo.MongoClient(os.environ['MONGOHQ_URL'])['42pages']
 else:
 	db = pymongo.MongoClient().fortytwo
 db.sites.ensure_index("name", background=True)
