@@ -1,24 +1,24 @@
 <link rel='stylesheet' href='/static/css/toolbar.css'/>
 <div class='__icons'>
 	<div>
-		<button id='__done_btn' class='icon-checkmark'>Done</button>
-		<button id='__undo_btn' class='icon-ccw'>Undo</button>
+		<button id='__done_btn'><span class='icon-checkmark'></span> Done</button>
+		<button id='__undo_btn'><span class='icon-ccw'></span> Undo</button>
 		<!--<button id='__settings_btn' class='icon-cog'>Settings</button>-->
 		<h6>Insert</h6>
-		<button id='__header_btn' class='icon-uniE60A'>Header</button>
-		<button id='__subheader_btn' class='icon-uniE60A'>Subheader</button>
+		<button id='__header_btn'><span class='icon-uniE60A'></span> Header</button>
+		<button id='__subheader_btn'><span class='icon-uniE60A'></span> Subheader</button>
 		<style>
 		#__subheader:before {font-size: 0.6em;}
 		</style>
-		<button id='__link_btn' class='icon-uniE600'>Link</button>
-		<button style='display:none' id='__photo_btn' class='icon-pictures'>Photo</button>
-		<button id='__file_btn' class='icon-paperclip'>File/Picture</button>
-		<button id='__embed_btn' class='icon-landscape'>Extras</button>
+		<button id='__link_btn'><span class='icon-uniE600'></span> Link</button>
+		<button style='display:none' id='__photo_btn'><span class='icon-pictures'></span> Photo</button>
+		<button id='__file_btn'><span class='icon-paperclip'></span> File/Picture</button>
+		<button id='__embed_btn'><span class='icon-landscape'></span> Extras</button>
 		<h6>Edit</h6>
-		<button id='__format_btn' class='icon-tools'>Format</button>
-		<button id='__layout_btn' class='icon-newspaper'>Layout</button>
-		<button id='__code_btn' class='icon-code'>Code</button>
-		<button id='__lock_btn' {% if locked %} class='icon-lock' {% else %} class='icon-lock-open' {% endif %}></button>
+		<button id='__format_btn'><span class='icon-tools'></span> Format</button>
+		<button id='__layout_btn'><span class='icon-newspaper'></span> Layout</button>
+		<button id='__code_btn'><span class='icon-code'></span> Code</button>
+		<button id='__lock_btn'><span {% if locked %} class='icon-lock' {% else %} class='icon-lock-open' {% endif %}></span></button>
 	</div>
 </div>
 
