@@ -52,7 +52,7 @@ def mask_email_address(address):
 	else:
 		return mask(address)
 
-SALT = "6QR7jxKjKaXkZtrBiHGlHg5Ft1lf0iFu7ul7kX+5SqSEG+DooAh8Snr9DyAamhPrk7OyfxB6eu9d\nXM6sYqmU7jIDJ0DoSYxPHvGUStYftU9MqNVbRDbScM5KdAygyuhfd0Kk6GepZ+savN9rV8P4q8x5\nUFRB9H2hhaWzsIik8hk"
+SALT = os.environ.get('SECURE_SALT', "6QR7jxKjKaXkZtrBiHGlHg5Ft1lf0iFu7ul7kX+5SqSEG+DooAh8Snr9DyAamhPrk7OyfxB6eu9d\nXM6sYqmU7jIDJ0DoSYxPHvGUStYftU9MqNVbRDbScM5KdAygyuhfd0Kk6GepZ+savN9rV8P4q8x5\nUFRB9H2hhaWzsIik8hk")
 
 def generate_access_key(site, email):
 	# access keys are salted concatenations of the email address and site name:
