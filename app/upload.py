@@ -10,8 +10,8 @@ import os
 import util
 import permissions
 
-S3_KEY = "AKIAJKHOHZKDFQEKWPXA"
-S3_SECRET = "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"
+S3_KEY = os.environ['S3_KEY']
+S3_SECRET = os.environ['S3_SECRET']
 
 @app.route('/__meta/upload', methods=['POST'])
 @permissions.protected

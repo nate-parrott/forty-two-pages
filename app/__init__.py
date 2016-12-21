@@ -14,7 +14,7 @@ class Flask42(Flask):
 		else:
 			return Flask.get_send_file_max_age(self, name)
 app = Flask42(__name__)
-app.secret_key = "94nY3,R83nf#8qjq02@^ frwfjiwHFEhe028.dfumf2x 0d"
+app.secret_key = os.environ['SECRET_KEY']
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
 app.permanent_session_lifetime = datetime.timedelta(days=365)
 
